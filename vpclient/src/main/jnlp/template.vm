@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="$encoding"?>
 <jnlp
     spec="$jnlpspec"
-    codebase="http://trungsi.com"
+    codebase="$codebase"
     href="$outputFile">
   <information>
 #if($project.Name)
@@ -26,7 +26,7 @@
   </security>
 #end
   <resources>
-    <j2se version="$j2seVersion" max-heap-size="512M"/>
+    <j2se version="1.6+" max-heap-size="512M"/>
      $dependencies
      $extensions
   </resources>

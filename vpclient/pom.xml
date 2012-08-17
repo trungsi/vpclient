@@ -1,153 +1,160 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.trungsi.vpclient</groupId>
-	<artifactId>vpclient</artifactId>
-	<packaging>jar</packaging>
-	<version>1.0</version>
-	<name>vpclient</name>
-	<organization>
-		<name>trungsi</name>
-		<url>http://trungsi.com</url>
-	</organization>
-	<build>
-		<finalName>vpclient</finalName>
-		<!-- To use the plugin goals in your POM or parent POM -->
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>webstart-maven-plugin</artifactId>
-				<version>1.0-beta-3</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>jnlp</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<!--outputDirectory></outputDirectory --> <!-- not required?? -->
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.trungsi.vpclient</groupId>
+  <artifactId>vpclient</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0</version>
+  <name>vpclient</name>
+  <organization>
+    <name>trungsi</name>
+    <url>http://trungsi.com</url>
+  </organization>
+  <build>
+    <!--  
+    <finalName>vpclient</finalName>
+    -->
+    <!-- To use the plugin goals in your POM or parent POM -->
+    <plugins>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>webstart-maven-plugin</artifactId>
+        <version>1.0-beta-3</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jnlp</goal> <!-- use jnlp, jnlp-inline or jnlp-single as appropriate -->
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <!--outputDirectory></outputDirectory --> <!-- not required?? -->
 
-					<!-- Set to true to exclude all transitive dependencies. Default is 
-						false. -->
-					<excludeTransitive>false</excludeTransitive>
+          <!-- Set to true to exclude all transitive dependencies. Default is false. -->
+          <excludeTransitive>false</excludeTransitive>
 
-					<!-- The path where the libraries are stored within the jnlp structure. 
-						not required. by default the libraries are within the working directory -->
-					<libPath>lib</libPath>
+          <!-- The path where the libraries are stored within the jnlp structure. 
+            not required. by default the libraries are within the working directory -->
+          <libPath>lib</libPath>
 
-					<!-- [optional] transitive dependencies filter - if omitted, all transitive 
-						dependencies are included -->
-					<dependencies>
-						<!-- Note that only groupId and artifactId must be specified here. 
-							because of a limitation of the Include/ExcludesArtifactFilter -->
-						<!-- <includes> <include>commons-logging:commons-logging</include> 
-							<include>commons-cli:commons-cli</include> </includes> -->
-						<!-- excludes> <exclude></exclude> <excludes -->
-					</dependencies>
+          <!-- [optional] transitive dependencies filter - if omitted, all transitive 
+            dependencies are included -->
+          <dependencies>
+            <!-- Note that only groupId and artifactId must be specified here. because 
+              of a limitation of the Include/ExcludesArtifactFilter -->
+            <!-- <includes> <include>commons-logging:commons-logging</include> <include>commons-cli:commons-cli</include> 
+              </includes> -->
+            <!-- excludes> <exclude></exclude> <excludes -->
+          </dependencies>
 
-					<!--resourcesDirectory>${project.basedir}/src/main/jnlp/resources</resourcesDirectory --> <!-- default value -->
+          <!--resourcesDirectory>${project.basedir}/src/main/jnlp/resources</resourcesDirectory --> <!-- default value -->
 
-					<!-- JNLP generation -->
-					<jnlp>
-						<!-- default values -->
-						<!--inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath -->
-						<!--inputTemplate>src/main/jnlp/template.vm</inputTemplate --> <!-- relative to inputTemplateResourcePath -->
-						<outputFile>main.jnlp</outputFile> <!-- defaults to launch.jnlp -->
+          <!-- JNLP generation -->
+          <jnlp>
+            <!-- default values -->
+            <!--inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath -->
+            <!--inputTemplate>src/main/jnlp/template.vm</inputTemplate --> <!-- relative to inputTemplateResourcePath -->
+            <outputFile>main.jnlp</outputFile> <!-- defaults to launch.jnlp -->
 
-						<!-- used to automatically identify the jar containing the main class. -->
-						<!-- this is perhaps going to change -->
-						<mainClass>com.trungsi.vpclient.VPGUI</mainClass>
-					</jnlp>
+            <!-- used to automatically identify the jar containing the main class. -->
+            <!-- this is perhaps going to change -->
+            <mainClass>com.trungsi.vpclient.VPGUI</mainClass>
+          </jnlp>
 
 
-					<!-- SIGNING -->
-					<!-- defining this will automatically sign the jar and its dependencies, 
-						if necessary -->
-					<sign>
-						<keystore>${project.build.directory}/vpclient.keys</keystore>
-						<keypass>trungsi</keypass>  <!-- we need to override passwords easily from the command line. ${keypass} -->
-						<storepass>trungsi</storepass> <!-- ${storepass} -->
-						<!--storetype>fillme</storetype -->
-						<alias>http://trungsi.com</alias>
+          <!-- SIGNING -->
+          <!-- defining this will automatically sign the jar and its dependencies, 
+            if necessary -->
+          <sign>
+            <keystore>${project.build.directory}/vpclient.keys</keystore>
+            <keypass>trungsi</keypass>  <!-- we need to override passwords easily from the command line. ${keypass} -->
+            <storepass>trungsi</storepass> <!-- ${storepass} -->
+            <!--storetype>fillme</storetype -->
+            <alias>http://trungsi.com</alias>
 
-						<validity>10</validity>
+            <validity>10</validity>
 
-						<!-- only required for generating the keystore -->
-						<dnameCn>trungsi</dnameCn>
-						<dnameOu>trungsi</dnameOu>
-						<dnameO>trungsi</dnameO>
-						<dnameL>trungsi</dnameL>
-						<dnameSt>trungsi</dnameSt>
-						<dnameC>trungsi</dnameC>
+            <!-- only required for generating the keystore -->
+            <dnameCn>trungsi</dnameCn>
+            <dnameOu>trungsi</dnameOu>
+            <dnameO>trungsi</dnameO>
+            <dnameL>trungsi</dnameL>
+            <dnameSt>trungsi</dnameSt>
+            <dnameC>trungsi</dnameC>
 
-						<verify>true</verify> <!-- verify that the signing operation succeeded -->
+            <verify>true</verify> <!-- verify that the signing operation succeeded -->
 
-						<!-- KEYSTORE MANAGEMENT -->
-						<keystoreConfig>
-							<delete>true</delete> <!-- delete the keystore -->
-							<gen>true</gen>       <!-- optional shortcut to generate the store. -->
-						</keystoreConfig>
-					</sign>
+            <!-- KEYSTORE MANAGEMENT -->
+            <keystoreConfig>
+              <delete>true</delete> <!-- delete the keystore -->
+              <gen>true</gen>       <!-- optional shortcut to generate the store. -->
+            </keystoreConfig>
+          </sign>
 
-					<!-- BUILDING PROCESS -->
+          <!-- BUILDING PROCESS -->
 
-					<pack200>true</pack200>
-					<gzip>true</gzip> <!-- default force when pack200 false, true when pack200 selected ?? -->
+          <pack200>true</pack200>
+          <gzip>true</gzip> <!-- default force when pack200 false, true when pack200 selected ?? -->
 
-					<!-- causes a version attribute to be output in each jar resource element, 
-						optional, default is false -->
-					<!-- <outputJarVersions>true</outputJarVersions> -->
+          <!-- causes a version attribute to be output in each jar resource element, 
+            optional, default is false -->
+          <!-- <outputJarVersions>true</outputJarVersions> -->
 
-					<!--install>false</install --> <!-- not yet supported -->
-					<verbose>true</verbose>
+          <!--install>false</install --> <!-- not yet supported -->
+          <verbose>true</verbose>
 
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-	<dependencies>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-htmlunit-driver</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-support</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>20090211</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-		</dependency>
-	</dependencies>
-	<!-- To use the report goals in your POM or parent POM -->
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>webstart-maven-plugin</artifactId>
-				<version>1.0-beta-3</version>
-			</plugin>
-		</plugins>
-	</reporting>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>2.5</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-htmlunit-driver</artifactId>
+      <version>2.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-support</artifactId>
+      <version>2.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20090211</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+  </dependencies>
+  <!-- To use the report goals in your POM or parent POM -->
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>webstart-maven-plugin</artifactId>
+        <version>1.0-beta-3</version>
+      </plugin>
+    </plugins>
+  </reporting>
+  
+  <properties>
+    <project.source.version>1.6</project.source.version>
+    <project.test.version>1.6</project.test.version>
+  </properties>
 </project>
