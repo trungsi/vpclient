@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
@@ -41,8 +42,9 @@ public class VPGUI {
 	public static void main(String[] args) {
 		String vphome = prepareVphome(args);
 		Map<String, String> context = loadContext(vphome);
+		setUpProxy(vphome);
 		
-		PropertyConfigurator.configure(VPGUI.class.getResourceAsStream("/log4j.properties"));
+		setUpLog4j();
 		
 		
 		JFrame frame = new JFrame("VPClient");
@@ -185,10 +187,49 @@ public class VPGUI {
 		mainPanel.add(formPanel);
 		
 		frame.getContentPane().add(mainPanel, BorderLayout.NORTH);
-		frame.pack();
+		frame.setSize(500, 800);
+		//frame.pack();
 		
 		frame.setVisible(true);
 
+	}
+
+	private static void setUpLog4j() {
+		PropertyConfigurator.configure(VPGUI.class.getResourceAsStream("/log4j.properties"));
+	}
+
+	private static void setUpProxy(String vphome) {
+		String proxyFileName = vphome + "/proxy.properties";
+		File proxyFile = new File(proxyFileName);
+		if (proxyFile.exists()) {
+			Properties props = new Properties();
+			try {
+				props.load(new FileInputStream(proxyFile));
+				System.getProperties().putAll(props);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			Properties props = new Properties();
+			props.setProperty(MyHtmlUnitDriver.HTTP_PROXY_HOST, "");
+			props.setProperty(MyHtmlUnitDriver.HTTP_PROXY_PORT, "");
+			props.setProperty(MyHtmlUnitDriver.HTTP_PROXY_USERNAME, "");
+			props.setProperty(MyHtmlUnitDriver.HTTP_PROXY_PASSWORD, "");
+			
+			try {
+				props.store(new FileOutputStream(proxyFile), "Auto generated file");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	private static String getDefault(String key, Map<String, String> context) {

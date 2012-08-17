@@ -21,6 +21,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 class MyHtmlUnitDriver extends HtmlUnitDriver {
 
+	public static final String HTTP_PROXY_PASSWORD = "httpProxyPassword";
+	public static final String HTTP_PROXY_USERNAME = "httpProxyUsername";
+	public static final String HTTP_PROXY_PORT = "httpProxyPort";
+	public static final String HTTP_PROXY_HOST = "httpProxyHost";
+	
 	private WebClient webClient;
 	private static final AtomicInteger COUNTER = new AtomicInteger();
 	private final int id;
@@ -31,12 +36,19 @@ class MyHtmlUnitDriver extends HtmlUnitDriver {
 	}
 
 	protected WebClient modifyWebClient(WebClient client) {
-		//client.setProxyConfig(new ProxyConfig("proxy.int.world.socgen", 8080));
-	    //client.setThrowExceptionOnScriptError(false);
-	    
-	    //DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) client.getCredentialsProvider();
-	    //credentialsProvider.addCredentials("duc-trung.tran", "TrungSi2009");
-	    
+		String httpProxyHost = System.getProperty(HTTP_PROXY_HOST);
+		if (httpProxyHost != null && !httpProxyHost.equals("")) {
+			int httpProxyPort = Integer.parseInt(System.getProperty(HTTP_PROXY_PORT, "8080"));
+			client.setProxyConfig(new ProxyConfig(httpProxyHost, httpProxyPort));
+			
+			String httpProxyUsername = System.getProperty(HTTP_PROXY_USERNAME);
+			if (httpProxyUsername != null && !httpProxyHost.equals("")) {
+				String httpProxyPassword = System.getProperty(HTTP_PROXY_PASSWORD);
+				DefaultCredentialsProvider credentialsProvider = (DefaultCredentialsProvider) client.getCredentialsProvider();
+			    credentialsProvider.addCredentials(httpProxyUsername, httpProxyPassword);
+			}
+		}
+		
 		client.setThrowExceptionOnScriptError(false);
 
         this.webClient = client;
