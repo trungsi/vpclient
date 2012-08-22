@@ -4,6 +4,7 @@
 package com.trungsi.vpclient;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,8 +26,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+
+import net.miginfocom.swing.MigLayout;
 
 import org.apache.log4j.PropertyConfigurator;
 
@@ -50,86 +54,89 @@ public class VPGUI {
 		JFrame frame = new JFrame("VPClient");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		final JPanel mainPanel = new JPanel();
-		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+final JPanel mainPanel = new JPanel(new MigLayout());
 		
-		JPanel formPanel = new JPanel();
-		formPanel.setLayout(new GridLayout(0, 2));
+		JPanel formPanel = new JPanel(new MigLayout());
+		mainPanel.add(formPanel, "wrap");
+		final JPanel infoPanel = new JPanel(new MigLayout());
+		JScrollPane scrollPane = new JScrollPane(infoPanel);
+		scrollPane.setPreferredSize(new Dimension(500,500));
+		mainPanel.add(scrollPane, "grow");
 		
 		JLabel loginLabel = new JLabel("Login");
-		formPanel.add(loginLabel);
+		formPanel.add(loginLabel, "align right");
 		final JTextField loginField = new JTextField(getDefault(VPClient.USER, context), 30);
-		formPanel.add(loginField);
+		formPanel.add(loginField, "wrap");
 		
 		JLabel passwordLabel = new JLabel("Password");
-		formPanel.add(passwordLabel);
+		formPanel.add(passwordLabel, "align right");
 		final JPasswordField passwordField = new JPasswordField(getDefault(VPClient.PWD, context), 30);
-		formPanel.add(passwordField);
+		formPanel.add(passwordField, "wrap");
 		
 		JLabel selectedSaleLabel = new JLabel("Selected Sale");
-		formPanel.add(selectedSaleLabel);
+		formPanel.add(selectedSaleLabel, "align right");
 		final JTextField selectedSaleField = new JTextField(getDefault(VPClient.SELECTED_SALE, context), 30);
-		formPanel.add(selectedSaleField);
+		formPanel.add(selectedSaleField, "wrap");
 		
 		JLabel selectedCatsLabel = new JLabel("Selected Categories");
-		formPanel.add(selectedCatsLabel);
+		formPanel.add(selectedCatsLabel, "align right");
 		final JTextField selectedCatsField = new JTextField(getDefault(VPClient.SELECTED_CATS, context), 30);
-		formPanel.add(selectedCatsField);
+		formPanel.add(selectedCatsField, "wrap");
 		
 		JLabel ignoreSubCatsLabel = new JLabel("Ignore Sub Categories");
-		formPanel.add(ignoreSubCatsLabel);
+		formPanel.add(ignoreSubCatsLabel, "align right");
 		final JTextField ignoreSubCatsField = new JTextField(getDefault(VPClient.IGNORE_SUB_CATS, context), 30);
-		formPanel.add(ignoreSubCatsField);
+		formPanel.add(ignoreSubCatsField, "wrap");
 		
 		JLabel womanJeanSizesLabel = new JLabel("Woman Jean Sizes");
-		formPanel.add(womanJeanSizesLabel);
-		final JTextField womanJeanSizesField = new JTextField(getDefault(VPClient.WOMAN_JEAN_SIZES, context, "26 ,W26,T.36,T. 36"), 30);
-		formPanel.add(womanJeanSizesField);
+		formPanel.add(womanJeanSizesLabel, "align right");
+		final JTextField womanJeanSizesField = new JTextField(getDefault(VPClient.WOMAN_JEAN_SIZES, context, "26 |W26|T.36|T. 36"), 30);
+		formPanel.add(womanJeanSizesField, "wrap");
 		
 		JLabel womanShoesSizesLabel = new JLabel("Woman Shoes Sizes");
-		formPanel.add(womanShoesSizesLabel);
-		final JTextField womanShoesSizesField = new JTextField(getDefault(VPClient.WOMAN_SHOES_SIZES, context, "37 ,T.37"), 30);
-		formPanel.add(womanShoesSizesField);
+		formPanel.add(womanShoesSizesLabel, "align right");
+		final JTextField womanShoesSizesField = new JTextField(getDefault(VPClient.WOMAN_SHOES_SIZES, context, "37 |T.37"), 30);
+		formPanel.add(womanShoesSizesField, "wrap");
 		
 		JLabel womanLingerieSizesLabel = new JLabel("Woman Lingerie Sizes");
-		formPanel.add(womanLingerieSizesLabel);
+		formPanel.add(womanLingerieSizesLabel, "align right");
 		final JTextField womanLingerieSizesField = new JTextField(getDefault(VPClient.WOMAN_LINGERIE_SIZES, context, "95D LOL"), 30);
-		formPanel.add(womanLingerieSizesField);
+		formPanel.add(womanLingerieSizesField, "wrap");
 		
 		JLabel womanClothingSizesLabel = new JLabel("Woman Clothing Sizes");
-		formPanel.add(womanClothingSizesLabel);
-		final JTextField womanClothingSizesField = new JTextField(getDefault(VPClient.WOMAN_CLOTHING_SIZES, context, "36 ,T.36 (FR),T.36 ,T. 36,34/36, S ,.S "), 30);
-		formPanel.add(womanClothingSizesField);
+		formPanel.add(womanClothingSizesLabel, "align right");
+		final JTextField womanClothingSizesField = new JTextField(getDefault(VPClient.WOMAN_CLOTHING_SIZES, context, "36 |T.36 (FR)|T.36 |T. 36|34/36| S |.S "), 30);
+		formPanel.add(womanClothingSizesField, "wrap");
 		
 		JLabel girlShoesSizesLabel = new JLabel("Girl Shoes Sizes");
-		formPanel.add(girlShoesSizesLabel);
-		final JTextField girlShoesSizesField = new JTextField(getDefault(VPClient.GIRL_SHOES_SIZES, context, "23 ,T.23,T. 23"), 30);
-		formPanel.add(girlShoesSizesField);
+		formPanel.add(girlShoesSizesLabel, "align right");
+		final JTextField girlShoesSizesField = new JTextField(getDefault(VPClient.GIRL_SHOES_SIZES, context, "23 |T.23|T. 23"), 30);
+		formPanel.add(girlShoesSizesField, "wrap");
 		
 		JLabel girlClothingSizesLabel = new JLabel("Girl Clothing Sizes");
-		formPanel.add(girlClothingSizesLabel);
+		formPanel.add(girlClothingSizesLabel, "align right");
 		final JTextField girlClothingSizesField = new JTextField(getDefault(VPClient.GIRL_CLOTHING_SIZES, context, "3 ans"), 30);
-		formPanel.add(girlClothingSizesField);
+		formPanel.add(girlClothingSizesField, "wrap");
 		
 		JLabel manJeanSizesLabel = new JLabel("Man Jean Sizes");
-		formPanel.add(manJeanSizesLabel);
-		final JTextField manJeanSizesField = new JTextField(getDefault(VPClient.MAN_JEAN_SIZES, context, "30 ,W30,T.30,T.40,T. 40"), 30);
-		formPanel.add(manJeanSizesField);
+		formPanel.add(manJeanSizesLabel, "align right");
+		final JTextField manJeanSizesField = new JTextField(getDefault(VPClient.MAN_JEAN_SIZES, context, "30 |W30|T.30|T.40|T. 40"), 30);
+		formPanel.add(manJeanSizesField, "wrap");
 		
 		JLabel manShoesSizesLabel = new JLabel("Man Shoes Sizes");
-		formPanel.add(manShoesSizesLabel);
-		final JTextField manShoesSizesField = new JTextField(getDefault(VPClient.MAN_SHOES_SIZES, context, "40.5, 41 ,T.41,T. 41"), 30);
-		formPanel.add(manShoesSizesField);
+		formPanel.add(manShoesSizesLabel, "align right");
+		final JTextField manShoesSizesField = new JTextField(getDefault(VPClient.MAN_SHOES_SIZES, context, "40.5| 41 |T.41|T. 41"), 30);
+		formPanel.add(manShoesSizesField, "wrap");
 		
 		JLabel manCostumeSizesLabel = new JLabel("Man Costume Sizes");
-		formPanel.add(manCostumeSizesLabel);
-		final JTextField manCostumeSizesField = new JTextField(getDefault(VPClient.MAN_COSTUME_SIZES, context, "M ,.M ,T.40,T. 40"), 30);
-		formPanel.add(manCostumeSizesField);
+		formPanel.add(manCostumeSizesLabel, "align right");
+		final JTextField manCostumeSizesField = new JTextField(getDefault(VPClient.MAN_COSTUME_SIZES, context, "M |.M |T.40|T. 40"), 30);
+		formPanel.add(manCostumeSizesField, "wrap");
 		
 		JLabel manClothingSizesLabel = new JLabel("Man Clothing Sizes");
-		formPanel.add(manClothingSizesLabel);
-		final JTextField manClothingSizesField = new JTextField(getDefault(VPClient.MAN_CLOTHING_SIZES, context, "M ,.M , 38 , 40 ,T.40,T. 40"), 30);
-		formPanel.add(manClothingSizesField);
+		formPanel.add(manClothingSizesLabel, "align right");
+		final JTextField manClothingSizesField = new JTextField(getDefault(VPClient.MAN_CLOTHING_SIZES, context, "M |.M | 38 | 40 |T.40|T. 40"), 30);
+		formPanel.add(manClothingSizesField, "wrap");
 		
 		JButton button = new JButton("Start");
 		button.addActionListener(new ActionListener() {
@@ -164,9 +171,9 @@ public class VPGUI {
 								//@Override
 								public void run() {
 									VPClientPanel clientPanel = new VPClientPanel(client);
-									mainPanel.add(clientPanel);
-									mainPanel.validate();
-									mainPanel.revalidate();
+									infoPanel.add(clientPanel, "wrap");
+									infoPanel.validate();
+									infoPanel.revalidate();
 								}
 							});
 						} catch (InvocationTargetException e) {
@@ -184,9 +191,7 @@ public class VPGUI {
 		
 		formPanel.add(button);
 		
-		mainPanel.add(formPanel);
-		
-		frame.getContentPane().add(mainPanel, BorderLayout.NORTH);
+		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
 		frame.setSize(500, 800);
 		//frame.pack();
 		

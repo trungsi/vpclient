@@ -10,13 +10,31 @@
     <name>trungsi</name>
     <url>http://trungsi.com</url>
   </organization>
+  <repositories>
+    <repository>
+      <id>javabuilders</id>
+      <url>http://javabuilders.googlecode.com/svn/repo</url>
+    </repository>
+  </repositories>
   <build>
     <!--  
     <finalName>vpclient</finalName>
     -->
     <!-- To use the plugin goals in your POM or parent POM -->
     <plugins>
-      
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <compilerVersion>1.6</compilerVersion>
+          <source>1.6</source>
+          <target>1.6</target>
+          <includes>
+            <include>**/*.yml</include>
+            <include>**/*.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>webstart-maven-plugin</artifactId>
@@ -140,6 +158,18 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
+    </dependency>
+    <!--  
+    <dependency>
+      <groupId>org.javabuilders</groupId>
+      <artifactId>javabuilder-swing</artifactId>
+      <version>1.1.0</version>
+     </dependency>
+    --> 
+    <dependency>
+      <groupId>com.miglayout</groupId>
+      <artifactId>miglayout-swing</artifactId>
+      <version>4.2</version>
     </dependency>
   </dependencies>
   <!-- To use the report goals in your POM or parent POM -->
