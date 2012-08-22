@@ -15,6 +15,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
+import com.google.common.eventbus.EventBus;
+
 import static com.trungsi.vpclient.VPClient.*;
 
 /**
@@ -27,6 +29,8 @@ public class VPClientAsync {
 	Map<String, String> context;
 	
 	ArrayList<VPTaskWorker> workers = new ArrayList<VPTaskWorker>();
+	
+	EventBus eventBus = new EventBus();
 	
 	public static enum State {
 		INIT, RUNNING, INTERRUPTED, TERMINATED;
@@ -214,7 +218,7 @@ public class VPClientAsync {
 		};
 	}
 
-	protected static VPTask addArticlesInSubCategoryTask(
+	protected VPTask addArticlesInSubCategoryTask(
 			final BlockingQueue<WebDriver> driverQueue, final Map<String, String> category,
 			final Map<String, String> subCategory, 
 			final Map<String, String> context) {
@@ -235,7 +239,7 @@ public class VPClientAsync {
 		};
 	}
 
-	protected static VPTask addArticleTask(
+	protected VPTask addArticleTask(
 			final BlockingQueue<WebDriver> driverQueue,
 			final Map<String, String> category, final Map<String, String> subCategory,
 			final Map<String, String> article, 
@@ -243,12 +247,23 @@ public class VPClientAsync {
 		return new VPTask() {
 			public List<VPTask> execute() {
 				WebDriver driver = removeFromQueue(driverQueue);
-				addArticle(driver, category, subCategory, article, context);
+				boolean added = addArticle(driver, category, subCategory, article, context);
 				driverQueue.add(driver);
+				
+				if (added) {
+					addAddArticleEvent(category, subCategory, article);
+				}
 				
 				return null;
 			}
 		};
+	}
+
+	protected void addAddArticleEvent(Map<String, String> category,
+			Map<String, String> subCategory, Map<String, String> article) {
+		String text = category.get("name") + "|" + subCategory.get("name") + article.get("name");
+		eventBus.post(new AddArticleEvent(text));
+		
 	}
 
 	protected static WebDriver removeFromQueue(
@@ -260,6 +275,10 @@ public class VPClientAsync {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public void register(Object obj) {
+		eventBus.register(obj);
 	}
 	
 }

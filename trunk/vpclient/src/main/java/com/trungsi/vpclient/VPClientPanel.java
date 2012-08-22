@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import com.google.common.eventbus.Subscribe;
+
+import net.miginfocom.swing.MigLayout;
+
 
 /**
  * @author dtran091109
@@ -19,9 +23,12 @@ import javax.swing.SwingUtilities;
 public class VPClientPanel extends JPanel {
 
 	private VPClientAsync client;
+	private JPanel addedArticlesPanel = new JPanel(new MigLayout());
+	
 	public VPClientPanel(VPClientAsync client) {
 		this.client = client;
 		String selectedSale = client.context.get(VPClient.SELECTED_SALE);
+		setLayout(new MigLayout());
 		JLabel label = new JLabel(selectedSale);
 		add(label);
 		
@@ -35,7 +42,7 @@ public class VPClientPanel extends JPanel {
 		});
 		
 		final JLabel stateLabel = new JLabel("Status : " + client.getState());
-		add(stateLabel);
+		add(stateLabel,"wrap");
 		
 		new Thread() {
 			public void run() {
@@ -67,6 +74,23 @@ public class VPClientPanel extends JPanel {
 				});
 			};
 		}.start();
+		
+		add(addedArticlesPanel, "span,grow");
+		
+		this.client.register(this);
 	}
 
+	@Subscribe
+	public void handleVPEvent(VPEvent event) {
+		if (event instanceof AddArticleEvent) {
+			final AddArticleEvent addArticleEvent = (AddArticleEvent) event;
+			
+			SwingUtilities.invokeLater(new Runnable() {
+				//@Override
+				public void run() {
+					addedArticlesPanel.add(new JLabel(addArticleEvent.getText()), "wrap");
+				}
+			});
+		}
+	}
 }

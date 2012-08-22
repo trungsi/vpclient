@@ -364,15 +364,16 @@ public class VPClient {
 		log("addArticles : " + time);
 	}*/
 
-	public static void addArticle(WebDriver driver, Map<String, String> category, 
+	public static boolean addArticle(WebDriver driver, Map<String, String> category, 
 			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context) {
 		long start = System.currentTimeMillis();
 
+		boolean added = false;
 		//String mainWindowHandle = driver.getWindowHandle();
 		try {
 			Map<String, Object> result = openExpressPurchaseWindow(driver, article);
 			if ((Boolean)result.get("ok")) {
-				addArticleToCart(driver, category, subCategory, article, context);
+				added = addArticleToCart(driver, category, subCategory, article, context);
 			} else {
 				log(driver + " Cannot add article $articleName in category " + category.get("name") + ".\nCause :" + result.get("message"));
 			}
@@ -394,9 +395,11 @@ public class VPClient {
 
 		long time = System.currentTimeMillis() - start;
 		log(driver + " addArticle : " + time);
+		
+		return added;
 	}
 
-	private static void addArticleToCart (WebDriver driver, Map<String, String> category, 
+	private static boolean addArticleToCart (WebDriver driver, Map<String, String> category, 
 			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context) {
 		long start = System.currentTimeMillis();
 		String info = category.get("name") + "|" + subCategory.get("name") + "|" + article.get("name") + " : ";
@@ -410,7 +413,7 @@ public class VPClient {
 				} else {
 					log(driver + " " + info + "No addToCart button found, the article must be sold");
 				}
-				return;
+				return false;
 			}
 
 			List<Map<String, String>> selectableSizes = null;
@@ -428,10 +431,10 @@ public class VPClient {
 					if (sizeText.contains("T.") 
 							&& !match) {
 						log(driver + " " + info + " size " + sizeText + " not in " + preferedSize);
-						return;
+						return false;
 					}
 				}
-				println(driver.getPageSource());
+				LOG.debug("Unique size model ??? \n" + driver.getPageSource());
 			} else {
 				selectableSizes = getMostAppropriateSizes(driver, category, subCategory, article, context, selectElems.get(0));
 			}
@@ -469,9 +472,11 @@ public class VPClient {
 					log(driver + " " + info +" ADDED");
 				}
 
+				return true;
 				
 			} else {
 				log(driver + " " + info + " No appropriate size");
+				return false;
 			}
 
 		} finally {
