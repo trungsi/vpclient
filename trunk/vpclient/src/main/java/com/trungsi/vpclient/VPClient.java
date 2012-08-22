@@ -116,6 +116,8 @@ public class VPClient {
 	}
 
 	private static void openSelectedSale(WebDriver driver, Map<String, String> context) {
+		if (Thread.currentThread().isInterrupted()) return;
+		
 		try {
 			long start = System.currentTimeMillis();
 	
@@ -193,6 +195,8 @@ public class VPClient {
 	}
 
 	public static class ElementNotReadyException extends RuntimeException {
+
+		private static final long serialVersionUID = 1L;
 
 		public ElementNotReadyException(String string) {
 			super(string);
@@ -288,24 +292,29 @@ public class VPClient {
 		return categories;
 	}
 
+	@SuppressWarnings("all")
 	private static List<Map<String, String>> filterCategories(
 			List<WebElement> catElems, Map<String, String> context) {
 		
 		List<Map<String, String>> categories = new ArrayList<Map<String, String>>();
 		List<String> selectedCats = getSelectedCategories(context);
-		if (selectedCats != null && !selectedCats.isEmpty()) {
-			for (WebElement catElem : catElems) {
-				String text = catElem.getText().toLowerCase();
-				if (matchSize(text, selectedCats))
-					categories.add(
-							map(entry("name", catElem.getText()),
-								entry("link", catElem.getAttribute("href"))));
+		
+		for (WebElement catElem : catElems) {
+			if (isSelectedCategory(selectedCats, catElem)) {
+				categories.add(
+						map(entry("name", catElem.getText()),
+							entry("link", catElem.getAttribute("href"))));
 			}
 		}
+		
 		
 		return categories;
 	}
 
+	private static boolean isSelectedCategory(List<String> selectedCats, WebElement catElem) {
+		return selectedCats.isEmpty() || (listContains(selectedCats, catElem.getText().toLowerCase()));
+	}
+	
 	private static List<String> getSelectedCategories(
 			Map<String, String> context) {
 		String selectedCatsString = context.get(SELECTED_CATS);
@@ -313,7 +322,7 @@ public class VPClient {
 			return list(selectedCatsString.split(","));
 		}
 		
-		return null;
+		return list();
 	}
 
 	private static List<String> getIgnoreSubCategories(Map<String, String> context) {
@@ -413,7 +422,7 @@ public class VPClient {
 					String sizeText = productSize.get(0).getText();
 					//println("sizeText=" + sizeText);
 					List<String> preferedSize = getPreferedSize(driver, category, subCategory, article, context);
-					boolean match = matchSize(sizeText, preferedSize);
+					boolean match = listContains(preferedSize, sizeText);
 					log(driver + " + sizeText=" + sizeText + " match (" + match + ") in " + preferedSize);
 					if (sizeText.contains("T.") 
 							&& !match) {
@@ -635,7 +644,7 @@ public class VPClient {
 
 			//println("optionText = " + optionText + " in " + selectSizeList);
 
-			if (matchSize(optionText, selectSizeList)) {
+			if (listContains(selectSizeList, optionText)) {
 				log("selected index " + i + ", " + optionText + ", " + selectSizeList);
 				select.selectByIndex(i);
 				//return optionText
@@ -648,18 +657,19 @@ public class VPClient {
 		return results;
 	}
 
-	private static boolean matchSize(String textSize, List<String> sizeList) {
-		return listContains(sizeList, textSize);
-	}
-
 	private static boolean isJean (String articleInfo) {
-		return articleInfo.toLowerCase().contains("jean");
+		return articleInfo.contains("jean");
 	}
 
 	private static boolean isShoes (String articleInfo) {
-		return listContains(list("chaussure", "basket", "sneaker", "derbie", "richelieu", "moscassin", "botte", "bottine", "sandale", "ballerine", "escarpin", "tong", "mule"), articleInfo.toLowerCase());
+		return listContains(
+				list("chaussure", "basket", "sneaker", "derbie", 
+					"richelieu", "moscassin", "botte", "bottine", "sandale", 
+					"ballerine", "escarpin", "tong", "mule"), 
+				articleInfo);
 	}
 
+	@SuppressWarnings("all")
 	public static Map<String, Object> openExpressPurchaseWindow(final WebDriver driver, Map<String, String> articleElem) {
 		long start = System.currentTimeMillis();
 		try {
@@ -804,6 +814,7 @@ public class VPClient {
 		log(driver + " openCategory (" + category.get("name") + ") : " + time);
 	}
 
+	@SuppressWarnings("all")
 	public static List<Map<String, String>> findSubCategories(WebDriver driver, Map<String, String> category, Map<String, String> context) {
 		long start = System.currentTimeMillis();
 
