@@ -560,6 +560,17 @@ public class VPClient {
 			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context) {
 		String articleInfo = getArticleInfo(driver, category, subCategory, article); 
 		
+		if (isManArticle(articleInfo)) {
+			if (isJean(articleInfo)) {
+				return getManJeanSizes(context);
+			} else if (isShoes(articleInfo)) {
+				return getManShoesSizes(context);
+			} else if (isCostume(articleInfo)) {
+				return getManCostumeSizes(context);
+			} else {
+				return getManClothingClothingSizes(context);
+			}
+		}
 		if (isWomanArticle(articleInfo)) {
 			if (isJean(articleInfo)) {
 				return getWomanJeanSizes(context);
@@ -592,6 +603,10 @@ public class VPClient {
 		}
 	}
 	
+	private static boolean isManArticle(String articleInfo) {
+		return articleInfo.contains("homme");
+	}
+
 	private static boolean isSoutienGorge(String articleInfo) {
 		return articleInfo.contains("soutien");
 	}

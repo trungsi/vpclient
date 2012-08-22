@@ -25,6 +25,9 @@ public class VPClientPanel extends JPanel {
 	private VPClientAsync client;
 	private JPanel addedArticlesPanel = new JPanel(new MigLayout());
 	
+	private int totalAdded;
+	private JLabel totalAddedLabel;
+	
 	public VPClientPanel(VPClientAsync client) {
 		this.client = client;
 		String selectedSale = client.context.get(VPClient.SELECTED_SALE);
@@ -42,7 +45,7 @@ public class VPClientPanel extends JPanel {
 		});
 		
 		final JLabel stateLabel = new JLabel("Status : " + client.getState());
-		add(stateLabel,"wrap");
+		add(stateLabel);
 		
 		new Thread() {
 			public void run() {
@@ -75,22 +78,29 @@ public class VPClientPanel extends JPanel {
 			};
 		}.start();
 		
+		totalAddedLabel = new JLabel("Cart : 0");
+		add(totalAddedLabel, "wrap");
+		
 		add(addedArticlesPanel, "span,grow");
 		
 		this.client.register(this);
 	}
 
 	@Subscribe
-	public void handleVPEvent(VPEvent event) {
-		if (event instanceof AddArticleEvent) {
-			final AddArticleEvent addArticleEvent = (AddArticleEvent) event;
-			
-			SwingUtilities.invokeLater(new Runnable() {
-				//@Override
-				public void run() {
-					addedArticlesPanel.add(new JLabel(addArticleEvent.getText()), "wrap");
-				}
-			});
-		}
+	public void handleVPEvent(AddArticleEvent event) {
+		
+		//final AddArticleEvent addArticleEvent = (AddArticleEvent) event;
+		
+		SwingUtilities.invokeLater(new Runnable() {
+			//@Override
+			public void run() {
+				//addedArticlesPanel.add(new JLabel(addArticleEvent.getText()), "wrap");
+				//addedArticlesPanel.invalidate();
+				totalAdded++;
+				totalAddedLabel.setText("Cart : " + totalAdded);
+				totalAddedLabel.revalidate();
+			}
+		});
+	
 	}
 }

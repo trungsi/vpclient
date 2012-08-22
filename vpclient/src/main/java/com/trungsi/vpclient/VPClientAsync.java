@@ -155,7 +155,7 @@ public class VPClientAsync {
 				
 				ArrayList<VPTask> tasks = new ArrayList<VPTask>();
 				
-				for (int i = 10; i <= categories.size()*2; i++) {
+				for (int i = 10; i <= categories.size()*3; i++) {
 					tasks.add(loadNewDriverAndAddToDriverQueueTask(driverQueue, context));
 				}
 				
@@ -200,7 +200,7 @@ public class VPClientAsync {
 				VPTask task = new VPTask() {
 					//@Override
 					public List<VPTask> execute() {
-						VPTaskWorker worker = newVPTaskWorker(2);
+						VPTaskWorker worker = newVPTaskWorker(3);
 						ArrayList<VPTask> tasks = new ArrayList<VPTask>();
 						for (Map<String, String> subCategory : subCategories) {
 							tasks.add(addArticlesInSubCategoryTask(driverQueue, category, subCategory, context));
