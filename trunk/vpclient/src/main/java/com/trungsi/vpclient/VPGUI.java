@@ -54,7 +54,7 @@ public class VPGUI {
 		JFrame frame = new JFrame("VPClient");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-final JPanel mainPanel = new JPanel(new MigLayout());
+		final JPanel mainPanel = new JPanel(new MigLayout());
 		
 		JPanel formPanel = new JPanel(new MigLayout());
 		mainPanel.add(formPanel, "wrap");
@@ -189,7 +189,7 @@ final JPanel mainPanel = new JPanel(new MigLayout());
 			}
 		});
 		
-		formPanel.add(button);
+		formPanel.add(button, "align right");
 		
 		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
 		frame.setSize(500, 800);
