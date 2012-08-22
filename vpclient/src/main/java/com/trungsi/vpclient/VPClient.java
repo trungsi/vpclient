@@ -319,7 +319,7 @@ public class VPClient {
 			Map<String, String> context) {
 		String selectedCatsString = context.get(SELECTED_CATS);
 		if (selectedCatsString != null && !selectedCatsString.equals("")) {
-			return list(selectedCatsString.split(","));
+			return list(selectedCatsString.split("\\|"));
 		}
 		
 		return list();
@@ -327,7 +327,8 @@ public class VPClient {
 
 	private static List<String> getIgnoreSubCategories(Map<String, String> context) {
 		String ignoreSubCatsString = context.get(IGNORE_SUB_CATS);
-		List<String> ignoreCats = ignoreSubCatsString != null ? list(ignoreSubCatsString.split(",")) : list("___");
+		List<String> ignoreCats = ignoreSubCatsString != null && !ignoreSubCatsString.equals("") ? 
+				list(ignoreSubCatsString.split("\\|")) : new ArrayList<String>();
 		return ignoreCats;
 	}
 
@@ -511,43 +512,43 @@ public class VPClient {
 	}
 	
 	private static List<String> getWomanJeanSizes(Map<String, String> context) {
-		return list(getDefault(WOMAN_JEAN_SIZES, context, " 26 ,W26,T.36,T. 36").split(","));
+		return list(getDefault(WOMAN_JEAN_SIZES, context, " 26 |W26|T.36|T. 36").split("\\|"));
 	}
 	
 	private static List<String> getWomanShoesSizes(Map<String, String> context) {
-		return list(getDefault(WOMAN_SHOES_SIZES, context, " 37 ,T.37").split(","));
+		return list(getDefault(WOMAN_SHOES_SIZES, context, " 37 |T.37").split("\\|"));
 	}
 	
 	private static List<String> getWomanLingerieSizes(Map<String, String> context) {
-		return list(getDefault(WOMAN_LINGERIE_SIZES, context, "90A").split(","));
+		return list(getDefault(WOMAN_LINGERIE_SIZES, context, "90A").split("\\|"));
 	}
 	
 	private static List<String> getWomanClothingSizes(Map<String, String> context) {
-		return list(getDefault(WOMAN_CLOTHING_SIZES, context, " 36 ,T.36 (FR),T.36 ,T. 36,34/36, S ,.S ").split(","));
+		return list(getDefault(WOMAN_CLOTHING_SIZES, context, " 36 |T.36 (FR)|T.36 |T. 36|34/36| S |.S ").split("\\|"));
 	}
 	
 	private static List<String> getGirlShoesSizes(Map<String, String> context) {
-		return list(getDefault(GIRL_SHOES_SIZES, context, " 23 ,T.23,T. 23").split(","));
+		return list(getDefault(GIRL_SHOES_SIZES, context, " 23 |T.23|T. 23").split("\\|"));
 	}
 	
 	private static List<String> getGirlClothingSizes(Map<String, String> context) {
-		return list(getDefault(GIRL_CLOTHING_SIZES, context, "3 ans").split(","));
+		return list(getDefault(GIRL_CLOTHING_SIZES, context, "3 ans").split("\\|"));
 	}
 	
 	private static List<String> getManJeanSizes(Map<String, String> context) {
-		return list(getDefault(MAN_JEAN_SIZES, context, " 30 ,W30,T.30,T.40,T. 40").split(","));
+		return list(getDefault(MAN_JEAN_SIZES, context, " 30 |W30|T.30|T.40|T. 40").split("\\|"));
 	}
 	
 	private static List<String> getManShoesSizes(Map<String, String> context) {
-		return list(getDefault(MAN_SHOES_SIZES, context, "40.5, 41 ,T.41,T. 41").split(","));
+		return list(getDefault(MAN_SHOES_SIZES, context, "40.5| 41 |T.41|T. 41").split("\\|"));
 	}
 	
 	private static List<String> getManCostumeSizes(Map<String, String> context) {
-		return list(getDefault(MAN_COSTUME_SIZES, context, " M ,.M ,T.40,T. 40").split(","));
+		return list(getDefault(MAN_COSTUME_SIZES, context, " M |.M |T.40|T. 40").split("\\|"));
 	}
 	
 	private static List<String> getManClothingClothingSizes(Map<String, String> context) {
-		return list(getDefault(MAN_CLOTHING_SIZES, context, " M ,.M , 38 , 40 ,T.40,T. 40").split(","));
+		return list(getDefault(MAN_CLOTHING_SIZES, context, " M |.M | 38 | 40 |T.40|T. 40").split("\\|"));
 	}
 	
 	private static List<String> getPreferedSize(WebDriver driver, Map<String, String> category, 
@@ -821,12 +822,13 @@ public class VPClient {
 		openCategory(driver, category);
 
 		List<WebElement> subCategoryElems = driver.findElements(By.xpath("//ul[@class=\"subMenuEV\"]/li/a"));
+		if (subCategoryElems.isEmpty()) {
+			LOG.debug("No sub categories found\n" + driver.getPageSource());
+		}
 		
 		List<Map<String, String>> subCategories = new ArrayList<Map<String, String>>();
 		for (WebElement elem : subCategoryElems) {
-			String text = elem.getText().toLowerCase();
-			if (!text.contains("produits disponibles") && // ignore page which contains all products
-				!listContains(getIgnoreSubCategories(context), text)) { 
+			if (isSelectedSubCateogory(elem, context)) { 
 			  subCategories.add(
 					  map(entry("name", elem.getText()),
 					  entry("link", elem.getAttribute("href"))));
@@ -858,4 +860,10 @@ public class VPClient {
 		return manSubCats;
 	}
 	
+	private static boolean isSelectedSubCateogory(WebElement subCatElem, Map<String, String> context) {
+		String text = subCatElem.getText().toLowerCase();
+		List<String> ignoreSubCats = getIgnoreSubCategories(context);
+		return !text.contains("produits disponibles") && // ignore page which contains all products
+			(ignoreSubCats.isEmpty() || !listContains(ignoreSubCats, text));
+	}
 }
