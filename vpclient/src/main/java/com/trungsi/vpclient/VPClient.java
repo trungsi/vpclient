@@ -91,7 +91,6 @@ public class VPClient {
 
 	private static boolean login(WebDriver driver, Map<String, String> context) {
 		driver.get(baseUrl + "/vp4/Login/Portal.ashx");
-		//println driver.title
 		sleep (20);
 
 		WebElement emailElem = driver.findElement(By.name("txtEmail"));
@@ -312,7 +311,8 @@ public class VPClient {
 	}
 
 	private static boolean isSelectedCategory(List<String> selectedCats, WebElement catElem) {
-		return selectedCats.isEmpty() || (listContains(selectedCats, catElem.getText().toLowerCase()));
+		return !catElem.getText().contains("produits disponibles") && 
+				(selectedCats.isEmpty() || (listContains(selectedCats, catElem.getText().toLowerCase())));
 	}
 	
 	private static List<String> getSelectedCategories(
@@ -445,7 +445,6 @@ public class VPClient {
 			if (selectableSizes == null || selectableSizes.size() >= 1) {
 				if (selectableSizes != null) {
 					log(driver + " " + info + selectableSizes.get(selectableSizes.size()-1));
-					//driver.navigate().to(baseUrl + "/vp4/Catalog/WebServices/Cart.asmx/AddProduct") 
 					//MyHtmlUnitDriver htmlUnitDriver = (MyHtmlUnitDriver) driver;
 					//htmlUnitDriver.postRequest(
 					//		baseUrl + "/vp4/Catalog/WebServices/Cart.asmx/AddProduct", 
@@ -570,8 +569,7 @@ public class VPClient {
 			} else {
 				return getManClothingClothingSizes(context);
 			}
-		}
-		if (isWomanArticle(articleInfo)) {
+		} else if (isWomanArticle(articleInfo)) {
 			if (isJean(articleInfo)) {
 				return getWomanJeanSizes(context);
 			} else if (isShoes(articleInfo)) {
@@ -590,7 +588,7 @@ public class VPClient {
 		} else if (isBoyArticle(articleInfo)) {
 			// ne fait rien
 			return new ArrayList<String>();
-		} else {
+		} else { // by default, man too :)
 			if (isJean(articleInfo)) {
 				return getManJeanSizes(context);
 			} else if (isShoes(articleInfo)) {
@@ -696,7 +694,9 @@ public class VPClient {
 		try {
 			
 			String openNewWindow = articleElem.get("link");
-			//println("openWindow = " + openNewWindow);
+			if (!openNewWindow.startsWith("http")) {
+				openNewWindow = baseUrl + openNewWindow;
+			}
 			
 			// must activate javascript because will submit form using ajax
 			HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
@@ -734,6 +734,7 @@ public class VPClient {
 		}
 	}*/
 
+	@SuppressWarnings("all")
 	public static List<Map<String, String>> findAllArticlesInSubCategory(WebDriver driver, Map<String, String> category, Map<String, String> subCategory) {
 		long start = System.currentTimeMillis();
 
@@ -746,28 +747,23 @@ public class VPClient {
 			driver.navigate().to(link);
 		}
 
-		//waitForElementReady("//ul[@class=\"artList\"]/script", 5000L, driver)
 		sleep(1000);
 
-		/*List<WebElement> scriptElems = driver.findElements(By.xpath("//ul[@class=\"artList\"]/script"));
-		if (scriptElems.size() > 0) {
-			if (scriptElems.get(0).getText() == "") {
-				//println(driver.getPageSource())
-			}
-		} else {
-			//println(driver.getPageSource())
-			println("toto");
-		}*/
-
-		List<WebElement> articleElems = driver.findElements(By.xpath("//ul[@class=\"artList viewAllProduct\"]/li"));
-
 		List<Map<String, String>> articles = new ArrayList<Map<String, String>>();
+		
+		// normally, there is <ul class="artList">
+		// but in Summer Camp, there is <ul class="artList viewAllProduct">
+		List<WebElement> articleElems = driver.findElements(
+				By.xpath("//ul[starts-with(@class,\"artList\")]/li"));
 		if (articleElems.isEmpty()) {
-			log(driver + " Cannot find class 'artList viewAllProduct'. Will parse Json to get article infos");
+			log(driver + " Cannot find ul with class 'artList viewAllProduct'. Will parse Json to get article infos");
 			
 			String source = driver.getPageSource();
 
 			int index = source.indexOf("JSon=");
+			if (index == -1) {
+				throw new RuntimeException("cannot find json article info in " + category.get("name") + "|" + subCategory.get("name") + "\n" + source);
+			}
 			source = source.substring(index+5);
 
 			index = source.indexOf("</script>");
@@ -786,23 +782,31 @@ public class VPClient {
 				JSONObject dataCatalog = catalog.getJSONObject("dataCatalog");
 				JSONArray items = dataCatalog.getJSONArray("items");
 				for (int i = 0; i < items.length(); i++) {
-					Map<String, String> map = new HashMap<String, String>();
 					JSONObject item = items.getJSONObject(i); 
 					//System.out.println(item);
-					map.put("name", item.getString("infoArtTitle"));
-					map.put("link", currentUrl + "FEikId" + item.getString("artURL") + ".aspx");
-					articles.add(map);
+					articles.add(map(entry("name", item.getString("infoArtTitle")), 
+							entry("link", currentUrl + "FEikId" + item.getString("artURL") + ".aspx")));
 				}
-
 			} catch (Exception e) {
 				LOG.error(driver + " Error on parsing json " + source, e);
-				//e.printStackTrace();
 			}
-			//println(driver.getPageSource())
-
+		} else {
+			for (WebElement articleElem : articleElems) {
+				//List<WebElement> elems = articleElem.findElements(By.xpath(".//*"));
+				//System.out.println(elems);
+				String name = articleElem.findElement(By.xpath(".//div[@class=\"infoArtTitle\"]")).getText();
+				// Achat Express link could not exist
+				// have to treate this case by using Fiche Produit
+				String link = articleElem.findElement(By.xpath(".//a[@class=\"btStoreXpress\"]")).getAttribute("onclick");
+				int firstIndex = link.indexOf("'");
+				int lastIndex = link.lastIndexOf("'");
+				link = link.substring(firstIndex+1, lastIndex);
+				articles.add(map(entry("name", name), entry("link", link)));
+			}
 		}
 
-		// detecte woman|men articles
+		// detecte woman|man articles
+		// do not work correctly when man,woman,kids are mixted
 		String catSubCat = (category.get("name") + subCategory).toLowerCase();
 		if (!catSubCat.contains("femme") && !catSubCat.contains("homme")) {
 			String source = driver.getPageSource();
@@ -817,8 +821,7 @@ public class VPClient {
 
 		log(driver + " findAllArticlesInSubCategory (" + category.get("name") + "," + subCategory.get("name") + ") : size=" + articleElems.size() + " , " + time);
 
-		//Collections.reverse(articles); // reverse order :)
-		Collections.shuffle(articles); // random
+		Collections.shuffle(articles); // random :)
 		return articles;
 	}
 
@@ -843,7 +846,7 @@ public class VPClient {
 
 		List<WebElement> subCategoryElems = driver.findElements(By.xpath("//ul[@class=\"subMenuEV\"]/li/a"));
 		if (subCategoryElems.isEmpty()) {
-			LOG.debug("No sub categories found\n" + driver.getPageSource());
+			LOG.debug("No sub categories found in " + category.get("name") + "\n" + driver.getPageSource());
 		}
 		
 		List<Map<String, String>> subCategories = new ArrayList<Map<String, String>>();
