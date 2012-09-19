@@ -37,12 +37,15 @@ public class VPClient {
 	public static final String WOMAN_SHOES_SIZES = "womanShoesSizes";
 	public static final String WOMAN_LINGERIE_SIZES = "womanLingerieSizes";
 	public static final String WOMAN_CLOTHING_SIZES = "womanClothingSizes";
+	public static final String WOMAN_SHIRT_SIZES = "womanShirtSizes";
+	
 	public static final String GIRL_SHOES_SIZES = "girlShoesSizes";
 	public static final String GIRL_CLOTHING_SIZES = "girlClothingSizes";
 	public static final String MAN_JEAN_SIZES = "manJeanSizes";
 	public static final String MAN_SHOES_SIZES = "manShoesSizes";
 	public static final String MAN_COSTUME_SIZES = "manCostumeSizes";
 	public static final String MAN_CLOTHING_SIZES = "manClothingSizes";
+	public static final String MAN_SHIRT_SIZES = "manShirtSizes";
 	
 
 	public static WebDriver loadDriver(Map<String, String> context) {
@@ -117,20 +120,18 @@ public class VPClient {
 	private static void openSelectedSale(WebDriver driver, Map<String, String> context) {
 		if (Thread.currentThread().isInterrupted()) return;
 		
+		long start = System.currentTimeMillis();
+		
 		try {
-			long start = System.currentTimeMillis();
-	
+			
 			List<WebElement> currentSalesElem = findCurrentSaleList(driver);
 			WebElement selectedElem = getSelectedSaleFromList(currentSalesElem, context);
 	
 			selectedElem.click();
 	
 			
-				waitForElementReady("//div[@class=\"obj_menuEV\"]", 5000L, driver);
+			waitForElementReady("//div[@class=\"obj_menuEV\"]", 5000L, driver);
 			
-	
-			long time = System.currentTimeMillis() - start;
-			log(driver + " goToSelectedSale : " + time);
 		} catch (Error e) {
 			if (driver.getPageSource().contains(context.get(SELECTED_SALE))) {
 				log(driver + " cannot open selectedSale, try to refresh");
@@ -139,6 +140,18 @@ public class VPClient {
 			} else {
 				throw e;
 			}
+		} catch (ElementNotReadyException e) {
+			// check adult age
+			List<WebElement> accessLinks = driver.findElements(By.xpath("//div[@class=\"accessLink\"]/a"));
+			if (!accessLinks.isEmpty()) {
+				accessLinks.get(0).click();
+				sleep(100);
+			} else {
+				throw e;
+			}
+		} finally {
+			long time = System.currentTimeMillis() - start;
+			log(driver + " goToSelectedSale : " + time);
 		}
 	}
 
@@ -566,6 +579,8 @@ public class VPClient {
 				return getManShoesSizes(context);
 			} else if (isCostume(articleInfo)) {
 				return getManCostumeSizes(context);
+			} else if (isShirt(articleInfo)) { // chemise
+				return getManShirtSizes(context);
 			} else {
 				return getManClothingClothingSizes(context);
 			}
@@ -576,6 +591,8 @@ public class VPClient {
 				return getWomanShoesSizes(context) ;
 			} else if (isSoutienGorge(articleInfo)) {
 				return getWomanLingerieSizes(context);
+			} else if (isShirt(articleInfo)) {
+				return getWomanShirtSizes(context);
 			} else {
 				return getWomanClothingSizes(context);
 			}
@@ -601,6 +618,18 @@ public class VPClient {
 		}
 	}
 	
+	private static List<String> getWomanShirtSizes(Map<String, String> context) {
+		return list(getDefault(WOMAN_SHIRT_SIZES, context, "T. 36|T.36| XS ").split("\\|"));
+	}
+
+	private static List<String> getManShirtSizes(Map<String, String> context) {
+		return list(getDefault(MAN_SHIRT_SIZES, context, "T. 39|T.39| M ").split("\\|"));
+	}
+
+	private static boolean isShirt(String articleInfo) {
+		return articleInfo.contains("chemis");
+	}
+
 	private static boolean isManArticle(String articleInfo) {
 		return articleInfo.contains("homme");
 	}
@@ -693,16 +722,13 @@ public class VPClient {
 		long start = System.currentTimeMillis();
 		try {
 			
-			String openNewWindow = articleElem.get("link");
-			if (!openNewWindow.startsWith("http")) {
-				openNewWindow = baseUrl + openNewWindow;
-			}
-			
 			// must activate javascript because will submit form using ajax
 			HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
 			htmlUnitDriver.setJavascriptEnabled(true);
+						
+			String openNewWindow = articleElem.get("link");
+			goToLink(htmlUnitDriver, openNewWindow);
 			
-			htmlUnitDriver.navigate().to(openNewWindow);
 			//sleep(500);
 			return map(entry("ok", (Object) java.lang.Boolean.TRUE));
 		} finally {
@@ -734,17 +760,24 @@ public class VPClient {
 		}
 	}*/
 
+	private static void goToLink(WebDriver driver, String link) {
+		if (!link.startsWith("http")) {
+			link = baseUrl + link;
+		}
+		driver.navigate().to(link);
+	}
+	
 	@SuppressWarnings("all")
 	public static List<Map<String, String>> findAllArticlesInSubCategory(WebDriver driver, Map<String, String> category, Map<String, String> subCategory) {
 		long start = System.currentTimeMillis();
 
 		// go to subCategory page
-		if (subCategory != null) {
+		if (subCategory != null && !subCategory.isEmpty()) {
 			String link = subCategory.get("link");
-			if (!link.startsWith("http")) {
-				link = baseUrl + link;
-			}
-			driver.navigate().to(link);
+			goToLink(driver, link);
+		} else {
+			// reload category page, because driver is shared by many workers
+			goToLink(driver, category.get("link"));
 		}
 
 		sleep(1000);
@@ -829,11 +862,8 @@ public class VPClient {
 		long start = System.currentTimeMillis();
 		
 		String link = category.get("link");
-		if (!link.startsWith("http")) {
-			link = baseUrl + link;
-		}
-		driver.navigate().to(link);
-
+		goToLink(driver, link);
+		
 		long time = System.currentTimeMillis() - start;
 		log(driver + " openCategory (" + category.get("name") + ") : " + time);
 	}

@@ -196,21 +196,25 @@ public class VPClientAsync {
 				WebDriver driver = removeFromQueue(driverQueue);
 				final List<Map<String, String>> subCategories = findSubCategories(driver, category, context);
 				driverQueue.add(driver);
-				
-				VPTask task = new VPTask() {
-					//@Override
-					public List<VPTask> execute() {
-						VPTaskWorker worker = newVPTaskWorker(3);
-						ArrayList<VPTask> tasks = new ArrayList<VPTask>();
-						for (Map<String, String> subCategory : subCategories) {
-							tasks.add(addArticlesInSubCategoryTask(driverQueue, category, subCategory, context));
+				VPTask task = null;
+				if (subCategories.isEmpty()) { // no categories
+					task = addArticlesInSubCategoryTask(driverQueue, category, new HashMap<String, String>(), context);
+				} else {
+					task = new VPTask() {
+						//@Override
+						public List<VPTask> execute() {
+							VPTaskWorker worker = newVPTaskWorker(3);
+							ArrayList<VPTask> tasks = new ArrayList<VPTask>();
+							for (Map<String, String> subCategory : subCategories) {
+								tasks.add(addArticlesInSubCategoryTask(driverQueue, category, subCategory, context));
+							}
+							
+							worker.addTasks(tasks);
+							
+							return null;
 						}
-						
-						worker.addTasks(tasks);
-						
-						return null;
-					}
-				};
+					};
+				}
 				
 				
 				return list(task);
