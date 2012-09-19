@@ -5,7 +5,6 @@ package com.trungsi.vpclient;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -20,7 +19,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -103,6 +101,11 @@ public class VPGUI {
 		final JTextField womanLingerieSizesField = new JTextField(getDefault(VPClient.WOMAN_LINGERIE_SIZES, context, "95D LOL"), 30);
 		formPanel.add(womanLingerieSizesField, "wrap");
 		
+		JLabel womanShirtSizesLabel = new JLabel("Woman Shirt Sizes");
+		formPanel.add(womanShirtSizesLabel, "align right");
+		final JTextField womanShirtSizesField = new JTextField(getDefault(VPClient.WOMAN_SHIRT_SIZES, context, "T. 36|T.36| XS "), 30);
+		formPanel.add(womanShirtSizesField, "wrap");
+		
 		JLabel womanClothingSizesLabel = new JLabel("Woman Clothing Sizes");
 		formPanel.add(womanClothingSizesLabel, "align right");
 		final JTextField womanClothingSizesField = new JTextField(getDefault(VPClient.WOMAN_CLOTHING_SIZES, context, "36 |T.36 (FR)|T.36 |T. 36|34/36| S |.S "), 30);
@@ -133,6 +136,11 @@ public class VPGUI {
 		final JTextField manCostumeSizesField = new JTextField(getDefault(VPClient.MAN_COSTUME_SIZES, context, "M |.M |T.40|T. 40"), 30);
 		formPanel.add(manCostumeSizesField, "wrap");
 		
+		JLabel manShirtSizesLabel = new JLabel("Man Shirt Sizes");
+		formPanel.add(manShirtSizesLabel, "align right");
+		final JTextField manShirtSizesField = new JTextField(getDefault(VPClient.MAN_SHIRT_SIZES, context, "T.39|T. 39| M "), 30);
+		formPanel.add(manShirtSizesField, "wrap");
+		
 		JLabel manClothingSizesLabel = new JLabel("Man Clothing Sizes");
 		formPanel.add(manClothingSizesLabel, "align right");
 		final JTextField manClothingSizesField = new JTextField(getDefault(VPClient.MAN_CLOTHING_SIZES, context, "M |.M | 38 | 40 |T.40|T. 40"), 30);
@@ -154,12 +162,14 @@ public class VPGUI {
 						context.put(VPClient.WOMAN_JEAN_SIZES, womanJeanSizesField.getText());
 						context.put(VPClient.WOMAN_SHOES_SIZES, womanShoesSizesField.getText());
 						context.put(VPClient.WOMAN_LINGERIE_SIZES, womanLingerieSizesField.getText());
+						context.put(VPClient.WOMAN_SHIRT_SIZES, womanShirtSizesField.getText());
 						context.put(VPClient.WOMAN_CLOTHING_SIZES, womanClothingSizesField.getText());
 						context.put(VPClient.GIRL_SHOES_SIZES, girlShoesSizesField.getText());
 						context.put(VPClient.GIRL_CLOTHING_SIZES, girlClothingSizesField.getText());
 						context.put(VPClient.MAN_JEAN_SIZES, manJeanSizesField.getText());
 						context.put(VPClient.MAN_SHOES_SIZES, manShoesSizesField.getText());
 						context.put(VPClient.MAN_COSTUME_SIZES, manCostumeSizesField.getText());
+						context.put(VPClient.MAN_SHIRT_SIZES, manShirtSizesField.getText());
 						context.put(VPClient.MAN_CLOTHING_SIZES, manClothingSizesField.getText());
 						
 						//context.put(VPClient.P, value)
