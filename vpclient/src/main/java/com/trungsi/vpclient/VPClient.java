@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -12,7 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
+//import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,7 +152,7 @@ public class VPClient {
 			}
 		} finally {
 			long time = System.currentTimeMillis() - start;
-			log(driver + " goToSelectedSale : " + time);
+			println(driver + " goToSelectedSale : " + time);
 		}
 	}
 
@@ -163,7 +164,7 @@ public class VPClient {
 		}
 
 		long time = System.currentTimeMillis() - start;
-		log(driver + " findCurrentSaleList : " + time);
+		println(driver + " findCurrentSaleList : " + time);
 
 		return currentSalesElem;
 	}
@@ -182,7 +183,7 @@ public class VPClient {
 
 
 		long time = System.currentTimeMillis() - start;
-		log("getSelectedSaleFromList : " + time);
+		println("getSelectedSaleFromList : " + time);
 
 		if (selectedElem == null) {
 			throw new Error("No sale " + context.get(SELECTED_SALE) + " found\n" + currentSaleList);
@@ -231,8 +232,6 @@ public class VPClient {
 	}
 
 	public static void log(String msg) {
-		msg = new Date() + " : " + msg;
-		//println(msg);
 		LOG.info(msg);
 	}
 
@@ -296,10 +295,10 @@ public class VPClient {
 
 		List<Map<String, String>> categories = filterCategories(catElems, context);
 
-		log(driver + " " + categories.size() + " categories found : \n" + categories);
+		log(categories.size() + " categories found : \n" + categories);
 
 		long time = System.currentTimeMillis() - start;
-		log(driver + " findAllCategories : " + time);
+		println(driver + " findAllCategories : " + time);
 
 		return categories;
 	}
@@ -388,7 +387,7 @@ public class VPClient {
 			if ((Boolean)result.get("ok")) {
 				added = addArticleToCart(driver, category, subCategory, article, context);
 			} else {
-				log(driver + " Cannot add article $articleName in category " + category.get("name") + ".\nCause :" + result.get("message"));
+				log(" Cannot add article $articleName in category " + category.get("name") + ".\nCause :" + result.get("message"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -407,7 +406,7 @@ public class VPClient {
 		}
 
 		long time = System.currentTimeMillis() - start;
-		log(driver + " addArticle : " + time);
+		println(driver + " addArticle : " + time);
 		
 		return added;
 	}
@@ -422,9 +421,9 @@ public class VPClient {
 				//println(driver.getPageSource());
 				List<WebElement> elems = driver.findElements(By.id("product_pUnavailable"));
 				if (!elems.isEmpty()) {
-					log(driver + " " + info + elems.get(0).getText());
+					log(info + elems.get(0).getText());
 				} else {
-					log(driver + " " + info + "No addToCart button found, the article must be sold");
+					log(info + "No addToCart button found, the article must be sold");
 				}
 				return false;
 			}
@@ -433,17 +432,17 @@ public class VPClient {
 			List<WebElement> selectElems = driver.findElements(By.id("productId"));
 			//sleep(500);
 			if (selectElems.isEmpty() || !selectElems.get(0).getTagName().equals("select")) {
-				log(driver + " " + info + " No model/size found. The article must not have this info");
+				log(info + " No model/size found. The article must not have this info");
 				List<WebElement> productSize = driver.findElements(By.xpath("//p[@id='product_pUniqueModelRow']/span"));
 				if (!productSize.isEmpty()) {
 					String sizeText = productSize.get(0).getText();
 					//println("sizeText=" + sizeText);
 					List<String> preferedSize = getPreferedSize(driver, category, subCategory, article, context);
 					boolean match = listContains(preferedSize, sizeText);
-					log(driver + " + sizeText=" + sizeText + " match (" + match + ") in " + preferedSize);
+					log("sizeText=" + sizeText + " match (" + match + ") in " + preferedSize);
 					if (sizeText.contains("T.") 
 							&& !match) {
-						log(driver + " " + info + " size " + sizeText + " not in " + preferedSize);
+						log(info + " size " + sizeText + " not in " + preferedSize);
 						return false;
 					}
 				}
@@ -457,13 +456,13 @@ public class VPClient {
 			//} else {
 			if (selectableSizes == null || selectableSizes.size() >= 1) {
 				if (selectableSizes != null) {
-					log(driver + " " + info + selectableSizes.get(selectableSizes.size()-1));
+					log(info + selectableSizes.get(selectableSizes.size()-1));
 					//MyHtmlUnitDriver htmlUnitDriver = (MyHtmlUnitDriver) driver;
 					//htmlUnitDriver.postRequest(
 					//		baseUrl + "/vp4/Catalog/WebServices/Cart.asmx/AddProduct", 
 					//		"{\"productId\" : \"" + selectableSizes.get(selectableSizes.size()-1).get("value") + "\", \"familyId\" : \"" + driver.findElement(By.id("familyId")).getValue() + "\", \"quantity\" : \"1\"}");
 				} else {
-					log(driver + " " + info + " has no size");
+					log(info + " has no size");
 										
 				}
 				
@@ -474,26 +473,26 @@ public class VPClient {
 				List<WebElement> resultBlocs = driver.findElements(By.xpath("//p[@id=\"resultBloc\"]"));
 
 				if (!resultBlocs.isEmpty() && resultBlocs.get(0).isDisplayed()) {
-					log(driver + " " + resultBlocs.get(0).getText());
+					log(resultBlocs.get(0).getText());
 				}
 
 				List<WebElement> validResultBlocs = driver.findElements(By.xpath("//p[@id=\"validResultBloc\"]"));
 				if (validResultBlocs.isEmpty() || !validResultBlocs.get(0).isDisplayed()) {
-					log(driver + " " + info + "No confirmation after add article to cart");
+					log(info + "No confirmation after add article to cart");
 				} else {
-					log(driver + " " + info +" ADDED");
+					log(info +" ADDED");
 				}
 
 				return true;
 				
 			} else {
-				log(driver + " " + info + " No appropriate size");
+				log(info + " No appropriate size");
 				return false;
 			}
 
 		} finally {
 			long time = System.currentTimeMillis() - start;
-			log(driver + " addArticleToCart : " + info + time);
+			println(" addArticleToCart : " + info + time);
 		}
 	}
 
@@ -733,7 +732,7 @@ public class VPClient {
 			return map(entry("ok", (Object) java.lang.Boolean.TRUE));
 		} finally {
 			long time = System.currentTimeMillis() - start;
-			log(driver + " openExpressPurchaseWindow : " + time);
+			println(driver + " openExpressPurchaseWindow : " + time);
 		}
 	}
 
@@ -789,7 +788,7 @@ public class VPClient {
 		List<WebElement> articleElems = driver.findElements(
 				By.xpath("//ul[starts-with(@class,\"artList\")]/li"));
 		if (articleElems.isEmpty()) {
-			log(driver + " Cannot find ul with class 'artList viewAllProduct'. Will parse Json to get article infos");
+			log(" Cannot find ul with class 'artList viewAllProduct'. Will parse Json to get article infos");
 			
 			String source = driver.getPageSource();
 
@@ -830,11 +829,15 @@ public class VPClient {
 				String name = articleElem.findElement(By.xpath(".//div[@class=\"infoArtTitle\"]")).getText();
 				// Achat Express link could not exist
 				// have to treate this case by using Fiche Produit
-				String link = articleElem.findElement(By.xpath(".//a[@class=\"btStoreXpress\"]")).getAttribute("onclick");
-				int firstIndex = link.indexOf("'");
-				int lastIndex = link.lastIndexOf("'");
-				link = link.substring(firstIndex+1, lastIndex);
-				articles.add(map(entry("name", name), entry("link", link)));
+				try {
+					String link = articleElem.findElement(By.xpath(".//a[@class=\"btStoreXpress\"]")).getAttribute("onclick");
+					int firstIndex = link.indexOf("'");
+					int lastIndex = link.lastIndexOf("'");
+					link = link.substring(firstIndex+1, lastIndex);
+					articles.add(map(entry("name", name), entry("link", link)));
+				} catch (NoSuchElementException e) {
+					LOG.error("Cannot find 'Achat express' button for " + name + " in " + articleElem.findElements(By.xpath(".//a[@class=\"btStoreXpress\"]")) + articleElem.findElement(By.xpath(".//span[@class=\"artState\"]")).getText());
+				}
 			}
 		}
 
@@ -852,7 +855,7 @@ public class VPClient {
 		
 		long time = System.currentTimeMillis() - start;
 
-		log(driver + " findAllArticlesInSubCategory (" + category.get("name") + "," + subCategory.get("name") + ") : size=" + articleElems.size() + " , " + time);
+		println(driver + " findAllArticlesInSubCategory (" + category.get("name") + "," + subCategory.get("name") + ") : size=" + articleElems.size() + " , " + time);
 
 		Collections.shuffle(articles); // random :)
 		return articles;
@@ -865,7 +868,7 @@ public class VPClient {
 		goToLink(driver, link);
 		
 		long time = System.currentTimeMillis() - start;
-		log(driver + " openCategory (" + category.get("name") + ") : " + time);
+		println(driver + " openCategory (" + category.get("name") + ") : " + time);
 	}
 
 	@SuppressWarnings("all")
@@ -907,7 +910,7 @@ public class VPClient {
 		manSubCats.addAll(otherSubCats);
 		
 		long time = System.currentTimeMillis() - start;
-		log(driver + " findSubCategories (" + category.get("name") + ") : size=" + subCategories.size()+ " , " + time);
+		println(driver + " findSubCategories (" + category.get("name") + ") : size=" + subCategories.size()+ " , " + time);
 
 
 		return manSubCats;
