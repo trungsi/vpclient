@@ -28,6 +28,8 @@ public class VPClientPanel extends JPanel {
 	private int totalAdded;
 	private JLabel totalAddedLabel;
 	
+	private long start = System.currentTimeMillis();
+	
 	public VPClientPanel(VPClientAsync client) {
 		this.client = client;
 		String selectedSale = client.context.get(VPClient.SELECTED_SALE);
@@ -71,7 +73,7 @@ public class VPClientPanel extends JPanel {
 				SwingUtilities.invokeLater(new Runnable() {
 					//@Override
 					public void run() {
-						stateLabel.setText("Status : " + VPClientPanel.this.client.getState());
+						stateLabel.setText("Status : " + VPClientPanel.this.client.getState() + ", E.T. : " + (System.currentTimeMillis() - start)/1000);
 						button.setEnabled(false);
 					}
 				});

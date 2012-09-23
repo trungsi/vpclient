@@ -73,7 +73,7 @@
             <!-- default values -->
             <!--inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath -->
             <!--inputTemplate>src/main/jnlp/template.vm</inputTemplate --> <!-- relative to inputTemplateResourcePath -->
-            <outputFile>main.jnlp</outputFile> <!-- defaults to launch.jnlp -->
+            <outputFile>vpclient.jnlp</outputFile> <!-- defaults to launch.jnlp -->
 
             <!-- used to automatically identify the jar containing the main class. -->
             <!-- this is perhaps going to change -->
@@ -89,7 +89,7 @@
             <keypass>trungsi</keypass>  <!-- we need to override passwords easily from the command line. ${keypass} -->
             <storepass>trungsi</storepass> <!-- ${storepass} -->
             <!--storetype>fillme</storetype -->
-            <alias>http://trungsi.com</alias>
+            <alias>http://trungsi.free.fr/vp</alias>
 
             <validity>10</validity>
 

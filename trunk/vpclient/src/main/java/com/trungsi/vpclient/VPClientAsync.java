@@ -150,8 +150,12 @@ public class VPClientAsync {
 		VPTask message = new VPTask() {
 			public List<VPTask> execute() {
 				WebDriver driver = removeFromQueue(driverQueue);
-				List<Map<String, String>> categories = findAllCategories(driver, context);
-				driverQueue.add(driver);
+				List<Map<String, String>> categories = null;
+				try {
+					categories = findAllCategories(driver, context);
+				} finally {
+					driverQueue.add(driver);
+				}
 				
 				ArrayList<VPTask> tasks = new ArrayList<VPTask>();
 				
@@ -194,18 +198,23 @@ public class VPClientAsync {
 		return new VPTask() {
 			public List<VPTask> execute() {
 				WebDriver driver = removeFromQueue(driverQueue);
-				final List<Map<String, String>> subCategories = findSubCategories(driver, category, context);
-				driverQueue.add(driver);
+				List<Map<String, String>> subCategories = null;
+				try {
+					subCategories = findSubCategories(driver, category, context);
+				} finally {
+					driverQueue.add(driver);
+				}
 				VPTask task = null;
 				if (subCategories.isEmpty()) { // no categories
 					task = addArticlesInSubCategoryTask(driverQueue, category, new HashMap<String, String>(), context);
 				} else {
+					final List<Map<String, String>> finalSubCategories = subCategories;
 					task = new VPTask() {
 						//@Override
 						public List<VPTask> execute() {
 							VPTaskWorker worker = newVPTaskWorker(3);
 							ArrayList<VPTask> tasks = new ArrayList<VPTask>();
-							for (Map<String, String> subCategory : subCategories) {
+							for (Map<String, String> subCategory : finalSubCategories) {
 								tasks.add(addArticlesInSubCategoryTask(driverQueue, category, subCategory, context));
 							}
 							
@@ -230,9 +239,12 @@ public class VPClientAsync {
 		return new VPTask() {
 			public List<VPTask> execute() {
 				WebDriver driver = removeFromQueue(driverQueue);
-				List<Map<String, String>> articleElems = findAllArticlesInSubCategory(driver, category, subCategory);
-				driverQueue.add(driver);
-				
+				List<Map<String, String>> articleElems = null;
+				try {
+					articleElems = findAllArticlesInSubCategory(driver, category, subCategory);
+				} finally {
+					driverQueue.add(driver);
+				}
 				ArrayList<VPTask> tasks = new ArrayList<VPTask>();
 				for (Map<String, String> articleElem : articleElems) {
 					tasks.add(addArticleTask(driverQueue, category, subCategory, articleElem, context));
@@ -251,8 +263,12 @@ public class VPClientAsync {
 		return new VPTask() {
 			public List<VPTask> execute() {
 				WebDriver driver = removeFromQueue(driverQueue);
-				boolean added = addArticle(driver, category, subCategory, article, context);
-				driverQueue.add(driver);
+				boolean added = false;
+				try {
+					added = addArticle(driver, category, subCategory, article, context);
+				} finally {
+					driverQueue.add(driver);
+				}
 				
 				if (added) {
 					addAddArticleEvent(category, subCategory, article);
