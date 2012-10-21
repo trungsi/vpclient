@@ -4,6 +4,8 @@
 package com.trungsi.vpclient;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,17 +17,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListCellRenderer;
 import javax.swing.SwingUtilities;
 
 import net.miginfocom.swing.MigLayout;
@@ -49,7 +57,7 @@ public class VPGUI {
 		setUpLog4j();
 		
 		
-		JFrame frame = new JFrame("VPClient");
+		JFrame frame = new JFrame("Vente Privée Client");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		final JPanel mainPanel = new JPanel(new MigLayout());
@@ -73,8 +81,67 @@ public class VPGUI {
 		
 		JLabel selectedSaleLabel = new JLabel("Selected Sale");
 		formPanel.add(selectedSaleLabel, "align right");
-		final JTextField selectedSaleField = new JTextField(getDefault(VPClient.SELECTED_SALE, context), 30);
-		formPanel.add(selectedSaleField, "wrap");
+		//final JTextField selectedSaleField = new JTextField(getDefault(VPClient.SELECTED_SALE, context), 30);
+		
+		final DefaultComboBoxModel aModel = new DefaultComboBoxModel(
+									new Object[] {new HashMap<String, String>() {{
+										put("name", "Please select a sale");
+									}}});
+		final JComboBox selectedSaleList = new JComboBox(aModel);
+		selectedSaleList.setMaximumRowCount(20);
+		selectedSaleList.setRenderer(new ListCellRenderer() {
+			DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+			
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value,
+					int index, boolean isSelected, boolean cellHasFocus) {
+				Map<String, String> sale = (Map<String, String>) value;
+				
+				String text = "<html>" +
+						sale.get("name") + 
+						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>" + sale.get("dateSales") +
+						//(!list.isShowing() ? "" : "<br/>" + sale.get("dateSales")) +
+						"</i></html>";
+				Component comp = defaultRenderer.getListCellRendererComponent(list, 
+						text, index, isSelected, cellHasFocus);
+				
+				if (index%2 == 0 && !isSelected)
+					comp.setBackground(Color.WHITE);
+				
+				return comp;
+			}
+		});
+		
+		//selectedSaleLabel.sets
+		formPanel.add(selectedSaleList);
+		final JButton loadSalesButton = new JButton("Load Sales");
+		loadSalesButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadSalesButton.setEnabled(false);
+				new Thread() {
+					public void run() {
+						HashMap<String, String> context = new HashMap<String, String>();
+						context.put(VPClient.USER, loginField.getText());
+						context.put(VPClient.PWD, new String(passwordField.getPassword()));
+						
+						VPClientAsync vpClient = new VPClientAsync(context);
+						final List<Map<String, String>> salesList = vpClient.getSalesList();
+						
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								for (Map<String, String> sale : salesList) {
+									aModel.addElement(sale);
+								}
+								loadSalesButton.setEnabled(true);
+							}
+						});
+					}
+				}.start();
+			}
+		});
+		formPanel.add(loadSalesButton, "wrap");
 		
 		JLabel selectedCatsLabel = new JLabel("Selected Categories");
 		formPanel.add(selectedCatsLabel, "align right");
@@ -153,10 +220,13 @@ public class VPGUI {
 				new Thread() {
 					public void run() {
 						Map<String, String> context = new HashMap<String, String>();
-						context.put(VPClient.DRIVER_NAME, VPClient.HTML_UNIT);
 						context.put(VPClient.USER, loginField.getText());
 						context.put(VPClient.PWD, new String(passwordField.getPassword()));
-						context.put(VPClient.SELECTED_SALE, selectedSaleField.getText());
+						Map<String, String> selectedSale = (Map<String, String>) selectedSaleList.getSelectedItem();
+						context.put(VPClient.SELECTED_SALE, selectedSale.get("name"));
+						context.put(VPClient.SELECTED_SALE_DATE, selectedSale.get("dateSales"));
+						context.put(VPClient.SELECTED_SALE_LINK, selectedSale.get("link"));
+						
 						context.put(VPClient.SELECTED_CATS, selectedCatsField.getText());
 						context.put(VPClient.IGNORE_SUB_CATS, ignoreSubCatsField.getText());
 						context.put(VPClient.WOMAN_JEAN_SIZES, womanJeanSizesField.getText());

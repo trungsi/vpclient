@@ -12,12 +12,12 @@ import java.util.Properties;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
 import com.google.common.eventbus.EventBus;
 
 import static com.trungsi.vpclient.VPClient.*;
+import static com.trungsi.vpclient.utils.CollectionUtils.*;
 
 /**
  * @author trungsi
@@ -299,6 +299,11 @@ public class VPClientAsync {
 
 	public void register(Object obj) {
 		eventBus.register(obj);
+	}
+
+	public List<Map<String, String>> getSalesList() {
+		WebDriver driver = loadDriver(context);
+		return VPClient.getSalesList(driver);
 	}
 	
 }
