@@ -9,14 +9,20 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitWebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.trungsi.vpclient.utils.DateRange;
+
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
-//import java.util.Date;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import static com.trungsi.vpclient.utils.CollectionUtils.*;
 
 /**
  * @author trungsi
@@ -47,6 +53,9 @@ public class VPClient {
 	public static final String MAN_COSTUME_SIZES = "manCostumeSizes";
 	public static final String MAN_CLOTHING_SIZES = "manClothingSizes";
 	public static final String MAN_SHIRT_SIZES = "manShirtSizes";
+
+	public static final String SELECTED_SALE_DATE = "selectedSaleDate";
+	public static final String SELECTED_SALE_LINK = "selectedSaleLink";
 	
 
 	public static WebDriver loadDriver(Map<String, String> context) {
@@ -72,7 +81,7 @@ public class VPClient {
 	}
 	public static WebDriver newDriver(Map<String, String> context) {
 		WebDriver driver = null;
-		String driverName = context.get(DRIVER_NAME);
+		String driverName = getDefault(DRIVER_NAME, context, HTML_UNIT);
 
 		//println(driverName);
 		
@@ -92,7 +101,9 @@ public class VPClient {
 	}
 
 	static String baseUrl = "http://fr.vente-privee.com";
-
+	static String homePage = "/vp4/Home/fr/Default.aspx";
+	static String vpLoungeHomePage = "/vp4/Home/VpLoungeHome.aspx";
+	
 	private static boolean login(WebDriver driver, Map<String, String> context) {
 		driver.get(baseUrl + "/vp4/Login/Portal.ashx");
 		sleep (20);
@@ -125,10 +136,19 @@ public class VPClient {
 		
 		try {
 			
-			List<WebElement> currentSalesElem = findCurrentSaleList(driver);
+			DateRange openDate = DateRange.parse(context.get(SELECTED_SALE_DATE));
+			Date currentDate = currentDate();
+			if (!openDate.containsDate(currentDate)) {
+				long sleep = openDate.from.getTime() - currentDate.getTime();
+				log("Sale not yet opened, sleep " + sleep);
+				Thread.sleep(sleep);
+			}
+			
+			/*List<WebElement> currentSalesElem = findCurrentSaleList(driver);
 			WebElement selectedElem = getSelectedSaleFromList(currentSalesElem, context);
 	
-			selectedElem.click();
+			selectedElem.click();*/
+			goToLink(driver, context.get(SELECTED_SALE_LINK));
 	
 			
 			waitForElementReady("//div[@class=\"obj_menuEV\"]", 5000L, driver);
@@ -150,17 +170,24 @@ public class VPClient {
 			} else {
 				throw e;
 			}
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
 		} finally {
 			long time = System.currentTimeMillis() - start;
 			println(driver + " goToSelectedSale : " + time);
 		}
 	}
 
-	public static List<WebElement> findCurrentSaleList(WebDriver driver) {
+	private static Date currentDate() {
+		return new Date();
+	}
+
+	private static List<WebElement> findCurrentSaleList(WebDriver driver) {
 		long start = System.currentTimeMillis();
 		List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]//a[@id=\"linkSale\"]"));
 		if (currentSalesElem.isEmpty()) {
-			throw new Error("No item in sale\n" /*+ driver.getPageSource()*/);
+			log("No item in sale\n" + driver.getPageSource());
+			//throw new Error("No item in sale\n" + driver.getPageSource());
 		}
 
 		long time = System.currentTimeMillis() - start;
@@ -169,7 +196,7 @@ public class VPClient {
 		return currentSalesElem;
 	}
 
-	public static WebElement getSelectedSaleFromList(List<WebElement> currentSaleList,Map<String, String> context) {
+	/*private static WebElement getSelectedSaleFromList(List<WebElement> currentSaleList,Map<String, String> context) {
 		long start = System.currentTimeMillis();
 
 		WebElement selectedElem = null;
@@ -190,9 +217,95 @@ public class VPClient {
 		}
 
 		return selectedElem;
+	}*/
+
+	public static List<Map<String, String>> getSalesList(WebDriver driver) {
+		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
+		
+		addSalesList(driver, baseUrl + homePage, list);
+		addSalesList(driver, baseUrl + vpLoungeHomePage, list);
+		
+		return list;
 	}
 
-	public static void waitForElementReady(Object xpathOrClosure, long timeout, WebDriver driver) {
+	private static void addSalesList(WebDriver driver, String link,
+			List<Map<String, String>> list) {
+		goToLink(driver, link);
+		
+		addSalesToList(list, findCurrentSaleList(driver));
+		addSalesToList(list, findSoonSaleList(driver));
+	}
+
+	public static void addSalesToList(List<Map<String, String>> list,
+			List<WebElement> elems) {
+		for (WebElement elem : elems) {
+			Map<String, String> saleInfos = getSaleInfos(elem);
+			
+			list.add(saleInfos);
+		}
+	}
+
+	public static Map<String, String> getSaleInfos(WebElement elem) {
+		WebElement allElem = elem.findElement(By.xpath("h4"));
+		//System.out.println(allElem.getText());
+		
+		String name = getTextOfH4(allElem);
+		String link = elem.getAttribute("href");
+		String dateSales = elem.findElement(By.xpath("./p[@class=\"dateSales\"]")).getText();
+		if (dateSales.isEmpty()) {
+			dateSales = new Date().toString();
+		}
+		
+		Map<String, String> saleInfos = map(entry("name", name), 
+				entry("link", link),
+				entry("dateSales", dateSales));
+		return saleInfos;
+	}
+	
+	private static List<WebElement> findSoonSaleList(WebDriver driver) {
+		long start = System.currentTimeMillis();
+		List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"soonSales\"]/li/div"));
+		/*if (currentSalesElem.isEmpty()) {
+			throw new Error("No item in sale\n" + driver.getPageSource());
+		}*/
+
+		long time = System.currentTimeMillis() - start;
+		println(driver + " findSoonSaleList : " + time);
+
+		return currentSalesElem;
+	}
+
+	/**
+	 * Bug in HtmlUnit ??? <br/>
+	 * h4 element is seen as hidden, so getText() returns nothing.<br/>
+	 * Workaround : call HtmlElement.getTextContent() directly
+	 * 
+	 * @param allElem
+	 * @return
+	 */
+	private static String getTextOfH4(WebElement allElem) {
+		try {
+			return getElement(allElem).getTextContent();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
+		}
+	}
+
+	private static HtmlElement getElement(WebElement allElem) throws Exception {
+		HtmlUnitWebElement webElem = (HtmlUnitWebElement) allElem;
+		Method[] methods = HtmlUnitWebElement.class.getDeclaredMethods();
+		for (Method m : methods) {
+			if (m.getName().equals("getElement") && m.getReturnType().equals(HtmlElement.class)) {
+				m.setAccessible(true);
+				return (HtmlElement) m.invoke(webElem, new Object[0]);
+			}
+		}
+		
+		throw new NoSuchMethodException("Cannot find method getElement in class " + HtmlUnitWebElement.class);
+	}
+
+	private static void waitForElementReady(Object xpathOrClosure, long timeout, WebDriver driver) {
 		long wait = 0;
 		long interval = 200;
 		while (wait < timeout) {
@@ -216,20 +329,20 @@ public class VPClient {
 		}
 	}
 	
-	public static boolean evaluateXpathOrClosure (Object xpathOrClosure,WebDriver driver) {
+	private static boolean evaluateXpathOrClosure (Object xpathOrClosure,WebDriver driver) {
 		//println("xpathOrClosure " + xpathOrClosure.getClass())
-		if (xpathOrClosure instanceof String) {
+		//if (xpathOrClosure instanceof String) {
 			return !driver.findElements(By.xpath(xpathOrClosure.toString())).isEmpty();
-		} else {
+		//} else {
 			// Function[?, ?] ???
-			return ((Function)xpathOrClosure).apply();
-		}
+			//return ((Function)xpathOrClosure).apply();
+		//}
 
 	}
 
-	public static interface Function {
+	/*public static interface Function {
 		boolean apply();
-	}
+	}*/
 
 	public static void log(String msg) {
 		LOG.info(msg);
@@ -239,48 +352,7 @@ public class VPClient {
 		LOG.debug(obj);
 	}
 
-	public static boolean listContains(List<String> list, String text) {
-		for (String elem : list) {
-			if (text.contains(elem)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static <T> List<T> list(T... ts) {
-		ArrayList<T> list = new ArrayList<T>();
-		for (T t : ts) {
-			list.add(t);
-		}
-
-		return list;
-	}
-
-	public static <K, V> Map<K, V> map(Entry<K, V>... entries) {
-		HashMap<K, V> map = new HashMap<K, V>();
-		for (Entry<K, V> entry : entries) {
-			map.put(entry.key, entry.value);
-		}
-
-		return map;
-	}
-
-	public static class Entry<K, V> {
-		public K key;
-		public V value;
-
-		public Entry(K key, V value) {
-			this.key = key;
-			this.value = value;
-		}
-	}
-
-	@SuppressWarnings("all")
-	public static <K, V> Entry<K, V> entry(K key, V value) {
-		return new Entry(key, value);
-	}
-
+	
 	@SuppressWarnings("all")
 	public static List<Map<String, String>> findAllCategories(WebDriver driver, Map<String, String> context) {
 		long start = System.currentTimeMillis();
