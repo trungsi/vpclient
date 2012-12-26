@@ -57,7 +57,7 @@ public class VPGUI {
 		setUpLog4j();
 		
 		
-		JFrame frame = new JFrame("Vente Privée Client");
+		JFrame frame = new JFrame("Vente PrivÃ©e Client");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		final JPanel mainPanel = new JPanel(new MigLayout());

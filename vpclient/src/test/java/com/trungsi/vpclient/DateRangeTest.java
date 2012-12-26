@@ -31,7 +31,7 @@ public class DateRangeTest {
 	
 	@Test
 	public void testParseDateWithOneOpenBoundary() throws Exception {
-		DateRange range = DateRange.parse("Ouverture le dimanche 21 octobre à 9h");
+		DateRange range = DateRange.parse("Ouverture le dimanche 21 octobre Ã  9h");
 		DateFormat format = new SimpleDateFormat("yyyy/MM/dd hh");
 		Date from = format.parse("2012/10/21 09");
 		//Date to = format.parse("2012/10/22 06");
