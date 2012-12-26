@@ -16,11 +16,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.trungsi.vpclient.utils.DateRange;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.trungsi.vpclient.utils.CollectionUtils.*;
 
@@ -137,6 +133,7 @@ public class VPClient {
 		try {
 			
 			DateRange openDate = DateRange.parse(context.get(SELECTED_SALE_DATE));
+            log(openDate.from +  " " + openDate.to);
 			Date currentDate = currentDate();
 			if (!openDate.containsDate(currentDate)) {
 				long sleep = openDate.from.getTime() - currentDate.getTime();
@@ -246,20 +243,20 @@ public class VPClient {
 	}
 
 	public static Map<String, String> getSaleInfos(WebElement elem) {
-		WebElement allElem = elem.findElement(By.xpath("h4"));
-		//System.out.println(allElem.getText());
-		
-		String name = getTextOfH4(allElem);
-		String link = elem.getAttribute("href");
-		String dateSales = elem.findElement(By.xpath("./p[@class=\"dateSales\"]")).getText();
-		if (dateSales.isEmpty()) {
-			dateSales = new Date().toString();
-		}
-		
-		Map<String, String> saleInfos = map(entry("name", name), 
-				entry("link", link),
-				entry("dateSales", dateSales));
-		return saleInfos;
+        WebElement allElem = elem.findElement(By.xpath("h4"));
+        //System.out.println(allElem.getText());
+
+        String name = getTextOfH4(allElem);
+        String link = elem.getAttribute("href");
+        String dateSales = elem.findElement(By.xpath("./p[@class=\"dateSales\"]")).getText();
+        if (dateSales.isEmpty()) {
+            dateSales = new Date().toString();
+        }
+
+        Map<String, String> saleInfos = map(entry("name", name),
+                entry("link", link),
+                entry("dateSales", dateSales));
+        return saleInfos;
 	}
 	
 	private static List<WebElement> findSoonSaleList(WebDriver driver) {
@@ -268,6 +265,19 @@ public class VPClient {
 		/*if (currentSalesElem.isEmpty()) {
 			throw new Error("No item in sale\n" + driver.getPageSource());
 		}*/
+        // additional processing for "les 3 jours rose et sucrée" : 3 days after christmas
+        // like summer camp
+        // have hidden div containing mark list
+        // so they are to be removed
+        for (Iterator<WebElement> iter = currentSalesElem.iterator();iter.hasNext();) {
+            WebElement elem = iter.next();
+            System.out.println(elem + " " + elem.isDisplayed());
+            //if (!elem.isDisplayed()) { always return true when javascript is disabled
+            //if ("none".equals(elem.getCssValue("display"))) { does not work when javascript is disabled
+            if (elem.getAttribute("style").contains("display: none")) {
+                iter.remove();
+            }
+        }
 
 		long time = System.currentTimeMillis() - start;
 		println(driver + " findSoonSaleList : " + time);

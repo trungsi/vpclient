@@ -15,8 +15,8 @@ public class DateRange {
 	public final Date to;
 	
 	private static final String[] MONTHS = new String[] {
-		"janvier", "février", "mars", "avril", "mai", "juin", 
-		"juillet", "août", "septembre", "octobre", "novembre", "décembre"};
+		"janvier", "fÃ©vrier", "mars", "avril", "mai", "juin",
+		"juillet", "aoÃ»t", "septembre", "octobre", "novembre", "dÃ©cembre"};
 	
 	public DateRange(Date from, Date to) {
 		this.from = from;
@@ -55,10 +55,12 @@ public class DateRange {
 		int hour = toIntHour(hourStr);
 		
 		Calendar cal = Calendar.getInstance();
-		cal.set(cal.get(Calendar.YEAR), month, date, hour, 0, 0);
+        //System.out.println("before " + cal);
+        cal.set(cal.get(Calendar.YEAR), month, date, hour, 0, 0);
 		cal.set(Calendar.MILLISECOND, 0);
-		
-		// TODO Auto-generated method stub
+        //System.out.println("after " + cal);
+
+        // TODO Auto-generated method stub
 		return cal.getTime();
 	}
 
@@ -73,7 +75,8 @@ public class DateRange {
 			}
 		}
 		
-		return -1;
+		//return -1;
+        throw new RuntimeException("month not found " + monthStr);
 	}
 
 	private static int toIntDate(String dateStr) {
