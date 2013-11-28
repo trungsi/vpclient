@@ -66,7 +66,7 @@ public class VPGUI {
 		mainPanel.add(formPanel, "wrap");
 		final JPanel infoPanel = new JPanel(new MigLayout());
 		JScrollPane scrollPane = new JScrollPane(infoPanel);
-		scrollPane.setPreferredSize(new Dimension(500,500));
+		scrollPane.setPreferredSize(new Dimension(1000,800));
 		mainPanel.add(scrollPane, "grow");
 		
 		JLabel loginLabel = new JLabel("Login");
@@ -90,18 +90,20 @@ public class VPGUI {
 		final JComboBox selectedSaleList = new JComboBox(aModel);
 		selectedSaleList.setMaximumRowCount(20);
 		selectedSaleList.setRenderer(new ListCellRenderer() {
-			DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+			final DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 			
 			@Override
 			public Component getListCellRendererComponent(JList list, Object value,
 					int index, boolean isSelected, boolean cellHasFocus) {
 				Map<String, String> sale = (Map<String, String>) value;
 				
-				String text = "<html>" +
-						sale.get("name") + 
-						"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>" + sale.get("dateSales") +
+				String text = "<html><b>" +
+						sale.get("name") + "</b>";
+				if (!cellHasFocus) {
+                    text += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>" + sale.get("dateSales") + "</i>";
+                }
 						//(!list.isShowing() ? "" : "<br/>" + sale.get("dateSales")) +
-						"</i></html>";
+				text +=	"</html>";
 				Component comp = defaultRenderer.getListCellRendererComponent(list, 
 						text, index, isSelected, cellHasFocus);
 				
@@ -135,6 +137,7 @@ public class VPGUI {
 									aModel.addElement(sale);
 								}
 								loadSalesButton.setEnabled(true);
+                                selectedSaleList.validate();
 							}
 						});
 					}
@@ -170,22 +173,22 @@ public class VPGUI {
 		
 		JLabel womanShirtSizesLabel = new JLabel("Woman Shirt Sizes");
 		formPanel.add(womanShirtSizesLabel, "align right");
-		final JTextField womanShirtSizesField = new JTextField(getDefault(VPClient.WOMAN_SHIRT_SIZES, context, "T. 36|T.36| XS "), 30);
+		final JTextField womanShirtSizesField = new JTextField(getDefault(VPClient.WOMAN_SHIRT_SIZES, context, "T. 34|T.34|T. 36|T.36| XS "), 30);
 		formPanel.add(womanShirtSizesField, "wrap");
 		
 		JLabel womanClothingSizesLabel = new JLabel("Woman Clothing Sizes");
 		formPanel.add(womanClothingSizesLabel, "align right");
-		final JTextField womanClothingSizesField = new JTextField(getDefault(VPClient.WOMAN_CLOTHING_SIZES, context, "36 |T.36 (FR)|T.36 |T. 36|34/36| S |.S "), 30);
+		final JTextField womanClothingSizesField = new JTextField(getDefault(VPClient.WOMAN_CLOTHING_SIZES, context, "34 |T.34 (FR)|T.34 |T. 34|34/36| S |.S "), 30);
 		formPanel.add(womanClothingSizesField, "wrap");
 		
 		JLabel girlShoesSizesLabel = new JLabel("Girl Shoes Sizes");
 		formPanel.add(girlShoesSizesLabel, "align right");
-		final JTextField girlShoesSizesField = new JTextField(getDefault(VPClient.GIRL_SHOES_SIZES, context, "23 |T.23|T. 23"), 30);
+		final JTextField girlShoesSizesField = new JTextField(getDefault(VPClient.GIRL_SHOES_SIZES, context, "26 |T.26|T. 26"), 30);
 		formPanel.add(girlShoesSizesField, "wrap");
 		
 		JLabel girlClothingSizesLabel = new JLabel("Girl Clothing Sizes");
 		formPanel.add(girlClothingSizesLabel, "align right");
-		final JTextField girlClothingSizesField = new JTextField(getDefault(VPClient.GIRL_CLOTHING_SIZES, context, "3 ans"), 30);
+		final JTextField girlClothingSizesField = new JTextField(getDefault(VPClient.GIRL_CLOTHING_SIZES, context, "4 ans"), 30);
 		formPanel.add(girlClothingSizesField, "wrap");
 		
 		JLabel manJeanSizesLabel = new JLabel("Man Jean Sizes");
@@ -272,7 +275,7 @@ public class VPGUI {
 		formPanel.add(button, "align right");
 		
 		frame.getContentPane().add(mainPanel, BorderLayout.CENTER);
-		frame.setSize(500, 800);
+		frame.setSize(1000, 800);
 		//frame.pack();
 		
 		frame.setVisible(true);
@@ -354,13 +357,16 @@ public class VPGUI {
 				e.printStackTrace();
 			}
 		}
-		
-		return context;
+
+        System.out.println(context);
+        return context;
 	}
 
 	private static String prepareVphome(String[] args) {
 		String vphome = System.getProperty("user.home") + "/vente-privee";
-		if (args.length > 0) {
+        System.out.println(vphome);
+
+        if (args.length > 0) {
 			vphome = args[0];
 		}
 		

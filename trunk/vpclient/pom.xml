@@ -25,9 +25,9 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <compilerVersion>1.6</compilerVersion>
-          <source>1.6</source>
-          <target>1.6</target>
+          <compilerVersion>${project.source.version}</compilerVersion>
+          <source>${project.source.version}</source>
+          <target>${project.source.version}</target>
           <includes>
             <include>**/*.yml</include>
             <include>**/*.java</include>
@@ -142,12 +142,12 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-htmlunit-driver</artifactId>
-      <version>2.5.0</version>
+      <version>2.33.0</version>
     </dependency>
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-support</artifactId>
-      <version>2.5.0</version>
+      <version>2.33.0</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
@@ -195,7 +195,7 @@
   </reporting>
   
   <properties>
-    <project.source.version>1.6</project.source.version>
-    <project.test.version>1.6</project.test.version>
+    <project.source.version>1.7</project.source.version>
+    <project.test.version>1.7</project.test.version>
   </properties>
 </project>
