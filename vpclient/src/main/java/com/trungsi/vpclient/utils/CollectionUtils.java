@@ -42,8 +42,8 @@ public class CollectionUtils {
 	}
 
 	public static class Entry<K, V> {
-		public K key;
-		public V value;
+		public final K key;
+		public final V value;
 
 		public Entry(K key, V value) {
 			this.key = key;

@@ -3,11 +3,8 @@ package com.trungsi.vpclient;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
+import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitWebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -26,7 +23,7 @@ import static com.trungsi.vpclient.utils.CollectionUtils.*;
  */
 public class VPClient {
 
-	private static final Logger LOG = Logger.getLogger(VPClient.class);
+    private static final Logger LOG = Logger.getLogger(VPClient.class);
 	
 	public static final String PWD = "pwd";
 	public static final String USER = "user";
@@ -52,9 +49,10 @@ public class VPClient {
 
 	public static final String SELECTED_SALE_DATE = "selectedSaleDate";
 	public static final String SELECTED_SALE_LINK = "selectedSaleLink";
-	
+    public static final String NEW_INTERFACE = "NEW_INTERFACE";
 
-	public static WebDriver loadDriver(Map<String, String> context) {
+
+    public static WebDriver loadDriver(Map<String, String> context) {
 		WebDriver driver = newDriver(context);
 		
 		boolean loggedin = false;
@@ -68,14 +66,15 @@ public class VPClient {
 	public static WebDriver cloneDriver(WebDriver driver, Map<String, String> context) {
 		WebDriver newDriver = newDriver(context);
 		newDriver.get(baseUrl);
-		
-		for (Cookie cookie : driver.manage().getCookies()) {
+		// XXX : copy cookies seems not to work anymore
+		/*for (Cookie cookie : driver.manage().getCookies()) {
 			newDriver.manage().addCookie(cookie);
-		}
-		
-		return newDriver;
+            System.out.println("new cookie added " + cookie);
+        }*/
+		return loadDriver(context);
+		//return newDriver;
 	}
-	public static WebDriver newDriver(Map<String, String> context) {
+	private static WebDriver newDriver(Map<String, String> context) {
 		WebDriver driver = null;
 		String driverName = getDefault(DRIVER_NAME, context, HTML_UNIT);
 
@@ -87,7 +86,7 @@ public class VPClient {
 		return driver;
 	}
 
-	public static void sleep (long timeout) {
+	private static void sleep (long timeout) {
 		try {
 			Thread.sleep(timeout);
 		} catch (InterruptedException e) {
@@ -96,9 +95,9 @@ public class VPClient {
 		}
 	}
 
-	static String baseUrl = "http://fr.vente-privee.com";
-	static String homePage = "/vp4/Home/fr/Default.aspx";
-	static String vpLoungeHomePage = "/vp4/Home/VpLoungeHome.aspx";
+	private final static String baseUrl = "http://fr.vente-privee.com";
+	private final static String homePage = "/vp4/Home/fr/Default.aspx";
+	private final static String vpLoungeHomePage = "/vp4/Home/VpLoungeHome.aspx";
 	
 	private static boolean login(WebDriver driver, Map<String, String> context) {
 		driver.get(baseUrl + "/vp4/Login/Portal.ashx");
@@ -133,12 +132,12 @@ public class VPClient {
 		try {
 			
 			DateRange openDate = DateRange.parse(context.get(SELECTED_SALE_DATE));
-            log(openDate.from +  " " + openDate.to);
+            log(openDate.toString());
 			Date currentDate = currentDate();
 			if (!openDate.containsDate(currentDate)) {
-				long sleep = openDate.from.getTime() - currentDate.getTime();
+				long sleep = openDate.getNextTo(currentDate).getTimestamp();
 				log("Sale not yet opened, sleep " + sleep);
-				Thread.sleep(sleep);
+				sleep(sleep);
 			}
 			
 			/*List<WebElement> currentSalesElem = findCurrentSaleList(driver);
@@ -147,8 +146,15 @@ public class VPClient {
 			selectedElem.click();*/
 			goToLink(driver, context.get(SELECTED_SALE_LINK));
 	
-			
-			waitForElementReady("//div[@class=\"obj_menuEV\"]", 5000L, driver);
+
+            try {
+			    waitForElementReady("//div[@class=\"obj_menuEV\"]", 5000L, driver);
+            } catch (Exception e) {
+                // sometimes, it's not a div but a nav, HTML5 ???
+                waitForElementReady("//nav[@class=\"obj_menuEV\"]", 5000L, driver);
+                // so new interface
+                context.put(NEW_INTERFACE, "true");
+            }
 			
 		} catch (Error e) {
 			if (driver.getPageSource().contains(context.get(SELECTED_SALE))) {
@@ -167,8 +173,6 @@ public class VPClient {
 			} else {
 				throw e;
 			}
-		} catch (InterruptedException e) {
-			throw new RuntimeException(e);
 		} finally {
 			long time = System.currentTimeMillis() - start;
 			println(driver + " goToSelectedSale : " + time);
@@ -182,7 +186,7 @@ public class VPClient {
 	private static List<WebElement> findCurrentSaleList(WebDriver driver) {
 		long start = System.currentTimeMillis();
 		List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]//a[@id=\"linkSale\"]"));
-		if (currentSalesElem.isEmpty()) {
+		if (currentSalesElem.isEmpty() && !driver.getCurrentUrl().contains(vpLoungeHomePage)) {
 			log("No item in sale\n" + driver.getPageSource());
 			//throw new Error("No item in sale\n" + driver.getPageSource());
 		}
@@ -233,7 +237,7 @@ public class VPClient {
 		addSalesToList(list, findSoonSaleList(driver));
 	}
 
-	public static void addSalesToList(List<Map<String, String>> list,
+	private static void addSalesToList(List<Map<String, String>> list,
 			List<WebElement> elems) {
 		for (WebElement elem : elems) {
 			Map<String, String> saleInfos = getSaleInfos(elem);
@@ -242,26 +246,41 @@ public class VPClient {
 		}
 	}
 
-	public static Map<String, String> getSaleInfos(WebElement elem) {
-        WebElement allElem = elem.findElement(By.xpath("h4"));
-        //System.out.println(allElem.getText());
+	private static Map<String, String> getSaleInfos(WebElement elem) {
+        System.out.println(elem.getTagName() + "aaa");
 
+        WebElement allElem = elem.findElement(By.xpath("h4"));
         String name = getTextOfH4(allElem);
+        System.out.println(name + "aaa");
+
         String link = elem.getAttribute("href");
-        String dateSales = elem.findElement(By.xpath("./p[@class=\"dateSales\"]")).getText();
-        if (dateSales.isEmpty()) {
+
+
+        String dateSales = null;
+        if (name.startsWith("One Day")) {
             dateSales = new Date().toString();
+        } else {
+            try {
+                dateSales = elem.findElement(By.xpath("./..//p[@class=\"dateSales\"]")).getText();
+            } catch (NoSuchElementException e) {
+                // some wine sale operations don't have sale date ???
+                System.out.println("No date sale found for " + name + " : " + elem.findElement(By.xpath("..")).getAttribute("data-opcategory"));
+                dateSales = "";
+            }
+            if (dateSales.isEmpty()) {
+                dateSales = new Date().toString();
+            }
         }
 
-        Map<String, String> saleInfos = map(entry("name", name),
+        return map(entry("name", name),
                 entry("link", link),
                 entry("dateSales", dateSales));
-        return saleInfos;
+
 	}
 	
 	private static List<WebElement> findSoonSaleList(WebDriver driver) {
 		long start = System.currentTimeMillis();
-		List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"soonSales\"]/li/div"));
+		List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"soonSales\"]/li/div/a[@id='linkSale']"));
 		/*if (currentSalesElem.isEmpty()) {
 			throw new Error("No item in sale\n" + driver.getPageSource());
 		}*/
@@ -269,7 +288,7 @@ public class VPClient {
         // like summer camp
         // have hidden div containing mark list
         // so they are to be removed
-        for (Iterator<WebElement> iter = currentSalesElem.iterator();iter.hasNext();) {
+        /*for (Iterator<WebElement> iter = currentSalesElem.iterator();iter.hasNext();) {
             WebElement elem = iter.next();
             System.out.println(elem + " " + elem.isDisplayed());
             //if (!elem.isDisplayed()) { always return true when javascript is disabled
@@ -277,7 +296,7 @@ public class VPClient {
             if (elem.getAttribute("style").contains("display: none")) {
                 iter.remove();
             }
-        }
+        }*/
 
 		long time = System.currentTimeMillis() - start;
 		println(driver + " findSoonSaleList : " + time);
@@ -327,7 +346,7 @@ public class VPClient {
 			wait += interval;
 		}
 
-		throw new ElementNotReadyException("Cannot find element " + xpathOrClosure + " after " + timeout + " in \n " + driver.getPageSource());
+		throw new ElementNotReadyException("Cannot find element " + xpathOrClosure + " after " + timeout + " in \n " + driver.getCurrentUrl() + driver.getPageSource());
 	}
 
 	public static class ElementNotReadyException extends RuntimeException {
@@ -354,11 +373,11 @@ public class VPClient {
 		boolean apply();
 	}*/
 
-	public static void log(String msg) {
+	private static void log(String msg) {
 		LOG.info(msg);
 	}
 
-	public static void println(Object obj) {
+	private static void println(Object obj) {
 		LOG.debug(obj);
 	}
 
@@ -369,10 +388,15 @@ public class VPClient {
 
 		openSelectedSale(driver, context);
 
-		List<WebElement> catElems = driver.findElements(By.xpath("//ul[@class=\"menuEV\"]/li/a/span/..")); // car premier <a> sans <span> n'est pas intÃ©ressant
+		List<WebElement> catElems = null;
+        if (isNewInterface(context)) {
+            catElems = driver.findElements(By.xpath("//ul[@class=\"menuEV_Container\"]/li/a/span/..")); // car premier <a> sans <span> n'est pas intÃ©ressant
+        } else {
+            catElems = driver.findElements(By.xpath("//ul[@class=\"menuEV\"]/li/a/span/..")); // car premier <a> sans <span> n'est pas intÃ©ressant
+        }
 
 		if (catElems.isEmpty()) {
-			throw new Error("No category found for marque " + context.get(SELECTED_SALE));
+			throw new Error("No category found for marque " + context.get(SELECTED_SALE) + "\n" + driver.getPageSource());
 		}
 
 		List<Map<String, String>> categories = filterCategories(catElems, context);
@@ -385,7 +409,11 @@ public class VPClient {
 		return categories;
 	}
 
-	@SuppressWarnings("all")
+    private static boolean isNewInterface(Map<String, String> context) {
+        return context.get(NEW_INTERFACE) != null;
+    }
+
+    @SuppressWarnings("all")
 	private static List<Map<String, String>> filterCategories(
 			List<WebElement> catElems, Map<String, String> context) {
 		
@@ -499,13 +527,13 @@ public class VPClient {
 		String info = category.get("name") + "|" + subCategory.get("name") + "|" + article.get("name") + " : ";
 		try {
 			List<WebElement> addToCartBt = driver.findElements(By.id("addToCart"));
-			if (addToCartBt.isEmpty()) {
+			if (addToCartBt.isEmpty() || !addToCartBt.get(0).isDisplayed()) {
 				//println(driver.getPageSource());
 				List<WebElement> elems = driver.findElements(By.id("product_pUnavailable"));
 				if (!elems.isEmpty()) {
 					log(info + elems.get(0).getText());
 				} else {
-					log(info + "No addToCart button found, the article must be sold");
+					log(info + "No addToCart button found, the article must be sold\n" + driver.getPageSource());
 				}
 				return false;
 			}
@@ -547,7 +575,8 @@ public class VPClient {
 					log(info + " has no size");
 										
 				}
-				
+
+                //System.out.println("add to cart button is displayed : " + addToCartBt.get(0).isDisplayed());
 				addToCartBt.get(0).click();
 				
 				sleep(100);
@@ -561,11 +590,13 @@ public class VPClient {
 				List<WebElement> validResultBlocs = driver.findElements(By.xpath("//p[@id=\"validResultBloc\"]"));
 				if (validResultBlocs.isEmpty() || !validResultBlocs.get(0).isDisplayed()) {
 					log(info + "No confirmation after add article to cart");
+                    return false;
 				} else {
-					log(info +" ADDED");
+					log(info +" ADDED----------------------------------------------------------------------------");
+                    return true;
 				}
 
-				return true;
+
 				
 			} else {
 				log(info + " No appropriate size");
@@ -583,9 +614,9 @@ public class VPClient {
 			Map<String, String> context, WebElement selectElem) {
 		Select select = new Select(selectElem);
 		
-		List<Map<String, String>> selected = selectMostAppropriateSizes(driver, category, subCategory, article, context, select);
+		return selectMostAppropriateSizes(driver, category, subCategory, article, context, select);
 		
-		return selected;
+		//return selected;
 
 	}
 
@@ -808,10 +839,19 @@ public class VPClient {
 			htmlUnitDriver.setJavascriptEnabled(true);
 						
 			String openNewWindow = articleElem.get("link");
-			goToLink(htmlUnitDriver, openNewWindow);
-			
+            int time = 0;
+			do {
+                goToLink(htmlUnitDriver, openNewWindow);
+                sleep(1000);
+            } while (!htmlUnitDriver.getCurrentUrl().contains(openNewWindow) && ++time <= 5);
+
+            log("openExpressPurchaseWindow:" + articleElem + " -> " + htmlUnitDriver.getCurrentUrl());
+
 			//sleep(500);
-			return map(entry("ok", (Object) java.lang.Boolean.TRUE));
+            if (htmlUnitDriver.getCurrentUrl().contains(openNewWindow))
+			    return map(entry("ok", (Object) Boolean.TRUE));
+            else
+                return map(entry("ok", (Object) Boolean.FALSE));
 		} finally {
 			long time = System.currentTimeMillis() - start;
 			println(driver + " openExpressPurchaseWindow : " + time);
@@ -841,28 +881,32 @@ public class VPClient {
 		}
 	}*/
 
-	private static void goToLink(WebDriver driver, String link) {
+	static void goToLink(WebDriver driver, String link) {
 		if (!link.startsWith("http")) {
 			link = baseUrl + link;
 		}
 		driver.navigate().to(link);
+        //assert driver.getCurrentUrl().equals(link) : driver.getCurrentUrl() + " <> " + link;
 	}
 	
 	@SuppressWarnings("all")
-	public static List<Map<String, String>> findAllArticlesInSubCategory(WebDriver driver, Map<String, String> category, Map<String, String> subCategory) {
+	public static List<Map<String, String>> findAllArticlesInSubCategory(WebDriver driver, Map<String, String> category, Map<String, String> subCategory, Map<String, String> context) {
 		long start = System.currentTimeMillis();
 
 		// go to subCategory page
 		if (subCategory != null && !subCategory.isEmpty()) {
 			String link = subCategory.get("link");
+            log("goto subcategory " + subCategory);
 			goToLink(driver, link);
 		} else {
 			// reload category page, because driver is shared by many workers
+            log("goto category " + category);
 			goToLink(driver, category.get("link"));
 		}
 
 		sleep(1000);
 
+        //log(driver.getPageSource());
 		List<Map<String, String>> articles = new ArrayList<Map<String, String>>();
 		
 		// normally, there is <ul class="artList">
@@ -908,17 +952,24 @@ public class VPClient {
 			for (WebElement articleElem : articleElems) {
 				//List<WebElement> elems = articleElem.findElements(By.xpath(".//*"));
 				//System.out.println(elems);
+                log("articleElem: " + articleElem.getText() + category + subCategory);
 				String name = articleElem.findElement(By.xpath(".//div[@class=\"infoArtTitle\"]")).getText();
 				// Achat Express link could not exist
 				// have to treate this case by using Fiche Produit
 				try {
-					String link = articleElem.findElement(By.xpath(".//a[@class=\"btStoreXpress\"]")).getAttribute("onclick");
-					int firstIndex = link.indexOf("'");
-					int lastIndex = link.lastIndexOf("'");
-					link = link.substring(firstIndex+1, lastIndex);
+					String link = null;
+                    if (isNewInterface(context)) {
+                        link = articleElem.findElement(By.xpath(".//a[@class=\"infoExpressBt\"]")).getAttribute("href");
+                    } else {
+                        link = articleElem.findElement(By.xpath(".//a[@class=\"btStoreXpress\"]")).getAttribute("onclick");
+                        int firstIndex = link.indexOf("'");
+                        int lastIndex = link.lastIndexOf("'");
+                        link = link.substring(firstIndex+1, lastIndex);
+                    }
+
 					articles.add(map(entry("name", name), entry("link", link)));
 				} catch (NoSuchElementException e) {
-					LOG.error("Cannot find 'Achat express' button for " + name + " in " + articleElem.findElements(By.xpath(".//a[@class=\"btStoreXpress\"]")) + articleElem.findElement(By.xpath(".//span[@class=\"artState\"]")).getText());
+					LOG.error("Cannot find 'Achat express' button for " + name + " in " + articleElem.findElements(By.xpath(".//a[@class=\"btStoreXpress\"]")) + articleElem.findElements(By.xpath(".//span[@class=\"artState\"]")));
 				}
 			}
 		}
@@ -961,16 +1012,28 @@ public class VPClient {
 
 		List<WebElement> subCategoryElems = driver.findElements(By.xpath("//ul[@class=\"subMenuEV\"]/li/a"));
 		if (subCategoryElems.isEmpty()) {
-			LOG.debug("No sub categories found in " + category.get("name") + "\n" + driver.getPageSource());
-		}
+			log("No sub categories found in " + category.get("name") + "\n" + driver.getPageSource());
+		} else {
+            log(subCategoryElems.size() + " sub categories found in " + category.get("name"));
+        }
 		
 		List<Map<String, String>> subCategories = new ArrayList<Map<String, String>>();
 		for (WebElement elem : subCategoryElems) {
-			if (isSelectedSubCateogory(elem, context)) { 
+            try {
+			if (isSelectedSubCateogory(elem, context)) {
+                try {
 			  subCategories.add(
 					  map(entry("name", elem.getText()),
 					  entry("link", elem.getAttribute("href"))));
+                } catch (StaleElementReferenceException e) {
+                    log("staleElementException:\n" + driver.getCurrentUrl() + driver.getPageSource());
+                    throw new RuntimeException(e);
+                }
 			}
+            } catch (StaleElementReferenceException e) {
+                log("staleElementException:\n" + driver.getCurrentUrl() + "\n" + driver.getPageSource());
+                throw e;
+            }
 		}
 
 		ArrayList<Map<String, String>> manSubCats = new ArrayList<Map<String, String>>();
@@ -1004,4 +1067,77 @@ public class VPClient {
 		return !text.contains("produits disponibles") && // ignore page which contains all products
 			(ignoreSubCats.isEmpty() || !listContains(ignoreSubCats, text));
 	}
+
+    public static void goToViewOrders(WebDriver driver) {
+        goToLink(driver, "/vp4/MemberAccount/ViewOrders.aspx");
+    }
+
+    public static List<Map<String, String>> getOrdersInPage(WebDriver driver) {
+        List<Map<String, String>> orders = new ArrayList<>();
+
+        List<WebElement> orderLineElements = driver.findElements(By.xpath("//table[@id='commandChoiceTable']/tbody/tr"));
+        for (WebElement orderLineElem : orderLineElements) {
+            List<WebElement> orderTDElements = orderLineElem.findElements(By.xpath("td"));
+
+            Map<String, String> order = new HashMap<>();
+            order.put("name", orderTDElements.get(0).getText());
+            order.put("id", orderTDElements.get(1).getText());
+            order.put("date", orderTDElements.get(2).getText());
+            order.put("amount", orderTDElements.get(3).getText());
+
+            List<WebElement> orderLinkElements = orderTDElements.get(4).findElements(By.xpath("a"));
+            order.put("orderDetailLink", orderLinkElements.get(0).getAttribute("href"));
+            if (orderLinkElements.size() == 3) { // normal order
+                order.put("followUpLink", orderLinkElements.get(1).getAttribute("href"));
+                order.put("helpAndContactLink", orderLinkElements.get(2).getAttribute("href"));
+            } else { // return order, no followUp link
+                order.put("helpAndContactLink", orderLinkElements.get(1).getAttribute("href"));
+            }
+            orders.add(order);
+        }
+        return orders;
+    }
+
+    public static String getViewOrdersNextPageLink(WebDriver driver) {
+        List<WebElement> nexButton = driver.findElements(By.xpath("//a[@class='accNavLink' and text()='Suivant']"));
+        return nexButton.isEmpty() ? null : nexButton.get(0).getAttribute("href");
+    }
+
+    public static List<Map<String, String>> getAllOrders(WebDriver driver) {
+        ArrayList<Map<String, String>> orders = new ArrayList<>();
+
+        goToViewOrders(driver);
+
+        String nextOrderLink = null;
+
+        do {
+            orders.addAll(getOrdersInPage(driver));
+            nextOrderLink = getViewOrdersNextPageLink(driver);
+            if (nextOrderLink != null) {
+                goToLink(driver, nextOrderLink);
+            }
+        } while (nextOrderLink != null);
+
+        return orders;
+    }
+
+    public static List<Map<String, String>> getOrderDetail(WebDriver driver, Map<String, String> order) {
+        ArrayList<Map<String, String>> orderDetail = new ArrayList<>();
+
+        goToLink(driver, order.get("orderDetailLink"));
+
+        List<WebElement> elements = driver.findElements(By.xpath("//tr[contains(@id,'_mainColumnContent_repOrderDetails_')]"));
+        //System.out.println(elements.size());
+
+        for (WebElement  elem : elements) {
+            List<WebElement> details = elem.findElements(By.tagName("td"));
+            HashMap<String, String> detailMap = new HashMap<>();
+            detailMap.put("articleName", details.get(0).getText());
+            detailMap.put("quantity", details.get(1).getText());
+            detailMap.put("price", details.get(3).getText());
+
+            orderDetail.add(detailMap);
+        }
+        return orderDetail;
+    }
 }

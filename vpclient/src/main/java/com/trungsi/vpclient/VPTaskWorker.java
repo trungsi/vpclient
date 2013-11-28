@@ -16,32 +16,31 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class VPTaskWorker {
 
-	private ExecutorService service;
+	private final ExecutorService service;
 	
-	private AtomicInteger size;
-	private AtomicInteger executings;
-	
-	private Thread monitoringThread;
-	public VPTaskWorker(int poolSize) {
+	private final AtomicInteger size;
+	private final AtomicInteger executings;
+
+    public VPTaskWorker(int poolSize) {
 		this.service = Executors.newFixedThreadPool(poolSize);
 		size = new AtomicInteger();
 		executings = new AtomicInteger();
-		
-		monitoringThread = new Thread() {
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(10000);
-					while (size.get() > 0 || executings.get() > 0) {
-						Thread.sleep(5000);
-					}
-					
-					VPTaskWorker.this.stop(5000);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		};
+
+        Thread monitoringThread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(10000);
+                    while (size.get() > 0 || executings.get() > 0) {
+                        Thread.sleep(5000);
+                    }
+
+                    VPTaskWorker.this.stop(5000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
 		monitoringThread.start();
 	}
 	
@@ -76,8 +75,8 @@ public class VPTaskWorker {
 		service.awaitTermination(timeout, TimeUnit.MILLISECONDS);
 	}
 	
-	public boolean isStopped() {
-		return service.isTerminated();
+	public boolean isRunning() {
+		return !service.isTerminated();
 	}
 	
 	public void interrupt() {

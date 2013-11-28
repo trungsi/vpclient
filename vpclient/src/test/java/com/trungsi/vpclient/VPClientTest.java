@@ -3,11 +3,16 @@
  */
 package com.trungsi.vpclient;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
 import static com.trungsi.vpclient.VPClient.*;
@@ -18,19 +23,9 @@ import static org.junit.Assert.*;
  * @author trungsi
  *
  */
-public class VPClientTest {
+public class VPClientTest extends AbstractVPClientTestCase {
 
-	private WebDriver driver;
-	
-	@Before
-	public void setUp() {
-		Map<String, String> context = map(
-				entry(DRIVER_NAME, HTML_UNIT), 
-				entry(USER, "trungsi@hotmail.com"), 
-				entry(PWD, "trungsi"));
-		driver = loadDriver(context);
-	}
-	
+
 	@Test
 	public void testGetSalesList() {
 		List<Map<String, String>> salesList = getSalesList(driver);
@@ -47,4 +42,30 @@ public class VPClientTest {
 			assertFalse(dateSales.isEmpty());
 		}
 	}
+
+    @Test
+    public void testCloneDriver() {
+        WebDriver newDriver = cloneDriver(driver, context);
+        System.out.println("==================================");
+        for (Cookie cookie : newDriver.manage().getCookies()) {
+            System.out.println(cookie);
+        }
+
+        String link = "/vp4/MemberAccount/Default.aspx";
+        goToLink(newDriver, link);
+
+        assertTrue(newDriver.getCurrentUrl(), newDriver.getCurrentUrl().endsWith(link));
+    }
+
+    @Test
+    public void testOpenXpressWindow() {
+        List<Map<String, String>> articles = findAllArticles("jourdan", "sandale");
+        //System.out.println(articles);
+
+        openExpressPurchaseWindow(driver, articles.get(0));
+
+        System.out.println(driver.getPageSource());
+    }
+
+
 }

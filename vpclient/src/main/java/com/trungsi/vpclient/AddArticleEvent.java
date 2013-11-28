@@ -9,7 +9,7 @@ package com.trungsi.vpclient;
  */
 public class AddArticleEvent implements VPEvent {
 
-	private String text;
+	private final String text;
 	
 	public AddArticleEvent(String text) {
 		this.text = text;

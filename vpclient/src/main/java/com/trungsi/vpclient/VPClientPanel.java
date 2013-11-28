@@ -22,13 +22,12 @@ import net.miginfocom.swing.MigLayout;
  */
 public class VPClientPanel extends JPanel {
 
-	private VPClientAsync client;
-	private JPanel addedArticlesPanel = new JPanel(new MigLayout());
+	private final VPClientAsync client;
+
+    private int totalAdded;
+	private final JLabel totalAddedLabel;
 	
-	private int totalAdded;
-	private JLabel totalAddedLabel;
-	
-	private long start = System.currentTimeMillis();
+	private final long start = System.currentTimeMillis();
 	
 	public VPClientPanel(VPClientAsync client) {
 		this.client = client;
@@ -77,13 +76,14 @@ public class VPClientPanel extends JPanel {
 						button.setEnabled(false);
 					}
 				});
-			};
-		}.start();
+			}
+        }.start();
 		
 		totalAddedLabel = new JLabel("Cart : 0");
 		add(totalAddedLabel, "wrap");
-		
-		add(addedArticlesPanel, "span,grow");
+
+        JPanel addedArticlesPanel = new JPanel(new MigLayout());
+        add(addedArticlesPanel, "span,grow");
 		
 		this.client.register(this);
 	}

@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import org.apache.log4j.Logger;
 
 import org.openqa.selenium.WebDriver;
 
@@ -25,16 +24,19 @@ import static com.trungsi.vpclient.utils.CollectionUtils.*;
  */
 public class VPClientAsync {
 
-	VPTaskWorker worker;
-	Map<String, String> context;
+    private static final Logger LOG = Logger.getLogger(VPClientAsync.class);
+
+    private final VPTaskWorker worker;
+	final Map<String, String> context;
 	
-	ArrayList<VPTaskWorker> workers = new ArrayList<VPTaskWorker>();
-	
-	EventBus eventBus = new EventBus();
+	private final ArrayList<VPTaskWorker> workers = new ArrayList<VPTaskWorker>();
+	private WebDriverProvider driverProvider = new WebDriverProvider();
+
+	private final EventBus eventBus = new EventBus();
 	
 	public static enum State {
-		INIT, RUNNING, INTERRUPTED, TERMINATED;
-	}
+		INIT, RUNNING, INTERRUPTED, TERMINATED
+    }
 	
 	private State state;
 	
@@ -48,7 +50,7 @@ public class VPClientAsync {
 	private VPTaskWorker newVPTaskWorker(int poolSize) {
 		VPTaskWorker worker = new VPTaskWorker(poolSize);
 		workers.add(worker);
-		
+		LOG.info("new worker with size " + poolSize);
 		return worker;
 	}
 
@@ -63,10 +65,10 @@ public class VPClientAsync {
 
 	public void start() {
 		state = State.RUNNING;
-		addTasks(loadDriverTask(context));
+		addTasks(loadDriverTask());
 	}
 	
-	public void stop(long timeout) throws InterruptedException {
+	void stop(long timeout) throws InterruptedException {
 		this.worker.stop(timeout);
 	}
 	
@@ -81,7 +83,7 @@ public class VPClientAsync {
 	public State getState() {
 		if (state == State.RUNNING) {
 			for (VPTaskWorker worker : workers) {
-				if (!worker.isStopped()) {
+				if (worker.isRunning()) {
 					return state;
 				}
 			}
@@ -118,56 +120,54 @@ public class VPClientAsync {
 		worker.addTasks(tasks);
 	}
 
-	private List<VPTask> loadDriverTask(final Map<String, String> context) {
-		VPTask loadDriverMessage = new VPTask() {
+	private List<VPTask> loadDriverTask() {
+		VPTask loadDriverTask = new VPTask() {
 			public List<VPTask> execute() {
-				BlockingQueue<WebDriver> driverQueue = new LinkedBlockingQueue<WebDriver>();
-				driverQueue.add(loadDriver(context));
+                driverProvider.add(loadDriver(context));
 				
-				List<VPTask> tasks = preloadDriverTasks(driverQueue, context);
+				List<VPTask> tasks = preloadDriverTasks();
 				
-				tasks.addAll(findAllCategoriesTask(driverQueue, context));
+				tasks.addAll(findAllCategoriesTask());
 				
 				return tasks;
 			}
 		};
 		
-		return list(loadDriverMessage);
+		return list(loadDriverTask);
 	}
 
-	protected List<VPTask> preloadDriverTasks(
-			BlockingQueue<WebDriver> driverQueue, Map<String, String> context) {
+	protected List<VPTask> preloadDriverTasks() {
 		ArrayList<VPTask> tasks = new ArrayList<VPTask>();
 		for (int i = 1; i <= 10; i++) {
-			tasks.add(loadNewDriverAndAddToDriverQueueTask(driverQueue, context));
+			tasks.add(loadNewDriverAndAddToDriverQueueTask());
 		}
 		
 		return tasks;
 	}
 
-	protected List<VPTask> findAllCategoriesTask(final BlockingQueue<WebDriver> driverQueue,
-			final Map<String, String> context) {
-		VPTask message = new VPTask() {
-			public List<VPTask> execute() {
-				WebDriver driver = removeFromQueue(driverQueue);
-				List<Map<String, String>> categories = null;
-				try {
-					categories = findAllCategories(driver, context);
-				} finally {
-					driverQueue.add(driver);
-				}
-				
-				ArrayList<VPTask> tasks = new ArrayList<VPTask>();
-				
-				for (int i = 10; i <= categories.size()*3; i++) {
-					tasks.add(loadNewDriverAndAddToDriverQueueTask(driverQueue, context));
-				}
-				
-				for (Map<String, String> category : categories) {
-					tasks.add(findArticlesInCategoryMessage(driverQueue, category, context));
-				}
-				
-				return tasks;
+	protected List<VPTask> findAllCategoriesTask() {
+		VPTask message = new WDTask(driverProvider) {
+			public List<VPTask> execute(WebDriver webDriver) {
+
+				final List<Map<String, String>> categories = findAllCategories(webDriver, context);
+
+                VPTask task = new VPTask() {
+                    @Override
+                    public List<VPTask> execute() {
+                        ArrayList<VPTask> tasks = new ArrayList<VPTask>();
+                        // why 10 ?
+                        for (int i = 10; i <= categories.size()*3; i++) {
+                            tasks.add(loadNewDriverAndAddToDriverQueueTask());
+                        }
+
+                        for (Map<String, String> category : categories) {
+                            tasks.add(findArticlesInCategoryMessage(category));
+                        }
+
+                        return tasks;
+                    }
+                };
+                return list(task);
 			}
 
 			
@@ -177,15 +177,12 @@ public class VPClientAsync {
 		
 	}
 
-	protected VPTask loadNewDriverAndAddToDriverQueueTask(
-			final BlockingQueue<WebDriver> driverQueue,
-			final Map<String, String> context) {
-		return new VPTask() {
+	protected VPTask loadNewDriverAndAddToDriverQueueTask() {
+		return new WDTask(driverProvider) {
 			//@Override
-			public List<VPTask> execute() {
-				WebDriver otherDriver = driverQueue.peek();
-				
-				driverQueue.add(cloneDriver(otherDriver, context));
+			public List<VPTask> execute(WebDriver webDriver) {
+
+                driverProvider.add(cloneDriver(webDriver, context));
 				
 				return null;
 			}
@@ -193,29 +190,25 @@ public class VPClientAsync {
 	}
 
 	protected VPTask findArticlesInCategoryMessage(
-			final BlockingQueue<WebDriver> driverQueue,
-			final Map<String, String> category, final Map<String, String> context) {
-		return new VPTask() {
-			public List<VPTask> execute() {
-				WebDriver driver = removeFromQueue(driverQueue);
-				List<Map<String, String>> subCategories = null;
-				try {
-					subCategories = findSubCategories(driver, category, context);
-				} finally {
-					driverQueue.add(driver);
-				}
+			final Map<String, String> category) {
+		return new WDTask(driverProvider) {
+			public List<VPTask> execute(WebDriver webDriver) {
+				List<Map<String, String>> subCategories = findSubCategories(webDriver, category, context);
+
+
+                // TODO : no need WebDriver any more, how to release it ???
 				VPTask task = null;
 				if (subCategories.isEmpty()) { // no categories
-					task = addArticlesInSubCategoryTask(driverQueue, category, new HashMap<String, String>(), context);
+					task = addArticlesInSubCategoryTask(category, new HashMap<String, String>());
 				} else {
 					final List<Map<String, String>> finalSubCategories = subCategories;
 					task = new VPTask() {
 						//@Override
 						public List<VPTask> execute() {
-							VPTaskWorker worker = newVPTaskWorker(3);
+							VPTaskWorker worker = newVPTaskWorker(5);
 							ArrayList<VPTask> tasks = new ArrayList<VPTask>();
 							for (Map<String, String> subCategory : finalSubCategories) {
-								tasks.add(addArticlesInSubCategoryTask(driverQueue, category, subCategory, context));
+								tasks.add(addArticlesInSubCategoryTask(category, subCategory));
 							}
 							
 							worker.addTasks(tasks);
@@ -232,22 +225,17 @@ public class VPClientAsync {
 	}
 
 	protected VPTask addArticlesInSubCategoryTask(
-			final BlockingQueue<WebDriver> driverQueue, final Map<String, String> category,
-			final Map<String, String> subCategory, 
-			final Map<String, String> context) {
-		
-		return new VPTask() {
-			public List<VPTask> execute() {
-				WebDriver driver = removeFromQueue(driverQueue);
-				List<Map<String, String>> articleElems = null;
-				try {
-					articleElems = findAllArticlesInSubCategory(driver, category, subCategory);
-				} finally {
-					driverQueue.add(driver);
-				}
+            final Map<String, String> category,
+            final Map<String, String> subCategory) {
+		return new WDTask(driverProvider) {
+			public List<VPTask> execute(WebDriver webDriver) {
+
+				List<Map<String, String>> articleElems = findAllArticlesInSubCategory(webDriver, category, subCategory, context);
+
+                // TODO : no need WebDriver any more, how to release it ???
 				ArrayList<VPTask> tasks = new ArrayList<VPTask>();
 				for (Map<String, String> articleElem : articleElems) {
-					tasks.add(addArticleTask(driverQueue, category, subCategory, articleElem, context));
+					tasks.add(addArticleTask(category, subCategory, articleElem));
 				}
 				
 				return tasks;
@@ -256,20 +244,13 @@ public class VPClientAsync {
 	}
 
 	protected VPTask addArticleTask(
-			final BlockingQueue<WebDriver> driverQueue,
 			final Map<String, String> category, final Map<String, String> subCategory,
-			final Map<String, String> article, 
-			final Map<String, String> context) {
-		return new VPTask() {
-			public List<VPTask> execute() {
-				WebDriver driver = removeFromQueue(driverQueue);
-				boolean added = false;
-				try {
-					added = addArticle(driver, category, subCategory, article, context);
-				} finally {
-					driverQueue.add(driver);
-				}
-				
+			final Map<String, String> article) {
+		return new WDTask(driverProvider) {
+			public List<VPTask> execute(WebDriver webDriver) {
+
+				boolean added = addArticle(webDriver, category, subCategory, article, context);
+
 				if (added) {
 					addAddArticleEvent(category, subCategory, article);
 				}
@@ -284,17 +265,6 @@ public class VPClientAsync {
 		String text = category.get("name") + "|" + subCategory.get("name") + article.get("name");
 		eventBus.post(new AddArticleEvent(text));
 		
-	}
-
-	protected static WebDriver removeFromQueue(
-			BlockingQueue<WebDriver> driverQueue) {
-		try {
-			return driverQueue.take();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	public void register(Object obj) {

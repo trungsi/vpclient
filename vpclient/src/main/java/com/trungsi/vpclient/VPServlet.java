@@ -11,7 +11,7 @@ import java.util.HashMap;
   
 public class VPServlet extends HttpServlet
 {
-  private Map<Long, Thread> map = new HashMap<Long, Thread>();
+  private final Map<Long, Thread> map = new HashMap<Long, Thread>();
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,IOException {
     if (req.getParameter("stop") != null) {
       long id = Long.parseLong(req.getParameter("id"));
