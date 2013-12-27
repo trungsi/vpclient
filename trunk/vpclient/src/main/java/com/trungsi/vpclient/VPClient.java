@@ -547,7 +547,7 @@ public class VPClient {
 				if (!productSize.isEmpty()) {
 					String sizeText = productSize.get(0).getText();
 					//println("sizeText=" + sizeText);
-					List<String> preferedSize = getPreferedSize(driver, category, subCategory, article, context);
+					List<String> preferedSize = getPreferedSize(driver, category, subCategory, article, context, null);
 					boolean match = listContains(preferedSize, sizeText);
 					log("sizeText=" + sizeText + " match (" + match + ") in " + preferedSize);
 					if (sizeText.contains("T.") 
@@ -627,7 +627,7 @@ public class VPClient {
 
 	private static List<Map<String, String>> selectMostAppropriateSizes (WebDriver driver, Map<String, String> category, 
 			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context, Select select) {
-		List<String> preferedSize = getPreferedSize(driver, category, subCategory, article, context);
+		List<String> preferedSize = getPreferedSize(driver, category, subCategory, article, context, select);
 		if (preferedSize.isEmpty()) {
 			return new ArrayList<Map<String, String>>();
 		} else {
@@ -681,10 +681,10 @@ public class VPClient {
 	}
 	
 	private static List<String> getPreferedSize(WebDriver driver, Map<String, String> category, 
-			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context) {
+			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context, Select select) {
 		String articleInfo = getArticleInfo(driver, category, subCategory, article); 
 		
-		if (isManArticle(articleInfo)) {
+		if (isManArticle(articleInfo, select)) {
 			if (isJean(articleInfo)) {
 				return getManJeanSizes(context);
 			} else if (isShoes(articleInfo)) {
@@ -696,7 +696,7 @@ public class VPClient {
 			} else {
 				return getManClothingClothingSizes(context);
 			}
-		} else if (isWomanArticle(articleInfo)) {
+		} else if (isWomanArticle(articleInfo, select)) {
 			if (isJean(articleInfo)) {
 				return getWomanJeanSizes(context);
 			} else if (isShoes(articleInfo)) {
@@ -742,11 +742,27 @@ public class VPClient {
 		return articleInfo.contains("chemis");
 	}
 
-	private static boolean isManArticle(String articleInfo) {
-		return articleInfo.contains("homme");
+	private static boolean isManArticle(String articleInfo, Select select) {
+		return articleInfo.contains("homme") || containsManSize(select);
 	}
 
-	private static boolean isSoutienGorge(String articleInfo) {
+    private static boolean containsManSize(Select select) {
+        List<String> manSizes = list("T. 42", "T. 44", "T. 46", "T. 48", "T. 50", "T. 34 (US)");
+        return containsSize(select, manSizes);
+    }
+
+    private static boolean containsSize(Select select, List<String> sizes) {
+        if (select != null) {
+            for (WebElement option : select.getOptions()) {
+                if (listContains(sizes, option.getText()))  {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isSoutienGorge(String articleInfo) {
 		return articleInfo.contains("soutien");
 	}
 
@@ -762,9 +778,37 @@ public class VPClient {
 				+ "|" + article.get("name") + "|" + getArticleDetail(driver)).toLowerCase();
 	}
 
-	private static boolean isWomanArticle(String articleInfo) {
-		return isSaleForWomanOnly() || listContains(list("femme", "woman", "women", "jupe", "robe", "soutien", "lingerie", "body", "bodies", "collant", "legging", "chemisier"), articleInfo);
+	private static boolean isWomanArticle(String articleInfo, Select select) {
+		return isSaleForWomanOnly() ||
+                listContains(list("femme", "woman", "women",
+                                    "soutien", "lingerie",
+                                    "chemisier"), articleInfo) ||
+                /*
+                for jupe, robe,... it's not sure if it's about woman or girl.
+                So have to check further
+                 */
+                (listContains(list("jupe", "robe",
+                        "body", "bodies",
+                        "collant", "legging"), articleInfo) && !isGirlArticle(articleInfo) && !isKidArticle(articleInfo, select)) ||
+                /*
+                Sometimes, man and woman articles are mixted (very often in summer/winter camps).
+                So have to guess by using man/woman size
+                 */
+                containsWomanSize(select);
 	}
+
+    private static boolean containsWomanSize(Select select) {
+        List<String> womanSizes = list("T. 25 (US)", "T. 26 (US)", "T. 27 (US)", "T. 34 (FR)", "T. 32/34", "T. 34/36");
+        return containsSize(select, womanSizes);
+    }
+
+    private static boolean isKidArticle(String articleInfo, Select select) {
+        return articleInfo.contains("enfant") || articleInfo.contains("kid") ||
+                /*
+                if size contains 'ans', it's sure for kids
+                 */
+                containsSize(select, list(" ans"));
+    }
 
 	private static boolean isGirlArticle(String articleInfo) {
 		return articleInfo.contains("fille");
