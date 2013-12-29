@@ -60,13 +60,34 @@ public class DateRange {
 
     private static DateRange parseWithTwoBoundaries2(String[] array) {
         Date from = buildDate(array[2], array[8], array[4]);
-        if(Integer.parseInt(array[2]) > Integer.parseInt(array[7])) { // if start day_of_month > end day_of_month => end of month to the beginning of next month
+
+        Calendar cal = Calendar.getInstance();
+        /*if(/*Integer.parseInt(array[2]) > Integer.parseInt(array[7])
+                cal.get(Calendar.DAY_OF_MONTH) < Integer.parseInt(array[2])) { // if start day_of_month > end day_of_month => end of month to the beginning of next month
              from = prevMonth(from);
-        }
+        }*/
 
         Date to = buildDate(array[7], array[8], "23h");
+        if (to.getMonth()+1 == 1 && to.getDate() < Integer.parseInt(array[2])) {
+            from = buildDate(array[2], "décembre", "" + to.getYear());
+            to = nextYear(to);
 
+        }
+        /*if (to.before(new Date())) {
+            to = nextYear(to);
+        }*/
+        if (from.after(to)) {
+            from = prevMonth(from);
+        }
         return new DateRange(from, to);
+    }
+
+    private static Date nextYear(Date to) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(to);
+        cal.add(Calendar.YEAR, 1);
+
+        return cal.getTime();
     }
 
     private static Date prevMonth(Date date) {
