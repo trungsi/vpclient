@@ -684,7 +684,7 @@ public class VPClient {
 			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context, Select select) {
 		String articleInfo = getArticleInfo(driver, category, subCategory, article); 
 		
-		if (isManArticle(articleInfo, select)) {
+		if (isManArticle(articleInfo)) {
 			if (isJean(articleInfo)) {
 				return getManJeanSizes(context);
 			} else if (isShoes(articleInfo)) {
@@ -696,7 +696,7 @@ public class VPClient {
 			} else {
 				return getManClothingClothingSizes(context);
 			}
-		} else if (isWomanArticle(articleInfo, select)) {
+		} else if (isWomanArticle(articleInfo)) {
 			if (isJean(articleInfo)) {
 				return getWomanJeanSizes(context);
 			} else if (isShoes(articleInfo)) {
@@ -718,15 +718,50 @@ public class VPClient {
 			// ne fait rien
 			return new ArrayList<String>();
 		} else { // by default, man too :)
-			if (isJean(articleInfo)) {
-				return getManJeanSizes(context);
-			} else if (isShoes(articleInfo)) {
-				return getManShoesSizes(context);
-			} else if (isCostume(articleInfo)) {
-				return getManCostumeSizes(context);
-			} else {
-				return getManClothingClothingSizes(context);
-			}
+
+            if (containsManSize(select)) {
+                if (isJean(articleInfo)) {
+                    return getManJeanSizes(context);
+                } else if (isShoes(articleInfo)) {
+                    return getManShoesSizes(context);
+                } else if (isCostume(articleInfo)) {
+                    return getManCostumeSizes(context);
+                } else {
+                    return getManClothingClothingSizes(context);
+                }
+            } else if (/*
+                for jupe, robe,... it's not sure if it's about woman or girl.
+                So have to check further
+                 */
+                    (listContains(list("jupe", "robe",
+                            "body", "bodies",
+                            "collant", "legging"), articleInfo)) ||
+                            containsWomanSize(select)) {
+                if (isJean(articleInfo)) {
+                    return getWomanJeanSizes(context);
+                } else if (isShoes(articleInfo)) {
+                    return getWomanShoesSizes(context) ;
+                } else if (isSoutienGorge(articleInfo)) {
+                    return getWomanLingerieSizes(context);
+                } else if (isShirt(articleInfo)) {
+                    return getWomanShirtSizes(context);
+                } else {
+                    return getWomanClothingSizes(context);
+                }
+            } else {
+                LOG.error("Cannot determine article type from " + articleInfo);
+
+                if (isJean(articleInfo)) {
+                    return getManJeanSizes(context);
+                } else if (isShoes(articleInfo)) {
+                    return getManShoesSizes(context);
+                } else if (isCostume(articleInfo)) {
+                    return getManCostumeSizes(context);
+                } else {
+                    return getManClothingClothingSizes(context);
+                }
+            }
+
 		}
 	}
 	
@@ -742,8 +777,8 @@ public class VPClient {
 		return articleInfo.contains("chemis");
 	}
 
-	private static boolean isManArticle(String articleInfo, Select select) {
-		return articleInfo.contains("homme") || containsManSize(select);
+	private static boolean isManArticle(String articleInfo) {
+		return articleInfo.contains("homme");
 	}
 
     private static boolean containsManSize(Select select) {
@@ -778,23 +813,11 @@ public class VPClient {
 				+ "|" + article.get("name") + "|" + getArticleDetail(driver)).toLowerCase();
 	}
 
-	private static boolean isWomanArticle(String articleInfo, Select select) {
+	private static boolean isWomanArticle(String articleInfo) {
 		return isSaleForWomanOnly() ||
                 listContains(list("femme", "woman", "women",
                                     "soutien", "lingerie",
-                                    "chemisier"), articleInfo) ||
-                /*
-                for jupe, robe,... it's not sure if it's about woman or girl.
-                So have to check further
-                 */
-                (listContains(list("jupe", "robe",
-                        "body", "bodies",
-                        "collant", "legging"), articleInfo) && !isGirlArticle(articleInfo) && !isKidArticle(articleInfo, select)) ||
-                /*
-                Sometimes, man and woman articles are mixted (very often in summer/winter camps).
-                So have to guess by using man/woman size
-                 */
-                containsWomanSize(select);
+                                    "chemisier"), articleInfo);
 	}
 
     private static boolean containsWomanSize(Select select) {

@@ -65,6 +65,10 @@ public class DateRangeTest {
         Date to = formatDateAndHour(getCurrentYear() + "/11/01 23");
 
         assertEquals(new DateRange(from, to), range);
+
+        range = DateRange.parse("Du dim. 29 à 12h au mer. 1 janvier");
+        System.out.println(range);
+
     }
 
 }
