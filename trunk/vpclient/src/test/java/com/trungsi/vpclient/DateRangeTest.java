@@ -71,4 +71,13 @@ public class DateRangeTest {
 
     }
 
+    @Test
+    public void testParseWithTwoBounderies4() throws Exception {
+        DateRange range = DateRange.parse("Du mardi 15 juil. à 7h au lundi 21 juil. à 6h");
+
+        Date from = formatDateAndHour(getCurrentYear() + "/07/15 07");
+        Date to = formatDateAndHour(getCurrentYear() + "/07/21 06");
+
+        assertEquals(new DateRange(from, to), range);
+    }
 }

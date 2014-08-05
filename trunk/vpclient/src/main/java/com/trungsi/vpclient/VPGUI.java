@@ -155,8 +155,13 @@ public class VPGUI {
 		formPanel.add(ignoreSubCatsLabel, "align right");
 		final JTextField ignoreSubCatsField = new JTextField(getDefault(VPClient.IGNORE_SUB_CATS, context), 30);
 		formPanel.add(ignoreSubCatsField, "wrap");
-		
-		JLabel womanJeanSizesLabel = new JLabel("Woman Jean Sizes");
+
+        JLabel exclusiveArticlesLabel = new JLabel("Exclusive articles");
+        formPanel.add(exclusiveArticlesLabel, "align right");
+        final JTextField exclusiveArticlesField = new JTextField(getDefault(VPClient.EXCLUSIVE_ARTICLES, context), 30);
+        formPanel.add(exclusiveArticlesField, "wrap");
+
+        JLabel womanJeanSizesLabel = new JLabel("Woman Jean Sizes");
 		formPanel.add(womanJeanSizesLabel, "align right");
 		final JTextField womanJeanSizesField = new JTextField(getDefault(VPClient.WOMAN_JEAN_SIZES, context, "26 |W26|T.36|T. 36"), 30);
 		formPanel.add(womanJeanSizesField, "wrap");
@@ -232,6 +237,8 @@ public class VPGUI {
 						
 						context.put(VPClient.SELECTED_CATS, selectedCatsField.getText());
 						context.put(VPClient.IGNORE_SUB_CATS, ignoreSubCatsField.getText());
+                        context.put(VPClient.EXCLUSIVE_ARTICLES, exclusiveArticlesField.getText());
+
 						context.put(VPClient.WOMAN_JEAN_SIZES, womanJeanSizesField.getText());
 						context.put(VPClient.WOMAN_SHOES_SIZES, womanShoesSizesField.getText());
 						context.put(VPClient.WOMAN_LINGERIE_SIZES, womanLingerieSizesField.getText());

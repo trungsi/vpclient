@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
@@ -59,11 +60,11 @@ public class VPClientTest extends AbstractVPClientTestCase {
 
     @Test
     public void testOpenXpressWindow() {
-        List<Map<String, String>> articles = findAllArticles("jourdan", "sandale");
+        List<Map<String, String>> articles = findAllArticles("tecnica", "running");
         //System.out.println(articles);
 
         openExpressPurchaseWindow(driver, articles.get(0));
-
+        assertTrue(driver.findElements(By.xpath("//iframe[@id=\"viewer\"]")).size() > 0); // viewer in xpress window
         System.out.println(driver.getPageSource());
     }
 

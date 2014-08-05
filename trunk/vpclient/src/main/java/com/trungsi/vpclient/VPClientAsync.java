@@ -193,33 +193,40 @@ public class VPClientAsync {
 			final Map<String, String> category) {
 		return new WDTask(driverProvider) {
 			public List<VPTask> execute(WebDriver webDriver) {
-				List<Map<String, String>> subCategories = findSubCategories(webDriver, category, context);
+				final List<Map<String, String>> subCategories = findSubCategories(webDriver, category, context);
+
+                VPTask task = new VPTask() {
+                    public List<VPTask> execute() {
+                        // TODO DONE : no need WebDriver any more, how to release it ???
+                        VPTask task = null;
+                        if (subCategories.isEmpty()) { // no categories
+                            task = addArticlesInSubCategoryTask(category, new HashMap<String, String>());
+                        } else {
+                            final List<Map<String, String>> finalSubCategories = subCategories;
+                            task = new VPTask() {
+                                //@Override
+                                public List<VPTask> execute() {
+                                    VPTaskWorker worker = newVPTaskWorker(5);
+                                    ArrayList<VPTask> tasks = new ArrayList<VPTask>();
+                                    for (Map<String, String> subCategory : finalSubCategories) {
+                                        tasks.add(addArticlesInSubCategoryTask(category, subCategory));
+                                    }
+
+                                    worker.addTasks(tasks);
+
+                                    return null;
+                                }
+                            };
+                        }
 
 
-                // TODO : no need WebDriver any more, how to release it ???
-				VPTask task = null;
-				if (subCategories.isEmpty()) { // no categories
-					task = addArticlesInSubCategoryTask(category, new HashMap<String, String>());
-				} else {
-					final List<Map<String, String>> finalSubCategories = subCategories;
-					task = new VPTask() {
-						//@Override
-						public List<VPTask> execute() {
-							VPTaskWorker worker = newVPTaskWorker(5);
-							ArrayList<VPTask> tasks = new ArrayList<VPTask>();
-							for (Map<String, String> subCategory : finalSubCategories) {
-								tasks.add(addArticlesInSubCategoryTask(category, subCategory));
-							}
-							
-							worker.addTasks(tasks);
-							
-							return null;
-						}
-					};
-				}
-				
-				
-				return list(task);
+                        return list(task);
+                    }
+                };
+
+                return list(task);
+
+
 			}
 		};
 	}
@@ -230,20 +237,28 @@ public class VPClientAsync {
 		return new WDTask(driverProvider) {
 			public List<VPTask> execute(WebDriver webDriver) {
 
-				List<Map<String, String>> articleElems = findAllArticlesInSubCategory(webDriver, category, subCategory, context);
+				final List<Map<String, String>> articleElems = findAllArticlesInSubCategory(webDriver, category, subCategory, context);
 
-                // TODO : no need WebDriver any more, how to release it ???
-				ArrayList<VPTask> tasks = new ArrayList<VPTask>();
-				for (Map<String, String> articleElem : articleElems) {
-					tasks.add(addArticleTask(category, subCategory, articleElem));
-				}
-				
-				return tasks;
+                filterExclusiveArticles(webDriver, category, subCategory, articleElems, context);
+
+                VPTask task = new VPTask() {
+                    public List<VPTask> execute() {
+                        // TODO DONE : no need WebDriver any more, how to release it ???
+                        ArrayList<VPTask> tasks = new ArrayList<VPTask>();
+                        for (Map<String, String> articleElem : articleElems) {
+                            tasks.add(addArticleTask(category, subCategory, articleElem));
+                        }
+
+                        return tasks;
+                    }
+                };
+                return list(task);
+
 			}
 		};
 	}
 
-	protected VPTask addArticleTask(
+    protected VPTask addArticleTask(
 			final Map<String, String> category, final Map<String, String> subCategory,
 			final Map<String, String> article) {
 		return new WDTask(driverProvider) {
