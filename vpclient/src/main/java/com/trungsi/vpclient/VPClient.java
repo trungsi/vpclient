@@ -50,6 +50,7 @@ public class VPClient {
 	public static final String SELECTED_SALE_DATE = "selectedSaleDate";
 	public static final String SELECTED_SALE_LINK = "selectedSaleLink";
     public static final String NEW_INTERFACE = "NEW_INTERFACE";
+    public static final String EXCLUSIVE_ARTICLES = "exclusiveArticles";
 
 
     public static WebDriver loadDriver(Map<String, String> context) {
@@ -103,15 +104,15 @@ public class VPClient {
 		driver.get(baseUrl + "/vp4/Login/Portal.ashx");
 		sleep (20);
 
-		WebElement emailElem = driver.findElement(By.name("txtEmail"));
+		WebElement emailElem = driver.findElement(By.id("txtEmail"));
 		emailElem.sendKeys(context.get(USER));
 		sleep(20);
 
-		WebElement pwdElem = driver.findElement(By.name("txtPassword"));
+		WebElement pwdElem = driver.findElement(By.id("txtPassword"));
 		pwdElem.sendKeys(context.get(PWD));
 		sleep(20);
 
-		WebElement submitElem = driver.findElement(By.name("btSubmit"));
+		WebElement submitElem = driver.findElement(By.id("btSubmit"));
 
 		submitElem.click();
 
@@ -185,7 +186,8 @@ public class VPClient {
 
 	private static List<WebElement> findCurrentSaleList(WebDriver driver) {
 		long start = System.currentTimeMillis();
-		List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]//a[@id=\"linkSale\"]"));
+		//List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]//a[@id=\"linkSale\"]"));
+        List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]//a[@class=\"linkAccess\"]"));
 		if (currentSalesElem.isEmpty() && !driver.getCurrentUrl().contains(vpLoungeHomePage)) {
 			log("No item in sale\n" + driver.getPageSource());
 			//throw new Error("No item in sale\n" + driver.getPageSource());
@@ -247,11 +249,11 @@ public class VPClient {
 	}
 
 	private static Map<String, String> getSaleInfos(WebElement elem) {
-        System.out.println(elem.getTagName() + "aaa");
+        //System.out.println(elem.getTagName() + "aaa");
 
         WebElement allElem = elem.findElement(By.xpath("h4"));
         String name = getTextOfH4(allElem);
-        System.out.println(name + "aaa");
+        //System.out.println(name + "aaa");
 
         String link = elem.getAttribute("href");
 
@@ -532,11 +534,23 @@ public class VPClient {
 				List<WebElement> elems = driver.findElements(By.id("product_pUnavailable"));
 				if (!elems.isEmpty()) {
 					log(info + elems.get(0).getText());
+
+                    // id=ctl00_altColumnContent_product_pnlPrice, class=detailBlocPrice
+                    // id=ctl00_altColumnContent_product_pnlInfo, class=detailBlocChoice
+                    JavascriptExecutor executor = (JavascriptExecutor) driver;
+                    executor.executeScript("document.getElementById('product_pnlInfo').style.display='block';");
+                    addToCartBt = driver.findElements(By.id("addToCart"));
+                    //log("addToCart button is displayed : " + addToCartBt.get(0).isDisplayed());
+                    log("try to use hidden form to add article " + info);
+                    //log(driver.getPageSource());
+
 				} else {
 					log(info + "No addToCart button found, the article must be sold\n" + driver.getPageSource());
+                    return false;
 				}
-				return false;
+
 			}
+
 
 			List<Map<String, String>> selectableSizes = null;
 			List<WebElement> selectElems = driver.findElements(By.id("productId"));
@@ -576,8 +590,35 @@ public class VPClient {
 										
 				}
 
+                // TODO : execute javascript instead of using form
+                // addToCartAction = AddToCartOrCanBeReopened
+                JavascriptExecutor executor = (JavascriptExecutor) driver;
+                Map addToCartResult = (Map) executor.executeAsyncScript(
+                        "var callback = arguments[arguments.length-1];" +
+                                "var productId = $(\"#productId\").val();\n" +
+                                "    var quantity = $(\"#quantity\").val();\n" +
+                                "    var familyId = $(\"#familyId\").val();\n" +
+                                "    var params = { productId: productId, productFamilyId: familyId, quantity: quantity };\n" +
+                                "\n" +
+                                "    if (!params.quantity) {\n" +
+                                "        params.quantity = 1;\n" +
+                                "    }\n" +
+                                "    \n" +
+                                "    $.ajax({\n" +
+                                "            //TODO GET URI \n" +
+                                "            url: '/cart/CartServices/AddToCartOrCanBeReopened',\n" +
+                                "            type: 'POST',\n" +
+                                "            data: params\n" +
+                                "\n" +
+                                "        }).done(function(result) {callback(result);});");
+                log(info + " addToCart result : \n" + addToCartResult);
+
+                return "0".equals(addToCartResult.get("ReturnCode"));
+
+
+
                 //System.out.println("add to cart button is displayed : " + addToCartBt.get(0).isDisplayed());
-				addToCartBt.get(0).click();
+				/*addToCartBt.get(0).click();
 				
 				sleep(100);
 
@@ -594,7 +635,7 @@ public class VPClient {
 				} else {
 					log(info +" ADDED----------------------------------------------------------------------------");
                     return true;
-				}
+				}*/
 
 
 				
@@ -725,6 +766,15 @@ public class VPClient {
                 } else if (isShoes(articleInfo)) {
                     return getManShoesSizes(context);
                 } else if (isCostume(articleInfo)) {
+                    if (articleInfo.contains("windsor")) { // special size for Windsor
+                        return list("Veste T. 44|T. 44|T. 46".split("\\|"));
+                    }
+
+                    if (!(articleInfo.contains("slim") || articleInfo.contains("cintré") || articleInfo.contains("ajusté"))) { // T. 46 for coupe droite
+                        return list("Veste T. 46|Pantalon T. 38|T. 46|T. 38".split("\\|"));
+                    }
+
+                    // T. 48 for slim or cintrée
                     return getManCostumeSizes(context);
                 } else {
                     return getManClothingClothingSizes(context);
@@ -1207,4 +1257,22 @@ public class VPClient {
         }
         return orderDetail;
     }
+
+    public static void filterExclusiveArticles(WebDriver webDriver, Map<String,String> category, Map<String,String> subCategory, List<Map<String, String>> articleElems, Map<String,String> context) {
+        String exclusiveArticles = context.get(EXCLUSIVE_ARTICLES);
+        if (exclusiveArticles != null && !exclusiveArticles.equals("")) {
+            Iterator<Map<String, String>> iter = articleElems.iterator();
+            while (iter.hasNext()) {
+                Map<String, String> articleElem = iter.next();
+                String articleInfo = getArticleInfo(webDriver, category, subCategory, articleElem);
+                if (!articleInfo.contains(exclusiveArticles)) {
+                    iter.remove();
+                }
+            }
+        }
+
+        log("Exclusive articles " + exclusiveArticles + " : " + articleElems);
+
+    }
+
 }

@@ -32,6 +32,9 @@ public class DateRange {
         System.out.println(Arrays.toString(array));
 
 		if (array[0].equals("Du")) {
+            if (array.length == 12) { // [Du, mardi, 15, juil., à, 7h, au, lundi, 21, juil., à, 6h]
+                return parseWithTwoBoundaries3(array);
+            }
             if (array[3].equals("à")) { // [Du, dim., 22, à, 9h, au, ven., 27, septembre]
                 return parseWithTwoBoundaries2(array);
             }
@@ -69,7 +72,7 @@ public class DateRange {
 
         Date to = buildDate(array[7], array[8], "23h");
         if (to.getMonth()+1 == 1 && to.getDate() < Integer.parseInt(array[2])) {
-            from = buildDate(array[2], "décembre", "" + to.getYear());
+            from = buildDate(array[2], "décembre", array[4]);
             to = nextYear(to);
 
         }
@@ -79,6 +82,14 @@ public class DateRange {
         if (from.after(to)) {
             from = prevMonth(from);
         }
+        return new DateRange(from, to);
+    }
+
+    private static DateRange parseWithTwoBoundaries3(String[] array) {
+        Date from = buildDate(array[2], array[3], array[5]);
+
+        Date to = buildDate(array[8], array[9], array[11]);
+
         return new DateRange(from, to);
     }
 
@@ -117,8 +128,10 @@ public class DateRange {
 	}
 
 	private static int toIntMonth(String monthStr) {
+        boolean abbreviate = monthStr.endsWith("."); // ex: juil.
+
 		for (int i = 0; i < MONTHS.length; i++) {
-			if (MONTHS[i].equals(monthStr)) {
+			if (MONTHS[i].equals(monthStr) || (abbreviate && MONTHS[i].startsWith(monthStr.substring(0, monthStr.length()-1)))) {
 				return i;
 			}
 		}

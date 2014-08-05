@@ -37,14 +37,15 @@ public abstract class AbstractVPClientTestCase {
         driver = loadDriver(context);
     }
 
-    protected Map<String, String> getSelectedSale(List<Map<String, String>> saleList, String skate) {
+    protected Map<String, String> getSelectedSale(List<Map<String, String>> saleList, String selectedMark) {
         for (Map<String, String> sale : saleList) {
-            if (sale.get("name").toLowerCase().contains(skate)) {
+            if (sale.get("name").toLowerCase().contains(selectedMark)) {
                 return sale;
             }
         }
 
-        return null;
+        throw new RuntimeException("No sale found for " + selectedMark);
+        //return null;
     }
 
     protected List<Map<String, String>> findAllArticles(String selectedMark, String selectedCategory) {
