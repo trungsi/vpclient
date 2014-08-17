@@ -11,7 +11,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.ProxyConfig;
 import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
 import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.Page;
 
 /**
  * @author dtran091109
@@ -54,15 +54,18 @@ class MyHtmlUnitDriver extends HtmlUnitDriver {
 		return client;
 	}
 	
-	public void postRequest(String url, String body) {
+	public String postRequest(String url, String body) {
 		try {
 			WebRequest request = new WebRequest(new URL(url), HttpMethod.POST);
 			request.setRequestBody(body);
 			System.out.println(body);
-			HtmlPage p = webClient.getPage(request);
-			System.out.println(p);
+            //System.out.println(request.getAdditionalHeaders());
+			Page p = webClient.getPage(request);
+            //System.out.println(p.getWebResponse().getResponseHeaders());
+			return p.getWebResponse().getContentAsString();
 		} catch (Exception e) {
 			e.printStackTrace();
+            return e.toString();
 		}
 	}
 	
