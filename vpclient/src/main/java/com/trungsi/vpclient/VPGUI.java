@@ -64,21 +64,31 @@ public class VPGUI {
 		
 		JPanel formPanel = new JPanel(new MigLayout());
 		mainPanel.add(formPanel, "wrap");
+
+
 		final JPanel infoPanel = new JPanel(new MigLayout());
 		JScrollPane scrollPane = new JScrollPane(infoPanel);
 		scrollPane.setPreferredSize(new Dimension(1000,800));
 		mainPanel.add(scrollPane, "grow");
-		
+
+        JPanel accountPanel = new JPanel(new MigLayout());
+        formPanel.add(accountPanel, "span, grow");
+
 		JLabel loginLabel = new JLabel("Login");
-		formPanel.add(loginLabel, "align right");
-		final JTextField loginField = new JTextField(getDefault(VPClient.USER, context), 30);
-		formPanel.add(loginField, "wrap");
-		
+        accountPanel.add(loginLabel, "align right");
+		final JTextField loginField = new JTextField(getDefault(VPClient.USER, context), 15);
+		//formPanel.add(loginField, "wrap");
+
+        accountPanel.add(loginField);
+
 		JLabel passwordLabel = new JLabel("Password");
-		formPanel.add(passwordLabel, "align right");
-		final JPasswordField passwordField = new JPasswordField(getDefault(VPClient.PWD, context), 30);
-		formPanel.add(passwordField, "wrap");
-		
+        accountPanel.add(passwordLabel, "align right");
+		final JPasswordField passwordField = new JPasswordField(getDefault(VPClient.PWD, context), 15);
+        //accountPanel.add(passwordField, "wrap");
+        accountPanel.add(passwordField);
+        final JLabel basketLabel = new JLabel("Basket: 0");
+        accountPanel.add(basketLabel);
+
 		JLabel selectedSaleLabel = new JLabel("Selected Sale");
 		formPanel.add(selectedSaleLabel, "align right");
 		//final JTextField selectedSaleField = new JTextField(getDefault(VPClient.SELECTED_SALE, context), 30);
@@ -140,6 +150,14 @@ public class VPGUI {
                                 selectedSaleList.validate();
 							}
 						});
+
+                        final int basketSize = vpClient.getBasketSize();
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                basketLabel.setText("Basket : " + basketSize);
+                            }
+                        });
 					}
 				}.start();
 			}

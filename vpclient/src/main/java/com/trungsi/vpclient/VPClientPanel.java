@@ -24,7 +24,6 @@ public class VPClientPanel extends JPanel {
 
 	private final VPClientAsync client;
 
-    private int totalAdded;
 	private final JLabel totalAddedLabel;
 	
 	private final long start = System.currentTimeMillis();
@@ -89,17 +88,11 @@ public class VPClientPanel extends JPanel {
 	}
 
 	@Subscribe
-	public void handleVPEvent(AddArticleEvent event) {
-		
-		//final AddArticleEvent addArticleEvent = (AddArticleEvent) event;
-		
+	public void handleVPEvent(final BasketUpdateEvent event) {
 		SwingUtilities.invokeLater(new Runnable() {
 			//@Override
 			public void run() {
-				//addedArticlesPanel.add(new JLabel(addArticleEvent.getText()), "wrap");
-				//addedArticlesPanel.invalidate();
-				totalAdded++;
-				totalAddedLabel.setText("Cart : " + totalAdded);
+				totalAddedLabel.setText("Cart : " + event.getBasket().getBasketSize());
 				totalAddedLabel.revalidate();
 			}
 		});

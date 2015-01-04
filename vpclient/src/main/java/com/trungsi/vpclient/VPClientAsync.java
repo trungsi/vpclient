@@ -32,9 +32,13 @@ public class VPClientAsync {
 	private final ArrayList<VPTaskWorker> workers = new ArrayList<VPTaskWorker>();
 	private WebDriverProvider driverProvider = new WebDriverProvider();
 
-	private final EventBus eventBus = new EventBus();
-	
-	public static enum State {
+	//private final EventBus eventBus = new EventBus();
+
+    private Basket basket;
+
+
+
+    public static enum State {
 		INIT, RUNNING, INTERRUPTED, TERMINATED
     }
 	
@@ -44,6 +48,8 @@ public class VPClientAsync {
 		this.context = context;
 		int poolSize = getPoolSize(context);
 		worker = newVPTaskWorker(poolSize);
+        basket = Basket.get(context.get(VPClient.USER));
+
 		state = State.INIT;
 	}
 	
@@ -149,7 +155,7 @@ public class VPClientAsync {
 		VPTask message = new WDTask(driverProvider) {
 			public List<VPTask> execute(WebDriver webDriver) {
 
-				final List<Map<String, String>> categories = findAllCategories(webDriver, context);
+				final List<Category> categories = findAllCategories(webDriver, context);
 
                 VPTask task = new VPTask() {
                     @Override
@@ -160,7 +166,7 @@ public class VPClientAsync {
                             tasks.add(loadNewDriverAndAddToDriverQueueTask());
                         }
 
-                        for (Map<String, String> category : categories) {
+                        for (Category category : categories) {
                             tasks.add(findArticlesInCategoryMessage(category));
                         }
 
@@ -190,26 +196,26 @@ public class VPClientAsync {
 	}
 
 	protected VPTask findArticlesInCategoryMessage(
-			final Map<String, String> category) {
+			final Category category) {
 		return new WDTask(driverProvider) {
 			public List<VPTask> execute(WebDriver webDriver) {
-				final List<Map<String, String>> subCategories = findSubCategories(webDriver, category, context);
+				final List<SubCategory> subCategories = findSubCategories(webDriver, category, context);
 
                 VPTask task = new VPTask() {
                     public List<VPTask> execute() {
                         // TODO DONE : no need WebDriver any more, how to release it ???
                         VPTask task = null;
-                        if (subCategories.isEmpty()) { // no categories
-                            task = addArticlesInSubCategoryTask(category, new HashMap<String, String>());
-                        } else {
-                            final List<Map<String, String>> finalSubCategories = subCategories;
+                        /*if (subCategories.isEmpty()) { // no categories
+                            task = addArticlesInSubCategoryTask(category, null);
+                        } else {*/
+                            final List<SubCategory> finalSubCategories = subCategories;
                             task = new VPTask() {
                                 //@Override
                                 public List<VPTask> execute() {
                                     VPTaskWorker worker = newVPTaskWorker(5);
                                     ArrayList<VPTask> tasks = new ArrayList<VPTask>();
-                                    for (Map<String, String> subCategory : finalSubCategories) {
-                                        tasks.add(addArticlesInSubCategoryTask(category, subCategory));
+                                    for (SubCategory subCategory : finalSubCategories) {
+                                        tasks.add(addArticlesInSubCategoryTask(subCategory));
                                     }
 
                                     worker.addTasks(tasks);
@@ -217,7 +223,7 @@ public class VPClientAsync {
                                     return null;
                                 }
                             };
-                        }
+                        //}
 
 
                         return list(task);
@@ -232,21 +238,20 @@ public class VPClientAsync {
 	}
 
 	protected VPTask addArticlesInSubCategoryTask(
-            final Map<String, String> category,
-            final Map<String, String> subCategory) {
+            final SubCategory subCategory) {
 		return new WDTask(driverProvider) {
 			public List<VPTask> execute(WebDriver webDriver) {
 
-				final List<Map<String, String>> articleElems = findAllArticlesInSubCategory(webDriver, category, subCategory, context);
+				final List<Article> articleElems = findAllArticlesInSubCategory(webDriver, subCategory, context);
 
-                filterExclusiveArticles(webDriver, category, subCategory, articleElems, context);
+                filterExclusiveArticles(webDriver, articleElems, context);
 
                 VPTask task = new VPTask() {
                     public List<VPTask> execute() {
                         // TODO DONE : no need WebDriver any more, how to release it ???
                         ArrayList<VPTask> tasks = new ArrayList<VPTask>();
-                        for (Map<String, String> articleElem : articleElems) {
-                            tasks.add(addArticleTask(category, subCategory, articleElem));
+                        for (Article articleElem : articleElems) {
+                            tasks.add(addArticleTask(articleElem));
                         }
 
                         return tasks;
@@ -259,15 +264,14 @@ public class VPClientAsync {
 	}
 
     protected VPTask addArticleTask(
-			final Map<String, String> category, final Map<String, String> subCategory,
-			final Map<String, String> article) {
+			final Article article) {
 		return new WDTask(driverProvider) {
 			public List<VPTask> execute(WebDriver webDriver) {
 
-				boolean added = addArticle(webDriver, category, subCategory, article, context);
+				boolean added = addArticle(webDriver, article, context);
 
 				if (added) {
-					addAddArticleEvent(category, subCategory, article);
+					addAddArticleEvent(article);
 				}
 				
 				return null;
@@ -275,20 +279,25 @@ public class VPClientAsync {
 		};
 	}
 
-	protected void addAddArticleEvent(Map<String, String> category,
-			Map<String, String> subCategory, Map<String, String> article) {
-		String text = category.get("name") + "|" + subCategory.get("name") + article.get("name");
-		eventBus.post(new AddArticleEvent(text));
+	protected void addAddArticleEvent(Article article) {
+		String text = article.getInfo();
+		//eventBus.post(new BasketUpdateEvent(text));
+        basket.addArticle(article);
 		
 	}
 
 	public void register(Object obj) {
-		eventBus.register(obj);
+		//eventBus.register(obj);
+        basket.addUpdateListener(obj);
 	}
 
 	public List<Map<String, String>> getSalesList() {
 		WebDriver driver = loadDriver(context);
 		return VPClient.getSalesList(driver);
 	}
-	
+
+    public int getBasketSize() {
+        WebDriver driver = loadDriver(context);
+        return VPClient.getBasketSize(driver);
+    }
 }

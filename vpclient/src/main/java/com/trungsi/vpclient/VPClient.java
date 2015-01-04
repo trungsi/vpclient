@@ -2,6 +2,7 @@ package com.trungsi.vpclient;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -67,14 +68,23 @@ public class VPClient {
 
 	public static WebDriver cloneDriver(WebDriver driver, Map<String, String> context) {
 		WebDriver newDriver = newDriver(context);
-		newDriver.get(baseUrl);
 		// XXX : copy cookies seems not to work anymore
-		/*for (Cookie cookie : driver.manage().getCookies()) {
+        // Vente-privee BUG ??? : when get baseUrl (http://fr.vente-privee.com) page,
+        // user session if any will be expired and then user has to logon again
+        // redirect to https://secure.fr.vente-privee.com/xxxxxx.
+        // So the trick here is to get url ${baseUrl}/vp4/_sales/ which as of now, will not be redirected
+        // Then the cookies from domain fr.vente-privee.com will be copied correctly
+        //newDriver.get(baseUrl);
+        newDriver.get(baseUrl +"/vp4/_sales/");
+
+        for (Cookie cookie : driver.manage().getCookies()) {
 			newDriver.manage().addCookie(cookie);
-            System.out.println("new cookie added " + cookie);
-        }*/
-		return loadDriver(context);
-		//return newDriver;
+            //System.out.println("new cookie added " + cookie);
+        }
+
+        return newDriver;
+
+        //return loadDriver(context);
 	}
 	private static WebDriver newDriver(Map<String, String> context) {
 		WebDriver driver = null;
@@ -309,7 +319,7 @@ public class VPClient {
 
 	/**
 	 * Bug in HtmlUnit ??? <br/>
-	 * h4 element is seen as hidden, so getText() returns nothing.<br/>
+	 * getText() of hidden element returns nothing.<br/>
 	 * Workaround : call HtmlElement.getTextContent() directly
 	 * 
 	 * @param allElem
@@ -352,7 +362,50 @@ public class VPClient {
 		throw new ElementNotReadyException("Cannot find element " + xpathOrClosure + " after " + timeout + " in \n " + driver.getCurrentUrl() + driver.getPageSource());
 	}
 
-	public static class ElementNotReadyException extends RuntimeException {
+    public static int getBasketSize(WebDriver driver) {
+        goToLink(driver, "/cart/");
+        String pageSource = driver.getPageSource();
+
+        String startPattern = "require([\"Command/CartManager\"], function(manager){";
+
+        int startPos = pageSource.indexOf(startPattern);
+        if (startPos <= 0) {
+            throw new RuntimeException("Cannot decode basket info in page source\n" + pageSource);
+        }
+
+        String substring = pageSource.substring(startPos+startPattern.length()).trim();
+        if (!substring.startsWith("manager(")) {
+            throw new RuntimeException("substring doesn't start with manager( : " + substring);
+        }
+
+        int nextPos = substring.indexOf("\n");
+        substring = substring.substring(0, nextPos).trim();
+        if (!substring.endsWith(",")) {
+            throw new RuntimeException("substring doesn't end with , : " + substring);
+        }
+
+        substring = substring.substring(8, substring.length() - 1);
+
+        try {
+            JSONObject json = new JSONObject(substring);
+            //System.out.println(json);
+            int size = 0;
+            JSONArray cartOperations = json.getJSONArray("CartOperations");
+            for (int i = 0; i < cartOperations.length(); i++) {
+                JSONObject cartOperation = cartOperations.getJSONObject(i);
+                System.out.println(cartOperation);
+                JSONArray cartDetails = cartOperation.getJSONArray("CartDetails");
+                size += cartDetails.length();
+            }
+            return size;
+        } catch (JSONException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new RuntimeException("cannot parse json : " + substring);
+        }
+        //return driver.findElements(By.xpath("//table[@id='commandTable']//tr[contains(@class, 'cartdetail')]")).size();
+    }
+
+    public static class ElementNotReadyException extends RuntimeException {
 
 		private static final long serialVersionUID = 1L;
 
@@ -386,7 +439,7 @@ public class VPClient {
 
 	
 	@SuppressWarnings("all")
-	public static List<Map<String, String>> findAllCategories(WebDriver driver, Map<String, String> context) {
+	public static List<Category> findAllCategories(WebDriver driver, Map<String, String> context) {
 		long start = System.currentTimeMillis();
 
 		openSelectedSale(driver, context);
@@ -402,12 +455,12 @@ public class VPClient {
 			throw new Error("No category found for marque " + context.get(SELECTED_SALE) + "\n" + driver.getPageSource());
 		}
 
-		List<Map<String, String>> categories = filterCategories(catElems, context);
+		List<Category> categories = filterCategories(catElems, context);
 
 		log(categories.size() + " categories found : \n" + categories);
 
 		long time = System.currentTimeMillis() - start;
-		println(driver + " findAllCategories : " + time);
+		log(driver + " findAllCategories : " + time);
 
 		return categories;
 	}
@@ -417,17 +470,16 @@ public class VPClient {
     }
 
     @SuppressWarnings("all")
-	private static List<Map<String, String>> filterCategories(
+	private static List<Category> filterCategories(
 			List<WebElement> catElems, Map<String, String> context) {
 		
-		List<Map<String, String>> categories = new ArrayList<Map<String, String>>();
+		List<Category> categories = new ArrayList<>();
 		List<String> selectedCats = getSelectedCategories(context);
 		
 		for (WebElement catElem : catElems) {
 			if (isSelectedCategory(selectedCats, catElem)) {
 				categories.add(
-						map(entry("name", catElem.getText()),
-							entry("link", catElem.getAttribute("href"))));
+						new Category(catElem.getText(), catElem.getAttribute("href")));
 			}
 		}
 		
@@ -489,8 +541,7 @@ public class VPClient {
 		log("addArticles : " + time);
 	}*/
 
-	public static boolean addArticle(WebDriver driver, Map<String, String> category, 
-			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context) {
+	public static boolean addArticle(WebDriver driver, Article article, Map<String, String> context) {
 		long start = System.currentTimeMillis();
 
 		boolean added = false;
@@ -498,9 +549,9 @@ public class VPClient {
 		try {
 			Map<String, Object> result = openExpressPurchaseWindow(driver, article);
 			if ((Boolean)result.get("ok")) {
-				added = addArticleToCart(driver, category, subCategory, article, context);
+				added = addArticleToCart(driver, article, context);
 			} else {
-				log(" Cannot add article $articleName in category " + category.get("name") + ".\nCause :" + result.get("message"));
+				log(" Cannot add article $articleName.\nCause :" + result.get("message"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -508,7 +559,9 @@ public class VPClient {
 		} finally {
 			// en cas de HtmlUnit, il faut re-dÃ©sactiver javascript et ne pas fermer la fenÃªtre
 			if (driver instanceof HtmlUnitDriver) {
-				((HtmlUnitDriver)driver).setJavascriptEnabled(false);
+                // no need anymore because javascript is no longer required to add article to cart
+                // AddToCart service url is directly called now
+				//((HtmlUnitDriver)driver).setJavascriptEnabled(false);
 			} else {
 				driver.close();
 				println ("window close");
@@ -524,12 +577,11 @@ public class VPClient {
 		return added;
 	}
 
-	private static boolean addArticleToCart (WebDriver driver, Map<String, String> category, 
-			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context) {
+	private static boolean addArticleToCart (WebDriver driver, Article article, Map<String, String> context) {
 		long start = System.currentTimeMillis();
-		String info = getArticleInfo(driver, category, subCategory, article);
+		String info = getArticleInfo(driver, article);
 		try {
-			List<WebElement> addToCartBt = driver.findElements(By.id("addToCart"));
+			/*List<WebElement> addToCartBt = driver.findElements(By.id("addToCart"));
 			if (addToCartBt.isEmpty() || !addToCartBt.get(0).isDisplayed()) {
 				//println(driver.getPageSource());
 				List<WebElement> elems = driver.findElements(By.id("product_pUnavailable"));
@@ -550,10 +602,10 @@ public class VPClient {
                     return false;
 				}
 
-			}
+			}*/
 
 
-            List<Map<String, String>> selectableSizes = selectSize(driver, category, subCategory, article, context, info);
+            List<Map<String, String>> selectableSizes = selectSize(driver, article, context, info);
 
 			if (selectableSizes == null || selectableSizes.size() >= 1) {
 				if (selectableSizes != null) {
@@ -633,7 +685,7 @@ public class VPClient {
 		}
 	}
 
-    public static List<Map<String, String>> selectSize(WebDriver driver, Map<String, String> category, Map<String, String> subCategory, Map<String, String> article, Map<String, String> context, String info) {
+    public static List<Map<String, String>> selectSize(WebDriver driver, Article article, Map<String, String> context, String info) {
         List<Map<String, String>> selectableSizes = null;
         List<WebElement> selectElems = driver.findElements(By.id("productId"));
         //sleep(500);
@@ -643,7 +695,7 @@ public class VPClient {
             if (!productSize.isEmpty()) {
                 String sizeText = productSize.get(0).getText();
                 //println("sizeText=" + sizeText);
-                List<String> preferedSize = getPreferedSize(driver, category, subCategory, article, context, null);
+                List<String> preferedSize = getPreferedSize(driver, article, context, null);
                 boolean match = listContains(preferedSize, sizeText);
                 log("sizeText=" + sizeText + " match (" + match + ") in " + preferedSize);
                 if (sizeText.contains("T.")
@@ -654,7 +706,7 @@ public class VPClient {
             }
             LOG.debug("Unique size model ??? \n" + driver.getPageSource());
         } else {
-            selectableSizes = getMostAppropriateSizes(driver, category, subCategory, article, context, selectElems.get(0));
+            selectableSizes = getMostAppropriateSizes(driver, article, context, selectElems.get(0));
         }
         return selectableSizes;
     }
@@ -701,13 +753,12 @@ public class VPClient {
         return source.substring(index+prefix.length(), endIndex);
     }
 
-    private static List<Map<String, String>> getMostAppropriateSizes(WebDriver driver, Map<String, String> category,
-			Map<String, String> subCategory, Map<String, String> article, 
+    private static List<Map<String, String>> getMostAppropriateSizes(WebDriver driver, Article article,
 			Map<String, String> context, WebElement selectElem) {
-        log(driver.getPageSource());
+        //log(driver.getPageSource());
 		Select select = new Select(selectElem);
 		
-		return selectMostAppropriateSizes(driver, category, subCategory, article, context, select);
+		return selectMostAppropriateSizes(driver, article, context, select);
 		
 		//return selected;
 
@@ -718,12 +769,12 @@ public class VPClient {
 		driver.switchTo().window(mainWindowHandle);
 	}*/
 
-	private static List<Map<String, String>> selectMostAppropriateSizes (WebDriver driver, Map<String, String> category, 
-			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context, Select select) {
-		log("toto");
-        List<String> preferedSize = getPreferedSize(driver, category, subCategory, article, context, select);
+	private static List<Map<String, String>> selectMostAppropriateSizes (WebDriver driver,
+			Article article, Map<String, String> context, Select select) {
+		//log("toto");
+        List<String> preferedSize = getPreferedSize(driver, article, context, select);
 		if (preferedSize.isEmpty()) {
-            log("No prefered size found for " + getArticleInfo(driver, category, subCategory, article));
+            log("No prefered size found for " + getArticleInfo(driver, article));
 			return new ArrayList<Map<String, String>>();
 		} else {
             //log(driver.getPageSource());
@@ -776,34 +827,55 @@ public class VPClient {
 		return list(getDefault(MAN_CLOTHING_SIZES, context, " M |.M | 38 | 40 |T.40|T. 40").split("\\|"));
 	}
 	
-	private static List<String> getPreferedSize(WebDriver driver, Map<String, String> category, 
-			Map<String, String> subCategory, Map<String, String> article, Map<String, String> context, Select select) {
-		String articleInfo = getArticleInfo(driver, category, subCategory, article); 
-		
-		if (isManArticle(articleInfo)) {
-			if (isJean(articleInfo)) {
-				return getManJeanSizes(context);
-			} else if (isShoes(articleInfo)) {
-				return getManShoesSizes(context);
-			} else if (isCostume(articleInfo)) {
-				return getManCostumeSizes(context);
-			} else if (isShirt(articleInfo)) { // chemise
-				return getManShirtSizes(context);
-			} else {
-				return getManClothingClothingSizes(context);
-			}
-		} else if (isWomanArticle(articleInfo)) {
-			if (isJean(articleInfo)) {
-				return getWomanJeanSizes(context);
-			} else if (isShoes(articleInfo)) {
-				return getWomanShoesSizes(context) ;
-			} else if (isSoutienGorge(articleInfo)) {
-				return getWomanLingerieSizes(context);
-			} else if (isShirt(articleInfo)) {
-				return getWomanShirtSizes(context);
-			} else {
-				return getWomanClothingSizes(context);
-			}
+	private static List<String> getPreferedSize(WebDriver driver, Article article, Map<String, String> context, Select select) {
+		String articleInfo = getArticleInfo(driver, article);
+
+        if (isWomanArticle(articleInfo)) {
+            if (isJean(articleInfo)) {
+                return getWomanJeanSizes(context);
+            } else if (isShoes(articleInfo)) {
+                return getWomanShoesSizes(context) ;
+            } else if (isSoutienGorge(articleInfo)) {
+                return getWomanLingerieSizes(context);
+            } else if (isShirt(articleInfo)) {
+                return getWomanShirtSizes(context);
+            } else {
+                return getWomanClothingSizes(context);
+            }
+		} else if (isManArticle(articleInfo)) {
+            if (isJean(articleInfo)) {
+                if (articleInfo.contains("edwin")) {
+                    return list("29|30 (US)|W30|T.30 (US)|40 (FR)|T.40|T. 40| 30".split("\\|"));
+                }
+                return getManJeanSizes(context);
+            } else if (isShoes(articleInfo)) {
+                return getManShoesSizes(context);
+            } else if (isCostume(articleInfo)) {
+                if (articleInfo.contains("windsor")) { // special size for Windsor
+                    return list("T. 46 (FR)|Veste T. 46|T. 46|T. 46".split("\\|"));
+                }
+
+                if (!(articleInfo.contains("slim") || articleInfo.contains("cintré") || articleInfo.contains("ajusté"))) { // T. 46 for coupe droite
+                    return list("Veste T. 46|Pantalon T. 38|T. 46|T. 38".split("\\|"));
+                }
+
+                return getManCostumeSizes(context);
+            } else if (isShirt(articleInfo)) { // chemise
+                return getManShirtSizes(context);
+            } else if (isPants(articleInfo)) {
+                if (articleInfo.contains("hackett")) {
+                    return list("T. 32 (UK)|T. 31|31");
+                }
+                return getManPantsSize(context);
+            } else {
+                List<String> sizes = getManClothingClothingSizes(context);
+                if(articleInfo.contains("hackett")) {
+                    List<String> newSizes = list(" S ", "T. S");
+                    newSizes.addAll(sizes);
+                    return newSizes;
+                }
+                return sizes;
+            }
 		} else if (isGirlArticle(articleInfo)) {
 			if (isShoes(articleInfo)) {
 				return getGirlShoesSizes(context);
@@ -822,7 +894,7 @@ public class VPClient {
                     return getManShoesSizes(context);
                 } else if (isCostume(articleInfo)) {
                     if (articleInfo.contains("windsor")) { // special size for Windsor
-                        return list("Veste T. 44|T. 44|T. 46".split("\\|"));
+                        return list("T. 46 (FR)|Veste T. 46|T. 46|T. 46".split("\\|"));
                     }
 
                     if (!(articleInfo.contains("slim") || articleInfo.contains("cintré") || articleInfo.contains("ajusté"))) { // T. 46 for coupe droite
@@ -869,8 +941,16 @@ public class VPClient {
 
 		}
 	}
-	
-	private static List<String> getWomanShirtSizes(Map<String, String> context) {
+
+    private static List<String> getManPantsSize(Map<String, String> context) {
+        return list("T. 40 (FR)|T. 30 (US)|T. 40|T. 30".split("\\|"));
+    }
+
+    private static boolean isPants(String articleInfo) {
+        return articleInfo.contains("pantalon");
+    }
+
+    private static List<String> getWomanShirtSizes(Map<String, String> context) {
 		return list(getDefault(WOMAN_SHIRT_SIZES, context, "T. 36|T.36| XS ").split("\\|"));
 	}
 
@@ -883,7 +963,8 @@ public class VPClient {
 	}
 
 	private static boolean isManArticle(String articleInfo) {
-		return articleInfo.contains("homme");
+        return listContains(list("calçon", "boxer", "costume"), articleInfo) ||
+                (articleInfo.contains("homme") && !articleInfo.contains("femme"));
 	}
 
     private static boolean containsManSize(Select select) {
@@ -910,19 +991,23 @@ public class VPClient {
 		return listContains(list("costume", "veste"), articleInfo);
 	}
 
-	private static String getArticleInfo(WebDriver driver, Map<String, String> category, 
-			Map<String, String> subCategory, Map<String, String> article) {
-		return (category.get("name") + "|" + subCategory.get("name") 
-				+ (subCategory.get("femme") != null ? "femme" :
-					subCategory.get("homme" != null ? "homme" : ""))
-				+ "|" + article.get("name") + "|" + getArticleDetail(driver)).toLowerCase();
+	private static String getArticleInfo(WebDriver driver, Article article) {
+        SubCategory subCategory = article.getSubCategory();
+        Category category = subCategory.getCategory();
+
+		return (category.getName() + "|" + subCategory.getName()
+				/*+ (subCategory.getAttribute("femme") != null ? "femme" :
+					subCategory.getAttribute("homme" != null ? "homme" : ""))*/
+				+ "|" + article.getName() /*+ "|" + getArticleDetail(driver)*/).toLowerCase();
 	}
 
 	private static boolean isWomanArticle(String articleInfo) {
 		return isSaleForWomanOnly() || articleInfo.contains("farrutx") ||
-                listContains(list("femme", "woman", "women",
+                listContains(list(
                                     "soutien", "lingerie",
-                                    "chemisier", "ballerine", "robe", "jupe"), articleInfo);
+                                    "chemisier", "ballerine", "robe", "jupe", "escarpin",
+                                    "compens", "sandale", "talon", "cuissard", "culotte", "top", "pantacourt"), articleInfo) ||
+                (articleInfo.contains("femme") && !articleInfo.contains("homme"));
 	}
 
     private static boolean containsWomanSize(Select select) {
@@ -946,7 +1031,7 @@ public class VPClient {
 		return articleInfo.contains("garçon");
 	}
 
-	private static String getArticleDetail(WebDriver driver) {
+	/*private static String getArticleDetail(WebDriver driver) {
 		String source = driver.getPageSource();
 		int index = source.indexOf("xtpage = \"") + 10;
 		if (index >= 10) {
@@ -956,7 +1041,7 @@ public class VPClient {
 		} else {
 			return "";
 		}
-	}
+	}*/
 
 	private static boolean isSaleForWomanOnly() {
 		//context.forWomanOnly
@@ -1007,7 +1092,7 @@ public class VPClient {
 	}
 
 	@SuppressWarnings("all")
-	public static Map<String, Object> openExpressPurchaseWindow(final WebDriver driver, Map<String, String> articleElem) {
+	public static Map<String, Object> openExpressPurchaseWindow(final WebDriver driver, Article articleElem) {
 		long start = System.currentTimeMillis();
 		try {
 			
@@ -1015,7 +1100,7 @@ public class VPClient {
 			HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
 			//htmlUnitDriver.setJavascriptEnabled(true);
 						
-			String openNewWindow = articleElem.get("link");
+			String openNewWindow = articleElem.getLink();
             int time = 0;
 
 			do {
@@ -1072,24 +1157,25 @@ public class VPClient {
 	}
 	
 	@SuppressWarnings("all")
-	public static List<Map<String, String>> findAllArticlesInSubCategory(WebDriver driver, Map<String, String> category, Map<String, String> subCategory, Map<String, String> context) {
+	public static List<Article> findAllArticlesInSubCategory(WebDriver driver, SubCategory subCategory, Map<String, String> context) {
 		long start = System.currentTimeMillis();
 
 		// go to subCategory page
-		if (subCategory != null && !subCategory.isEmpty()) {
-			String link = subCategory.get("link");
+		/*if (subCategory != null && !subCategory.isEmpty()) {
+			String link = subCategory.getLink();
             log("goto subcategory " + subCategory);
 			goToLink(driver, link);
 		} else {
 			// reload category page, because driver is shared by many workers
             log("goto category " + category);
-			goToLink(driver, category.get("link"));
-		}
+			goToLink(driver, category.getLink());
+		}*/
+        goToLink(driver, subCategory.getLink());
 
-		sleep(1000);
+		sleep(500);
 
         //log(driver.getPageSource());
-		List<Map<String, String>> articles = new ArrayList<Map<String, String>>();
+		List<Article> articles = new ArrayList<Article>();
 		
 		// normally, there is <ul class="artList">
 		// but in Summer Camp, there is <ul class="artList viewAllProduct">
@@ -1097,14 +1183,14 @@ public class VPClient {
 				By.xpath("//ul[starts-with(@class,\"artList\")]/li"));
 		if (articleElems.isEmpty()) {
 			log(" Cannot find ul with class 'artList viewAllProduct'. Will parse Json to get article infos");
-			articles.addAll(findAllArticlesByParsingJson(driver, category, subCategory));
+			articles.addAll(findAllArticlesByParsingJson(driver, subCategory));
 
 
 		} else {
 			for (WebElement articleElem : articleElems) {
 				//List<WebElement> elems = articleElem.findElements(By.xpath(".//*"));
 				//System.out.println(elems);
-                log("articleElem: " + articleElem.getText() + category + subCategory);
+                //log("articleElem: " + articleElem.getText() + category + subCategory);
 				String name = articleElem.findElement(By.xpath(".//div[@class=\"infoArtTitle\"]")).getText();
 				// Achat Express link could not exist
 				// have to treate this case by using Fiche Produit
@@ -1119,7 +1205,7 @@ public class VPClient {
                         link = link.substring(firstIndex+1, lastIndex);
                     }
 
-					articles.add(map(entry("name", name), entry("link", link)));
+					articles.add(new Article(name, link, subCategory));
 				} catch (NoSuchElementException e) {
 					LOG.error("Cannot find 'Achat express' button for " + name + " in " + articleElem.findElements(By.xpath(".//a[@class=\"btStoreXpress\"]")) + articleElem.findElements(By.xpath(".//span[@class=\"artState\"]")));
 				}
@@ -1128,33 +1214,33 @@ public class VPClient {
 
 		// detecte woman|man articles
 		// do not work correctly when man,woman,kids are mixted
-		String catSubCat = (category.get("name") + subCategory).toLowerCase();
+		/*String catSubCat = subCategory.getInfo().toLowerCase();
 		if (!catSubCat.contains("femme") && !catSubCat.contains("homme")) {
 			String source = driver.getPageSource();
 			if (source.contains("Tailles femme")) {
-				subCategory.put("femme", "true");
+				subCategory.addAttribute("femme", "true");
 			} else if (source.contains("Tailles homme")) {
-				subCategory.put("homme", "true");
+				subCategory.addAttribute("homme", "true");
 			}
-		}
+		}*/
 		
 		long time = System.currentTimeMillis() - start;
 
-		println(driver + " findAllArticlesInSubCategory (" + category.get("name") + "," + subCategory.get("name") + ") : size=" + articleElems.size() + " , " + time);
+		log(driver + " findAllArticlesInSubCategory " + subCategory.getInfo() + " : size=" + articleElems.size() + " , " + time);
 
 		Collections.shuffle(articles); // random :)
 		return articles;
 	}
 
-    private static List<Map<String, String>> findAllArticlesByParsingJson(WebDriver driver, Map<String, String> category, Map<String, String> subCategory) {
-        ArrayList<Map<String, String>> articles = new ArrayList<Map<String, String>>();
+    private static List<Article> findAllArticlesByParsingJson(WebDriver driver, SubCategory subCategory) {
+        ArrayList<Article> articles = new ArrayList<Article>();
         long start = System.currentTimeMillis();
 
         String source = driver.getPageSource();
 
         int index = source.indexOf("JSon=");
         if (index == -1) {
-            throw new RuntimeException("cannot find json article info in " + category.get("name") + "|" + subCategory.get("name") + "\n" + source);
+            throw new RuntimeException("cannot find json article info in " + subCategory.getInfo() + "\n" + source);
         }
         source = source.substring(index+5);
 
@@ -1176,8 +1262,8 @@ public class VPClient {
             for (int i = 0; i < items.length(); i++) {
                 JSONObject item = items.getJSONObject(i);
                 //System.out.println(item);
-                articles.add(map(entry("name", item.getString("infoArtTitle")),
-                        entry("link", currentUrl + "FEikId" + item.getString("artURL") + ".aspx")));
+                articles.add(new Article(item.getString("infoArtTitle"),
+                        currentUrl + "FEikId" + item.getString("artURL") + ".aspx", subCategory));
             }
         } catch (Exception e) {
             LOG.error(driver + " Error on parsing json " + source, e);
@@ -1188,53 +1274,59 @@ public class VPClient {
         return articles;
     }
 
-    private static void openCategory(WebDriver driver, Map<String, String> category) {
+    private static void openCategory(WebDriver driver, Category category) {
 		long start = System.currentTimeMillis();
 		
-		String link = category.get("link");
+		String link = category.getLink();
 		goToLink(driver, link);
 		
 		long time = System.currentTimeMillis() - start;
-		println(driver + " openCategory (" + category.get("name") + ") : " + time);
+		log(driver + " openCategory (" + category.getName() + ") : " + time);
 	}
 
 	@SuppressWarnings("all")
-	public static List<Map<String, String>> findSubCategories(WebDriver driver, Map<String, String> category, Map<String, String> context) {
+	public static List<SubCategory> findSubCategories(WebDriver driver, Category category, Map<String, String> context) {
 		long start = System.currentTimeMillis();
 
 		openCategory(driver, category);
 
 		List<WebElement> subCategoryElems = driver.findElements(By.xpath("//ul[@class=\"subMenuEV\"]/li/a"));
-		if (subCategoryElems.isEmpty()) {
-			log("No sub categories found in " + category.get("name") + "\n" + driver.getPageSource());
+
+        List<SubCategory> subCategories = new ArrayList<>();
+
+        if (subCategoryElems.isEmpty()) {
+			log("No sub categories found in " + category.getName());
+            //log(driver.getPageSource());
+            log("Create fake SubCategory");
+            subCategories.add(SubCategory.fake(category));
 		} else {
-            log(subCategoryElems.size() + " sub categories found in " + category.get("name"));
+            log(subCategoryElems.size() + " sub categories found in " + category.getName());
+
+            for (WebElement elem : subCategoryElems) {
+                try {
+                    if (isSelectedSubCateogory(elem, context)) {
+                        try {
+                            subCategories.add(
+                                    new SubCategory(elem.getText(), elem.getAttribute("href"), category));
+                        } catch (StaleElementReferenceException e) {
+                            log("staleElementException:\n" + driver.getCurrentUrl() + driver.getPageSource());
+                            throw new RuntimeException(e);
+                        }
+                    }
+                } catch (StaleElementReferenceException e) {
+                    log("staleElementException:\n" + driver.getCurrentUrl() + "\n" + driver.getPageSource());
+                    throw e;
+                }
+            }
+
         }
 		
-		List<Map<String, String>> subCategories = new ArrayList<Map<String, String>>();
-		for (WebElement elem : subCategoryElems) {
-            try {
-			if (isSelectedSubCateogory(elem, context)) {
-                try {
-			  subCategories.add(
-					  map(entry("name", elem.getText()),
-					  entry("link", elem.getAttribute("href"))));
-                } catch (StaleElementReferenceException e) {
-                    log("staleElementException:\n" + driver.getCurrentUrl() + driver.getPageSource());
-                    throw new RuntimeException(e);
-                }
-			}
-            } catch (StaleElementReferenceException e) {
-                log("staleElementException:\n" + driver.getCurrentUrl() + "\n" + driver.getPageSource());
-                throw e;
-            }
-		}
-
-		ArrayList<Map<String, String>> manSubCats = new ArrayList<Map<String, String>>();
-		ArrayList<Map<String, String>> womanSubCats = new ArrayList<Map<String, String>>();
-		ArrayList<Map<String, String>> otherSubCats = new ArrayList<Map<String, String>>();
-		for (Map<String, String> subCat : subCategories) {
-			String name = subCat.get("name").toLowerCase();
+        // XXX : only man sub categories ??? ;)
+		ArrayList<SubCategory> manSubCats = new ArrayList<>();
+		ArrayList<SubCategory> womanSubCats = new ArrayList<>();
+		ArrayList<SubCategory> otherSubCats = new ArrayList<>();
+		for (SubCategory subCat : subCategories) {
+			String name = subCat.getName().toLowerCase();
 			if(name.contains("homme")) {
 				manSubCats.add(subCat);
 			} else if (name.contains("femme")) {
@@ -1249,7 +1341,7 @@ public class VPClient {
 		manSubCats.addAll(otherSubCats);
 		
 		long time = System.currentTimeMillis() - start;
-		println(driver + " findSubCategories (" + category.get("name") + ") : size=" + subCategories.size()+ " , " + time);
+		println(driver + " findSubCategories (" + category.getName() + ") : size=" + subCategories.size()+ " , " + time);
 
 
 		return manSubCats;
@@ -1335,13 +1427,13 @@ public class VPClient {
         return orderDetail;
     }
 
-    public static void filterExclusiveArticles(WebDriver webDriver, Map<String,String> category, Map<String,String> subCategory, List<Map<String, String>> articleElems, Map<String,String> context) {
+    public static void filterExclusiveArticles(WebDriver webDriver, List<Article> articleElems, Map<String,String> context) {
         String exclusiveArticles = context.get(EXCLUSIVE_ARTICLES);
         if (exclusiveArticles != null && !exclusiveArticles.equals("")) {
-            Iterator<Map<String, String>> iter = articleElems.iterator();
+            Iterator<Article> iter = articleElems.iterator();
             while (iter.hasNext()) {
-                Map<String, String> articleElem = iter.next();
-                String articleInfo = getArticleInfo(webDriver, category, subCategory, articleElem);
+                Article articleElem = iter.next();
+                String articleInfo = getArticleInfo(webDriver, articleElem);
                 if (!articleInfo.contains(exclusiveArticles)) {
                     iter.remove();
                 }
@@ -1351,5 +1443,6 @@ public class VPClient {
         log("Exclusive articles " + exclusiveArticles + " : " + articleElems);
 
     }
-
+// http://fr.vente-privee.com/wsinventory/Products/ProductFamily/4793686
+// http://fr.vente-privee.com/wsinventory/Catalog/Universe/2479197
 }
