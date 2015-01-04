@@ -61,7 +61,17 @@ public class VPClientTest extends AbstractVPClientTestCase {
 
     @Test
     public void testOpenXpressWindow() {
-        List<Map<String, String>> articles = findAllArticles("kwala", "camper");
+        List<Article> articles = findAllArticles("kwala", "camper");
+        //System.out.println(articles);
+
+        openExpressPurchaseWindow(driver, articles.get(0));
+        assertTrue(driver.findElements(By.xpath("//iframe[@id=\"viewer\"]")).size() > 0); // viewer in xpress window
+        //System.out.println(driver.getPageSource());
+    }
+
+    @Test
+    public void testOpenXpressWindow2() {
+        List<Article> articles = findAllArticles("ferry", "junior");
         //System.out.println(articles);
 
         openExpressPurchaseWindow(driver, articles.get(0));
@@ -71,7 +81,7 @@ public class VPClientTest extends AbstractVPClientTestCase {
 
     @Test
     public void testGetFamilyAndProductId() {
-        List<Map<String, String>> articles = findAllArticles("kwala", "camper");
+        List<Article> articles = findAllArticles("kwala", "camper");
         //System.out.println(articles);
 
         openExpressPurchaseWindow(driver, articles.get(0));
@@ -97,21 +107,21 @@ public class VPClientTest extends AbstractVPClientTestCase {
         context.put(SELECTED_SALE_DATE, selectedSale.get("dateSales"));
         context.put(SELECTED_SALE_LINK, selectedSale.get("link"));
 
-        List<Map<String, String>> categories = findAllCategories(driver, context);
+        List<Category> categories = findAllCategories(driver, context);
         //System.out.println(categories);
-        Map<String, String> category = getSelectedCategory(categories, selectedCategory);
+        Category category = getSelectedCategory(categories, selectedCategory);
 
-        List<Map<String, String>> subCategories = findSubCategories(driver, category, context);
+        List<SubCategory> subCategories = findSubCategories(driver, category, context);
         System.out.println(subCategories);
 
-        Map<String, String> subCategory = subCategories.get(0);
+        SubCategory subCategory = subCategories.get(0);
 
-        List<Map<String, String>> articles = findAllArticlesInSubCategory(driver, category, subCategory, context);
-        Map<String, String> article = articles.get(0);
+        List<Article> articles = findAllArticlesInSubCategory(driver, subCategory, context);
+        Article article = articles.get(0);
 
         openExpressPurchaseWindow(driver, article);
 
-        selectSize(driver, category, subCategory, article, context, "toto");
+        selectSize(driver, article, context, "toto");
 
         System.out.println(driver.getPageSource());
 
@@ -137,19 +147,19 @@ public class VPClientTest extends AbstractVPClientTestCase {
         context.put(SELECTED_SALE_DATE, selectedSale.get("dateSales"));
         context.put(SELECTED_SALE_LINK, selectedSale.get("link"));
 
-        List<Map<String, String>> categories = findAllCategories(driver, context);
+        List<Category> categories = findAllCategories(driver, context);
         //System.out.println(categories);
-        Map<String, String> category = getSelectedCategory(categories, selectedCategory);
+        Category category = getSelectedCategory(categories, selectedCategory);
 
-        List<Map<String, String>> subCategories = findSubCategories(driver, category, context);
+        List<SubCategory> subCategories = findSubCategories(driver, category, context);
         System.out.println(subCategories);
 
-        Map<String, String> subCategory = subCategories.get(0);
+        SubCategory subCategory = subCategories.get(0);
 
-        List<Map<String, String>> articles = findAllArticlesInSubCategory(driver, category, subCategory, context);
-        Map<String, String> article = articles.get(0);
+        List<Article> articles = findAllArticlesInSubCategory(driver, subCategory, context);
+        Article article = articles.get(0);
 
-        addArticle(driver, category, subCategory, article, context);
+        addArticle(driver, article, context);
     }
 
 

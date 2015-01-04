@@ -48,7 +48,7 @@ public abstract class AbstractVPClientTestCase {
         //return null;
     }
 
-    protected List<Map<String, String>> findAllArticles(String selectedMark, String selectedCategory) {
+    protected List<Article> findAllArticles(String selectedMark, String selectedCategory) {
         List<Map<String, String>> saleList = getSalesList(driver);
         System.out.println(saleList);
 
@@ -58,18 +58,25 @@ public abstract class AbstractVPClientTestCase {
         context.put(SELECTED_SALE_DATE, selectedSale.get("dateSales"));
         context.put(SELECTED_SALE_LINK, selectedSale.get("link"));
 
-        List<Map<String, String>> categories = findAllCategories(driver, context);
+        List<Category> categories = findAllCategories(driver, context);
         //System.out.println(categories);
-        Map<String, String> category = getSelectedCategory(categories, selectedCategory);
+        Category category = getSelectedCategory(categories, selectedCategory);
 
-        List<Map<String, String>> subCategories = findSubCategories(driver, category, context);
+        List<SubCategory> subCategories = findSubCategories(driver, category, context);
         System.out.println(subCategories);
 
-        return findAllArticlesInSubCategory(driver, category, subCategories.get(0), context);
+        return findAllArticlesInSubCategory(driver, subCategories.get(0), context);
 
     }
 
-    Map<String, String> getSelectedCategory(List<Map<String, String>> categories, String selectedCategory) {
-        return getSelectedSale(categories, selectedCategory);
+    Category getSelectedCategory(List<Category> categories, String selectedCategory) {
+        for(Category category : categories) {
+            System.out.println(category.getName() + " : " + selectedCategory);
+            if (category.getName().toLowerCase().contains(selectedCategory)) {
+                return category;
+            }
+        }
+
+        return null;
     }
 }

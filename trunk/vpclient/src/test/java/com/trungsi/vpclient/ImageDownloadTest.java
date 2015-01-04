@@ -19,7 +19,7 @@ public class ImageDownloadTest extends AbstractVPClientTestCase {
 
     @Test
     public void testDownload() {
-        List<Map<String, String>> articles = findAllArticles("lee", "homme");
+        List<Article> articles = findAllArticles("lee", "homme");
 
     }
 }
