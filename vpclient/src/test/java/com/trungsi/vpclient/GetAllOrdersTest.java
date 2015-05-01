@@ -1,6 +1,5 @@
 package com.trungsi.vpclient;
 
-import org.junit.*;
 import org.junit.Test;
 
 import java.text.NumberFormat;
@@ -10,11 +9,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static com.trungsi.vpclient.VPClient.*;
-import static com.trungsi.vpclient.VPClient.getViewOrdersNextPageLink;
-import static com.trungsi.vpclient.VPClient.goToLink;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -32,15 +27,22 @@ public class GetAllOrdersTest extends AbstractVPClientTestCase {
         List<Map<String, String>> orders = getAllOrders(driver);
         System.out.println(orders.size());
 
+        StringBuilder builder = new StringBuilder();
         double totalAmount = 0;
         for (Map<String, String> order : orders) {
-            String amountAsString = order.get("amount");
-            totalAmount += toDouble(amountAsString);
+            double amount = getTotalAmount(order);
+            totalAmount += amount;
 
-            System.out.println(order.get("name") + ";" + order.get("date") + ";" + order.get("amount"));
+            builder.append(order.get("name") + ";" + order.get("date") + ";" + amount + "\n");
         }
 
+        System.out.println( builder);
         System.out.println(totalAmount);
+    }
+
+    private double getTotalAmount(Map<String, String> order) throws Exception {
+        List<Map<String, String>> orderDetail = getOrderDetail(driver, order);
+        return getTotalAmountFromOrderDetail(orderDetail.get(0));
     }
 
 
@@ -54,7 +56,7 @@ public class GetAllOrdersTest extends AbstractVPClientTestCase {
     public void testGoToViewOrders() {
         setUpViewOrders();
 
-        assertTrue(driver.getPageSource().contains("Vous trouverez ci-dessous le descriptif de vos commandes."));
+        assertTrue(driver.getPageSource(), driver.getPageSource().contains("Liste de mes commandes"));
     }
 
     private void setUpViewOrders() {
@@ -68,25 +70,36 @@ public class GetAllOrdersTest extends AbstractVPClientTestCase {
 
         List<Map<String, String>> orders = getOrdersInPage(driver);
         assertNotNull(orders);
-        assertEquals(15, orders.size());
+        assertEquals(driver.getPageSource(), 17, orders.size());
 
         System.out.println(orders);
 
     }
 
     @Test
-    public void testGetOrderDetail() {
+    public void testGetOrderDetail() throws Exception {
         setUpViewOrders();
 
         List<Map<String, String>> orders = getOrdersInPage(driver);
 
-        Map<String, String> order = orders.get(0);
+        for (Map<String, String> order : orders) {
+            printOrderDetail(order);
+        }
+
+    }
+
+    private void printOrderDetail(Map<String, String> order) throws Exception {
         System.out.println(order.get("name"));
         System.out.println(order.get("orderDetailLink"));
 
         List<Map<String, String>> orderDetail = getOrderDetail(driver, order);
 
         System.out.println(orderDetail);
+        System.out.println(getTotalAmountFromOrderDetail(orderDetail.get(0)));
+    }
+
+    private double getTotalAmountFromOrderDetail(Map<String, String> orderDetail) throws Exception {
+        return toDouble(orderDetail.get("totalAmount")) - toDouble(orderDetail.get("returnAmount"));
     }
 
     @Test
@@ -107,20 +120,37 @@ public class GetAllOrdersTest extends AbstractVPClientTestCase {
         }
 
     }
+
     @Test
     public void testGetViewOrdersNextPageLink() {
         setUpViewOrders();
 
-        List<String> nextPageLinks = new ArrayList<>();
+        List<Map<String, String>> orders1 = getOrdersInPage(driver);
+        assertFalse(orders1.isEmpty());
+        //System.out.println(orders1);
 
-        String nextPageLink = getViewOrdersNextPageLink(driver);
-        while (nextPageLink != null) {
-            nextPageLinks.add(nextPageLink);
-            goToLink(driver, nextPageLink);
-            nextPageLink = getViewOrdersNextPageLink(driver);
-        }
+        boolean nextPageLink = nextOrderPage(driver);
+        assertTrue(nextPageLink);
 
-        System.out.println(nextPageLinks);
+        List<Map<String, String>> orders2 = getOrdersInPage(driver);
+        assertFalse(orders2.isEmpty());
+        //System.out.println(orders2);
+
+
+        assertFalse(orders1.get(0).equals(orders2.get(0)));
+
+
+
+        nextPageLink = nextOrderPage(driver);
+        assertTrue(nextPageLink);
+
+        List<Map<String, String>> orders3 = getOrdersInPage(driver);
+        assertFalse(orders3.isEmpty());
+        //System.out.println(orders2);
+
+
+        assertFalse(orders2.get(0).equals(orders3.get(0)));
+
     }
 
 }

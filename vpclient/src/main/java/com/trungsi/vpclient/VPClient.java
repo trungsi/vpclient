@@ -108,8 +108,8 @@ public class VPClient {
 	}
 
 	private final static String baseUrl = "http://fr.vente-privee.com";
-	private final static String homePage = "/vp4/Home/fr/Default.aspx";
-	private final static String vpLoungeHomePage = "/vp4/Home/VpLoungeHome.aspx";
+	private final static String homePage = "/vp4/home/default.aspx";
+	private final static String vpLoungeHomePage = "/home/fr/Lounge";
 	
 	private static boolean login(WebDriver driver, Map<String, String> context) {
 		driver.get(baseUrl + "/vp4/Login/Portal.ashx");
@@ -364,6 +364,7 @@ public class VPClient {
 
     public static int getBasketSize(WebDriver driver) {
         goToLink(driver, "/cart/");
+
         String pageSource = driver.getPageSource();
 
         String startPattern = "require([\"Command/CartManager\"], function(manager){";
@@ -385,6 +386,7 @@ public class VPClient {
         }
 
         substring = substring.substring(8, substring.length() - 1);
+        log(substring);
 
         try {
             JSONObject json = new JSONObject(substring);
@@ -402,6 +404,9 @@ public class VPClient {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             throw new RuntimeException("cannot parse json : " + substring);
         }
+
+        //sleep(5000);
+        //log(driver.getPageSource());
         //return driver.findElements(By.xpath("//table[@id='commandTable']//tr[contains(@class, 'cartdetail')]")).size();
     }
 
@@ -615,17 +620,36 @@ public class VPClient {
 										
 				}
 
-                String pageSource = driver.getPageSource();
-                //log(pageSource);
+                return submitAddToCartAction(driver);
 
-                String familyId = getFamilyId(pageSource);
-                String productId = getSelectedProductId(pageSource);
-                log("familyId:" + familyId +", productId:" + productId);
+			} else {
+				log(info + " No appropriate size");
+				return false;
+			}
+
+		} finally {
+			long time = System.currentTimeMillis() - start;
+			println(" addArticleToCart : " + info + time);
+		}
+	}
+
+    private static boolean submitAddToCartAction(WebDriver driver) {
+        String[] familyAndProductId = getFamilyAndProductId(driver);
+        String familyId = familyAndProductId[0];
+        String productId = familyAndProductId[1];
 
 
-                String result = ((MyHtmlUnitDriver) driver).postRequest(baseUrl + "/cart/CartServices/AddToCartOrCanBeReopened", "productFamilyId=" + URLEncoder.encode(familyId) + "&productId=" + URLEncoder.encode(productId) + "&quantity=1");
-                log(result);
-                return result.contains("\"ReturnCode\":0");
+        log("familyId:" + familyId +", productId:" + productId);
+        if (familyId.equals(productId)) {
+            throw new RuntimeException("familyId is same as productId");
+        }
+
+        String result = ((MyHtmlUnitDriver) driver).postRequest(baseUrl + "/cart/CartServices/AddToCartOrCanBeReopened",
+                        "pfId=" + URLEncoder.encode(familyId) +
+                        "&pId=" + URLEncoder.encode(productId) +
+                        "&q=1");
+        log(result);
+        return result.contains("\"ReturnCode\":0");
 
                 /*JavascriptExecutor executor = (JavascriptExecutor) driver;
                 Map addToCartResult = (Map) executor.executeAsyncScript(
@@ -651,10 +675,9 @@ public class VPClient {
                 return "0".equals(addToCartResult.get("ReturnCode"));*/
 
 
-
-                //System.out.println("add to cart button is displayed : " + addToCartBt.get(0).isDisplayed());
+        //System.out.println("add to cart button is displayed : " + addToCartBt.get(0).isDisplayed());
 				/*addToCartBt.get(0).click();
-				
+
 				sleep(100);
 
 				List<WebElement> resultBlocs = driver.findElements(By.xpath("//p[@id=\"resultBloc\"]"));
@@ -671,27 +694,68 @@ public class VPClient {
 					log(info +" ADDED----------------------------------------------------------------------------");
                     return true;
 				}*/
+    }
 
+    public static String[] getFamilyAndProductId(WebDriver driver) {
+       /*
+        single product
 
-				
-			} else {
-				log(info + " No appropriate size");
-				return false;
-			}
+        <span id="singleProduct" class="productName" productfamilyid="5932388" productid="203725639" availablequantity="277" productidencrypted="9xcHtQIxG6p6jTvAczCraA==" productfamilyencryptedid="n+I00p1i4i5+Balr7DC0Zw==">15800/7</span>
+         */
 
-		} finally {
-			long time = System.currentTimeMillis() - start;
-			println(" addArticleToCart : " + info + time);
-		}
-	}
+        List<WebElement> singleProductElem = driver.findElements(By.id("singleProduct"));
+        if (singleProductElem.isEmpty()) { // not single product
+            /*
+            <select id="model" class="model">
+						<option value="5876281" productfamilyencryptedid="mvyYrj1v96cDNH5fZnST7w==" class="defaultOption">- Choisissez -</option>
+							<option value="197495462" productidencrypted="PZ/rrHsI4AVLuR1IcphDlg==" availablequantity="1">
+								T. 40
+								- dispo.
+							</option>
+							<option value="197495463" productidencrypted="lxLsChnULegIFF/If7aGqw==" availablequantity="0">
+								T. 41
+								- épuisé
+							</option>
+							<option value="197495464" productidencrypted="YfIbqEuRFTD9igbi1G7Pzg==" availablequantity="0">
+								T. 42
+								- épuisé
+							</option>
+							<option value="197495465" productidencrypted="QljhGrP+6u5LpIqmSQ4qdA==" availablequantity="0">
+								T. 43
+								- épuisé
+							</option>
+							<option value="197495466" productidencrypted="U7BQ52Xk9Cyc+Czay0fVaw==" availablequantity="0">
+								T. 44
+								- épuisé
+							</option>
+							<option value="197495467" productidencrypted="iiofRPyrKS+sQXpQDxVGbA==" availablequantity="0">
+								T. 45
+								- épuisé
+							</option>
+					</select>
+             */
+            WebElement selectElem = driver.findElement(By.id("model"));
+            Select select = new Select(selectElem);
+            return new String[] {
+                    select.getOptions().get(0).getAttribute("value"), // first element contains familyId
+                    select.getAllSelectedOptions().get(0).getAttribute("value")};
+        } else {
+            return new String[] {
+                    singleProductElem.get(0).getAttribute("productfamilyid"),
+                    singleProductElem.get(0).getAttribute("productid")};
+        }
+    }
 
+    /*
+    @see: getFamilyAndProductId()
+     */
     public static List<Map<String, String>> selectSize(WebDriver driver, Article article, Map<String, String> context, String info) {
         List<Map<String, String>> selectableSizes = null;
-        List<WebElement> selectElems = driver.findElements(By.id("productId"));
+        List<WebElement> selectElems = driver.findElements(By.id("model"));
         //sleep(500);
         if (selectElems.isEmpty() || !selectElems.get(0).getTagName().equals("select")) {
             log(info + " No model/size found. The article must not have this info");
-            List<WebElement> productSize = driver.findElements(By.xpath("//p[@id='product_pUniqueModelRow']/span"));
+            List<WebElement> productSize = driver.findElements(By.id("singleProduct"));
             if (!productSize.isEmpty()) {
                 String sizeText = productSize.get(0).getText();
                 //println("sizeText=" + sizeText);
@@ -711,7 +775,7 @@ public class VPClient {
         return selectableSizes;
     }
 
-    public static String getSelectedProductId(String pageSource) {
+    /*public static String getSelectedProductId(String pageSource) {
         String prefix = "<input type=\"hidden\" id=\"productId\" name=\"productId\" value=\"";
         String subfix = "\"/>";
 
@@ -729,25 +793,25 @@ public class VPClient {
             throw new RuntimeException("No selected option component found in " + optionsText);
         }
 
-    }
+    }*/
 
-    public static String getFamilyId(String pageSource) {
+    /*public static String getFamilyId(String pageSource) {
         String startPrefix = "<input type=\"hidden\" name=\"familyId\" id=\"familyId\" value=\"";
-        String subfix = "\"/>";
+        String suffix = "\"/>";
 
-        return substring(pageSource, startPrefix, subfix);
-    }
+        return substring(pageSource, startPrefix, suffix);
+    }*/
 
-    private static String substring(String source, String prefix, String subfix) {
+    private static String substring(String source, String prefix, String suffix) {
         //String startPrefix = "<input type=\"hidden\" name=\"familyId\" id=\"familyId\" value=\"";
         int index = source.indexOf(prefix);
         if (index <= 0) {
             throw new RuntimeException("Prefix " + prefix + " not found in \n" + source);
         }
 
-        int endIndex = source.indexOf(subfix, index + prefix.length());
+        int endIndex = source.indexOf(suffix, index + prefix.length());
         if (endIndex <= 0) {
-            throw new RuntimeException("Subfix "+ subfix + " not found in \n" + source);
+            throw new RuntimeException("Suffix "+ suffix + " not found in \n" + source);
         }
 
         return source.substring(index+prefix.length(), endIndex);
@@ -1355,54 +1419,88 @@ public class VPClient {
 	}
 
     public static void goToViewOrders(WebDriver driver) {
-        goToLink(driver, "/vp4/MemberAccount/ViewOrders.aspx");
+        HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
+        htmlUnitDriver.setJavascriptEnabled(true);
+
+
+        goToLink(driver, "/memberaccount/order");
+        sleep(20000);
+
+        //System.out.println(htmlUnitDriver.executeScript("return $._data($('.pagination a.navRight')[0], 'events')"));
     }
 
     public static List<Map<String, String>> getOrdersInPage(WebDriver driver) {
         List<Map<String, String>> orders = new ArrayList<>();
 
-        List<WebElement> orderLineElements = driver.findElements(By.xpath("//table[@id='commandChoiceTable']/tbody/tr"));
+        List<WebElement> orderLineElements = driver.findElements(By.xpath("//table[@id='ordersTable']/tbody/tr[@class='tableLine1']"));
         for (WebElement orderLineElem : orderLineElements) {
             List<WebElement> orderTDElements = orderLineElem.findElements(By.xpath("td"));
 
             Map<String, String> order = new HashMap<>();
-            order.put("name", orderTDElements.get(0).getText());
-            order.put("id", orderTDElements.get(1).getText());
-            order.put("date", orderTDElements.get(2).getText());
-            order.put("amount", orderTDElements.get(3).getText());
+            order.put("name", orderTDElements.get(0).getText().replaceAll("\n", ""));
+            //order.put("id", orderTDElements.get(1).getText());
+            //System.out.println(orderTDElements.get(0));
+            String id = orderTDElements.get(0).getAttribute("id").substring("orderCmd_".length()+1);
+            order.put("id", id);
+            order.put("date", orderTDElements.get(1).getText());
+            order.put("amount", orderTDElements.get(2).getText());
+            order.put("status", orderTDElements.get(3).getText());
 
-            List<WebElement> orderLinkElements = orderTDElements.get(4).findElements(By.xpath("a"));
+            List<WebElement> orderLinkElements = orderTDElements.get(0).findElements(By.xpath("a"));
             order.put("orderDetailLink", orderLinkElements.get(0).getAttribute("href"));
-            if (orderLinkElements.size() == 3) { // normal order
+            /*if (orderLinkElements.size() == 3) { // normal order
                 order.put("followUpLink", orderLinkElements.get(1).getAttribute("href"));
                 order.put("helpAndContactLink", orderLinkElements.get(2).getAttribute("href"));
             } else { // return order, no followUp link
                 order.put("helpAndContactLink", orderLinkElements.get(1).getAttribute("href"));
-            }
+            }*/
             orders.add(order);
         }
         return orders;
     }
 
-    public static String getViewOrdersNextPageLink(WebDriver driver) {
-        List<WebElement> nexButton = driver.findElements(By.xpath("//a[@class='accNavLink' and text()='Suivant']"));
-        return nexButton.isEmpty() ? null : nexButton.get(0).getAttribute("href");
+
+    public static boolean nextOrderPage(WebDriver driver) {
+        //System.out.println(driver.getPageSource());
+        List<WebElement> nextButton = //driver.findElements(
+                //By.cssSelector(".pagination a.navRight"));
+                //By.xpath("//div[@class='pagination']/a[@class='navRight']"));
+                driver.findElements(By.xpath("//span[@class='PageNumbers']/following-sibling::*"));
+        if (nextButton.isEmpty()) return false;
+
+        System.out.println(nextButton.get(0).getText());
+        nextButton.get(0).click();
+        sleep(5000);
+
+        //System.out.println(driver.getPageSource());
+
+        return true;
     }
+
+    /*public static String getViewOrdersNextPageLink(WebDriver driver) {
+        //System.out.println(driver.getPageSource());
+        for (Cookie cookie : driver.manage().getCookies()) {
+            //newDriver.manage().addCookie(cookie);
+            System.out.println("cookie " + cookie);
+        }
+
+        List<WebElement> nexButton = driver.findElements(By.xpath("//div[@class='pagination']/a[@class='navRight']"));
+        //System.out.println(nexButton);
+
+        return nexButton.isEmpty() ? null : nexButton.get(0).getAttribute("href");
+    }*/
 
     public static List<Map<String, String>> getAllOrders(WebDriver driver) {
         ArrayList<Map<String, String>> orders = new ArrayList<>();
 
         goToViewOrders(driver);
 
-        String nextOrderLink = null;
+        boolean nextOrderLink = false;
 
         do {
             orders.addAll(getOrdersInPage(driver));
-            nextOrderLink = getViewOrdersNextPageLink(driver);
-            if (nextOrderLink != null) {
-                goToLink(driver, nextOrderLink);
-            }
-        } while (nextOrderLink != null);
+            nextOrderLink = nextOrderPage(driver);
+        } while (nextOrderLink);
 
         return orders;
     }
@@ -1412,7 +1510,7 @@ public class VPClient {
 
         goToLink(driver, order.get("orderDetailLink"));
 
-        List<WebElement> elements = driver.findElements(By.xpath("//tr[contains(@id,'_mainColumnContent_repOrderDetails_')]"));
+        /*List<WebElement> elements = driver.findElements(By.xpath("//tr[contains(@id,'_mainColumnContent_repOrderDetails_')]"));
         //System.out.println(elements.size());
 
         for (WebElement  elem : elements) {
@@ -1423,7 +1521,21 @@ public class VPClient {
             detailMap.put("price", details.get(3).getText());
 
             orderDetail.add(detailMap);
+        }*/
+
+        HashMap<String, String> detailMap = new HashMap<>();
+        WebElement totalPriceRecapElem = driver.findElement(By.id("TotalPriceRecap"));
+        detailMap.put("totalAmount", totalPriceRecapElem.getText());
+
+        List<WebElement> totalReturnElem = driver.findElements(By.xpath("//table[@id='commandReturnTable']//tr[2]/td[@class='td3']"));
+        if (!totalReturnElem.isEmpty()) {
+            detailMap.put("returnAmount", totalReturnElem.get(0).getText());
+        } else {
+            detailMap.put("returnAmount", "0 €");
         }
+
+        orderDetail.add(detailMap);
+
         return orderDetail;
     }
 
