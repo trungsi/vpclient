@@ -3,6 +3,7 @@ package com.trungsi.vpclient;
 import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.gargoylesoftware.htmlunit.util.WebClientUtils;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
@@ -29,7 +30,7 @@ class MyHtmlUnitDriver extends HtmlUnitDriver {
 	private final int id;
 	
 	public MyHtmlUnitDriver() {
-		super(BrowserVersion.FIREFOX_3_6);
+		super(BrowserVersion.FIREFOX_24);
 		id = COUNTER.incrementAndGet();
 	}
 
@@ -37,8 +38,9 @@ class MyHtmlUnitDriver extends HtmlUnitDriver {
 		String httpProxyHost = System.getProperty(HTTP_PROXY_HOST);
 		if (httpProxyHost != null && !httpProxyHost.equals("")) {
 			int httpProxyPort = Integer.parseInt(System.getProperty(HTTP_PROXY_PORT, "8080"));
-			client.setProxyConfig(new ProxyConfig(httpProxyHost, httpProxyPort));
-			
+			//client.setProxyConfig(new ProxyConfig(httpProxyHost, httpProxyPort));
+			this.setProxy(httpProxyHost, httpProxyPort);
+
 			String httpProxyUsername = System.getProperty(HTTP_PROXY_USERNAME);
 			if (httpProxyUsername != null && !httpProxyHost.equals("")) {
 				String httpProxyPassword = System.getProperty(HTTP_PROXY_PASSWORD);
@@ -47,7 +49,9 @@ class MyHtmlUnitDriver extends HtmlUnitDriver {
 			}
 		}
 		
-		client.setThrowExceptionOnScriptError(false);
+		client.getOptions().setThrowExceptionOnScriptError(false);
+
+        //WebClientUtils.attachVisualDebugger(client);
 
         this.webClient = client;
 

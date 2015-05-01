@@ -50,10 +50,8 @@ public abstract class AbstractVPClientTestCase {
 
     protected List<Article> findAllArticles(String selectedMark, String selectedCategory) {
         List<Map<String, String>> saleList = getSalesList(driver);
-        System.out.println(saleList);
 
         Map<String, String> selectedSale = getSelectedSale(saleList, selectedMark);
-        System.out.println(selectedSale);
 
         context.put(SELECTED_SALE_DATE, selectedSale.get("dateSales"));
         context.put(SELECTED_SALE_LINK, selectedSale.get("link"));
@@ -63,7 +61,6 @@ public abstract class AbstractVPClientTestCase {
         Category category = getSelectedCategory(categories, selectedCategory);
 
         List<SubCategory> subCategories = findSubCategories(driver, category, context);
-        System.out.println(subCategories);
 
         return findAllArticlesInSubCategory(driver, subCategories.get(0), context);
 

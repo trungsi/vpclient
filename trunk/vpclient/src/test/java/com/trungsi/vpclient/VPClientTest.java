@@ -3,21 +3,16 @@
  */
 package com.trungsi.vpclient;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 
 import static com.trungsi.vpclient.VPClient.*;
-import static com.trungsi.vpclient.utils.CollectionUtils.*;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
@@ -53,7 +48,7 @@ public class VPClientTest extends AbstractVPClientTestCase {
             System.out.println(cookie);
         }
 
-        String link = "/vp4/MemberAccount/Default.aspx";
+        String link = "/memberaccount/memberaccount";
         goToLink(newDriver, link);
 
         assertTrue(newDriver.getCurrentUrl(), newDriver.getCurrentUrl().endsWith(link));
@@ -61,105 +56,77 @@ public class VPClientTest extends AbstractVPClientTestCase {
 
     @Test
     public void testOpenXpressWindow() {
-        List<Article> articles = findAllArticles("kwala", "camper");
+        List<Article> articles = findAllArticles();
         //System.out.println(articles);
 
         openExpressPurchaseWindow(driver, articles.get(0));
-        assertTrue(driver.findElements(By.xpath("//iframe[@id=\"viewer\"]")).size() > 0); // viewer in xpress window
+        assertTrue(driver.getPageSource(), driver.findElements(By.xpath("//a[@id=\"addToCartLink\"]")).size() > 0); // viewer in xpress window
         //System.out.println(driver.getPageSource());
     }
 
-    @Test
-    public void testOpenXpressWindow2() {
-        List<Article> articles = findAllArticles("ferry", "junior");
-        //System.out.println(articles);
+    private List<Article> findAllArticles() {
+        Map<String, String> selectedSale = chooseASale();
+        System.out.println( selectedSale );
 
-        openExpressPurchaseWindow(driver, articles.get(0));
-        assertTrue(driver.findElements(By.xpath("//iframe[@id=\"viewer\"]")).size() > 0); // viewer in xpress window
-        //System.out.println(driver.getPageSource());
+        Category selectedCategory = chooseACategory(selectedSale);
+        System.out.println(selectedCategory);
+
+        SubCategory subCategory = chooseASubCategory(selectedCategory);
+        System.out.println(subCategory);
+
+        return findAllArticlesInSubCategory(driver, subCategory, context);
+
+    }
+
+    private SubCategory chooseASubCategory(Category selectedCategory) {
+        List<SubCategory> subCategories = findSubCategories(driver, selectedCategory, context);
+
+        return randomSelect(subCategories);
+    }
+
+    private Category chooseACategory(Map<String, String> selectedSale) {
+        context.put(SELECTED_SALE_DATE, selectedSale.get("dateSales"));
+        context.put(SELECTED_SALE_LINK, selectedSale.get("link"));
+
+        List<Category> categories = findAllCategories(driver, context);
+
+        return randomSelect(categories);
+    }
+
+    private Map<String, String> chooseASale() {
+        List<Map<String, String>> salesList = getSalesList(driver);
+        Iterator<Map<String, String>> iter = salesList.iterator();
+        while (iter.hasNext()) {
+            Map<String, String> sale = iter.next();
+            if (sale.get("name").contains("One Day") || sale.get("dateSales").startsWith("A partir")) {
+                iter.remove();
+            }
+        }
+        return randomSelect(salesList);
+    }
+
+    private <T> T randomSelect(List<T> salesList) {
+        return salesList.get((int)(Math.random()*salesList.size()));  //To change body of created methods use File | Settings | File Templates.
     }
 
     @Test
     public void testGetFamilyAndProductId() {
-        List<Article> articles = findAllArticles("kwala", "camper");
+        List<Article> articles = findAllArticles();
         //System.out.println(articles);
 
         openExpressPurchaseWindow(driver, articles.get(0));
-        System.out.println(driver.getPageSource());
+        //System.out.println(driver.getPageSource());
 
-        String familyId = getFamilyId(driver.getPageSource());
-        assertNotNull(familyId);
-        assertEquals(24, familyId.length());
-        assertTrue(familyId.endsWith("=="));
-    }
-
-    @Test
-    public void testGetSelectedProductId() {
-        String selectedMark = "kwala";
-        String selectedCategory = "camper";
-
-        List<Map<String, String>> saleList = getSalesList(driver);
-        System.out.println(saleList);
-
-        Map<String, String> selectedSale = getSelectedSale(saleList, selectedMark);
-        System.out.println(selectedSale);
-
-        context.put(SELECTED_SALE_DATE, selectedSale.get("dateSales"));
-        context.put(SELECTED_SALE_LINK, selectedSale.get("link"));
-
-        List<Category> categories = findAllCategories(driver, context);
-        //System.out.println(categories);
-        Category category = getSelectedCategory(categories, selectedCategory);
-
-        List<SubCategory> subCategories = findSubCategories(driver, category, context);
-        System.out.println(subCategories);
-
-        SubCategory subCategory = subCategories.get(0);
-
-        List<Article> articles = findAllArticlesInSubCategory(driver, subCategory, context);
-        Article article = articles.get(0);
-
-        openExpressPurchaseWindow(driver, article);
-
-        selectSize(driver, article, context, "toto");
-
-        System.out.println(driver.getPageSource());
-
-        String selectedProductId = getSelectedProductId(driver.getPageSource());
-        assertNotNull(selectedProductId);
-        assertEquals(24, selectedProductId.length());
-        assertTrue(selectedProductId.endsWith("=="));
-
-        //addArticle(driver, category, subCategory, articles.get(0), context);
+        String[] familyAndProductId = getFamilyAndProductId(driver);
+        assertNotNull(familyAndProductId[0]);
+        assertNotNull(familyAndProductId[1]);
     }
 
     @Test
     public void testAddArticle() {
-        String selectedMark = "kwala";
-        String selectedCategory = "camper";
+        List<Article> articles = findAllArticles();
 
-        List<Map<String, String>> saleList = getSalesList(driver);
-        System.out.println(saleList);
-
-        Map<String, String> selectedSale = getSelectedSale(saleList, selectedMark);
-        System.out.println(selectedSale);
-
-        context.put(SELECTED_SALE_DATE, selectedSale.get("dateSales"));
-        context.put(SELECTED_SALE_LINK, selectedSale.get("link"));
-
-        List<Category> categories = findAllCategories(driver, context);
-        //System.out.println(categories);
-        Category category = getSelectedCategory(categories, selectedCategory);
-
-        List<SubCategory> subCategories = findSubCategories(driver, category, context);
-        System.out.println(subCategories);
-
-        SubCategory subCategory = subCategories.get(0);
-
-        List<Article> articles = findAllArticlesInSubCategory(driver, subCategory, context);
-        Article article = articles.get(0);
-
-        addArticle(driver, article, context);
+        addArticle(driver, articles.get(0), context);
     }
 
 
