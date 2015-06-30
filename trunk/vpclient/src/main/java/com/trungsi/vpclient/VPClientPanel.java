@@ -30,7 +30,7 @@ public class VPClientPanel extends JPanel {
 	
 	public VPClientPanel(VPClientAsync client) {
 		this.client = client;
-		String selectedSale = client.context.get(VPClient.SELECTED_SALE);
+		String selectedSale = client.getSelectedSale().getName();
 		setLayout(new MigLayout());
 		JLabel label = new JLabel(selectedSale);
 		add(label);

@@ -20,7 +20,7 @@ public class Test {
 		context.put("driverName", "HtmlUnit");
 		context.put("selectedSale", "Spatum Camp");
 		context.put("selectedCats", "ralph,lamarthe,massimo,porsche");
-		context.put("ignoreSubCats", "junior,garçon,kid");
+		context.put("ignoreSubCats", "junior,garÃ§on,kid");
 		context.put("user", "trungsi@hotmail.com");
 		context.put("pwd", "trungsi");
 		context.put("poolSize", "8");
