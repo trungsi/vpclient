@@ -16,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -76,14 +75,14 @@ public class VPGUI {
 
 		JLabel loginLabel = new JLabel("Login");
         accountPanel.add(loginLabel, "align right");
-		final JTextField loginField = new JTextField(getDefault(VPClient.USER, context), 15);
+		final JTextField loginField = new JTextField(getDefault(Context.USER, context), 15);
 		//formPanel.add(loginField, "wrap");
 
         accountPanel.add(loginField);
 
 		JLabel passwordLabel = new JLabel("Password");
         accountPanel.add(passwordLabel, "align right");
-		final JPasswordField passwordField = new JPasswordField(getDefault(VPClient.PWD, context), 15);
+		final JPasswordField passwordField = new JPasswordField(getDefault(Context.PWD, context), 15);
         //accountPanel.add(passwordField, "wrap");
         accountPanel.add(passwordField);
         final JLabel basketLabel = new JLabel("Basket: 0");
@@ -93,24 +92,22 @@ public class VPGUI {
 		formPanel.add(selectedSaleLabel, "align right");
 		//final JTextField selectedSaleField = new JTextField(getDefault(VPClient.SELECTED_SALE, context), 30);
 		
-		final DefaultComboBoxModel aModel = new DefaultComboBoxModel(
-									new Object[] {new HashMap<String, String>() {{
-										put("name", "Please select a sale");
-									}}});
-		final JComboBox selectedSaleList = new JComboBox(aModel);
+		final DefaultComboBoxModel<Sale> aModel = new DefaultComboBoxModel<>(
+									new Sale[] {new Sale("Please select a sale", "", "")});
+		final JComboBox<Sale> selectedSaleList = new JComboBox<>(aModel);
 		selectedSaleList.setMaximumRowCount(20);
-		selectedSaleList.setRenderer(new ListCellRenderer() {
+		selectedSaleList.setRenderer(new ListCellRenderer<Sale>() {
 			final DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-			
+
 			@Override
-			public Component getListCellRendererComponent(JList list, Object value,
-					int index, boolean isSelected, boolean cellHasFocus) {
-				Map<String, String> sale = (Map<String, String>) value;
-				
+			public Component getListCellRendererComponent(
+					JList<? extends Sale> list,
+					Sale value, int index, boolean isSelected,
+					boolean cellHasFocus) {
 				String text = "<html><b>" +
-						sale.get("name") + "</b>";
+						value.getName() + "</b>";
 				if (!cellHasFocus) {
-                    text += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>" + sale.get("dateSales") + "</i>";
+                    text += "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>" + value.getDatesSale() + "</i>";
                 }
 						//(!list.isShowing() ? "" : "<br/>" + sale.get("dateSales")) +
 				text +=	"</html>";
@@ -133,17 +130,17 @@ public class VPGUI {
 				loadSalesButton.setEnabled(false);
 				new Thread() {
 					public void run() {
-						HashMap<String, String> context = new HashMap<String, String>();
-						context.put(VPClient.USER, loginField.getText());
-						context.put(VPClient.PWD, new String(passwordField.getPassword()));
+						Context context = new Context();
+						context.put(Context.USER, loginField.getText());
+						context.put(Context.PWD, new String(passwordField.getPassword()));
 						
 						VPClientAsync vpClient = new VPClientAsync(context);
-						final List<Map<String, String>> salesList = vpClient.getSalesList();
+						final List<Sale> salesList = vpClient.getSalesList();
 						
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								for (Map<String, String> sale : salesList) {
+								for (Sale sale : salesList) {
 									aModel.addElement(sale);
 								}
 								loadSalesButton.setEnabled(true);
@@ -166,77 +163,77 @@ public class VPGUI {
 		
 		JLabel selectedCatsLabel = new JLabel("Selected Categories");
 		formPanel.add(selectedCatsLabel, "align right");
-		final JTextField selectedCatsField = new JTextField(getDefault(VPClient.SELECTED_CATS, context), 30);
+		final JTextField selectedCatsField = new JTextField(getDefault(Context.SELECTED_CATS, context), 30);
 		formPanel.add(selectedCatsField, "wrap");
 		
 		JLabel ignoreSubCatsLabel = new JLabel("Ignore Sub Categories");
 		formPanel.add(ignoreSubCatsLabel, "align right");
-		final JTextField ignoreSubCatsField = new JTextField(getDefault(VPClient.IGNORE_SUB_CATS, context), 30);
+		final JTextField ignoreSubCatsField = new JTextField(getDefault(Context.IGNORE_SUB_CATS, context), 30);
 		formPanel.add(ignoreSubCatsField, "wrap");
 
         JLabel exclusiveArticlesLabel = new JLabel("Exclusive articles");
         formPanel.add(exclusiveArticlesLabel, "align right");
-        final JTextField exclusiveArticlesField = new JTextField(getDefault(VPClient.EXCLUSIVE_ARTICLES, context), 30);
+        final JTextField exclusiveArticlesField = new JTextField(getDefault(Context.EXCLUSIVE_ARTICLES, context), 30);
         formPanel.add(exclusiveArticlesField, "wrap");
 
         JLabel womanJeanSizesLabel = new JLabel("Woman Jean Sizes");
 		formPanel.add(womanJeanSizesLabel, "align right");
-		final JTextField womanJeanSizesField = new JTextField(getDefault(VPClient.WOMAN_JEAN_SIZES, context, "26 |W26|T.36|T. 36"), 30);
+		final JTextField womanJeanSizesField = new JTextField(getDefault(Context.WOMAN_JEAN_SIZES, context, "26 |W26|T.36|T. 36"), 30);
 		formPanel.add(womanJeanSizesField, "wrap");
 		
 		JLabel womanShoesSizesLabel = new JLabel("Woman Shoes Sizes");
 		formPanel.add(womanShoesSizesLabel, "align right");
-		final JTextField womanShoesSizesField = new JTextField(getDefault(VPClient.WOMAN_SHOES_SIZES, context, "37 |T.37"), 30);
+		final JTextField womanShoesSizesField = new JTextField(getDefault(Context.WOMAN_SHOES_SIZES, context, "37 |T.37"), 30);
 		formPanel.add(womanShoesSizesField, "wrap");
 		
 		JLabel womanLingerieSizesLabel = new JLabel("Woman Lingerie Sizes");
 		formPanel.add(womanLingerieSizesLabel, "align right");
-		final JTextField womanLingerieSizesField = new JTextField(getDefault(VPClient.WOMAN_LINGERIE_SIZES, context, "95D LOL"), 30);
+		final JTextField womanLingerieSizesField = new JTextField(getDefault(Context.WOMAN_LINGERIE_SIZES, context, "95D LOL"), 30);
 		formPanel.add(womanLingerieSizesField, "wrap");
 		
 		JLabel womanShirtSizesLabel = new JLabel("Woman Shirt Sizes");
 		formPanel.add(womanShirtSizesLabel, "align right");
-		final JTextField womanShirtSizesField = new JTextField(getDefault(VPClient.WOMAN_SHIRT_SIZES, context, "T. 34|T.34|T. 36|T.36| XS "), 30);
+		final JTextField womanShirtSizesField = new JTextField(getDefault(Context.WOMAN_SHIRT_SIZES, context, "T. 34|T.34|T. 36|T.36| XS "), 30);
 		formPanel.add(womanShirtSizesField, "wrap");
 		
 		JLabel womanClothingSizesLabel = new JLabel("Woman Clothing Sizes");
 		formPanel.add(womanClothingSizesLabel, "align right");
-		final JTextField womanClothingSizesField = new JTextField(getDefault(VPClient.WOMAN_CLOTHING_SIZES, context, "34 |T.34 (FR)|T.34 |T. 34|34/36| S |.S "), 30);
+		final JTextField womanClothingSizesField = new JTextField(getDefault(Context.WOMAN_CLOTHING_SIZES, context, "34 |T.34 (FR)|T.34 |T. 34|34/36| S |.S "), 30);
 		formPanel.add(womanClothingSizesField, "wrap");
 		
 		JLabel girlShoesSizesLabel = new JLabel("Girl Shoes Sizes");
 		formPanel.add(girlShoesSizesLabel, "align right");
-		final JTextField girlShoesSizesField = new JTextField(getDefault(VPClient.GIRL_SHOES_SIZES, context, "26 |T.26|T. 26"), 30);
+		final JTextField girlShoesSizesField = new JTextField(getDefault(Context.GIRL_SHOES_SIZES, context, "26 |T.26|T. 26"), 30);
 		formPanel.add(girlShoesSizesField, "wrap");
 		
 		JLabel girlClothingSizesLabel = new JLabel("Girl Clothing Sizes");
 		formPanel.add(girlClothingSizesLabel, "align right");
-		final JTextField girlClothingSizesField = new JTextField(getDefault(VPClient.GIRL_CLOTHING_SIZES, context, "4 ans"), 30);
+		final JTextField girlClothingSizesField = new JTextField(getDefault(Context.GIRL_CLOTHING_SIZES, context, "4 ans"), 30);
 		formPanel.add(girlClothingSizesField, "wrap");
 		
 		JLabel manJeanSizesLabel = new JLabel("Man Jean Sizes");
 		formPanel.add(manJeanSizesLabel, "align right");
-		final JTextField manJeanSizesField = new JTextField(getDefault(VPClient.MAN_JEAN_SIZES, context, "30 |W30|T.30|T.40|T. 40"), 30);
+		final JTextField manJeanSizesField = new JTextField(getDefault(Context.MAN_JEAN_SIZES, context, "30 |W30|T.30|T.40|T. 40"), 30);
 		formPanel.add(manJeanSizesField, "wrap");
 		
 		JLabel manShoesSizesLabel = new JLabel("Man Shoes Sizes");
 		formPanel.add(manShoesSizesLabel, "align right");
-		final JTextField manShoesSizesField = new JTextField(getDefault(VPClient.MAN_SHOES_SIZES, context, "40.5| 41 |T.41|T. 41"), 30);
+		final JTextField manShoesSizesField = new JTextField(getDefault(Context.MAN_SHOES_SIZES, context, "40.5| 41 |T.41|T. 41"), 30);
 		formPanel.add(manShoesSizesField, "wrap");
 		
 		JLabel manCostumeSizesLabel = new JLabel("Man Costume Sizes");
 		formPanel.add(manCostumeSizesLabel, "align right");
-		final JTextField manCostumeSizesField = new JTextField(getDefault(VPClient.MAN_COSTUME_SIZES, context, "M |.M |T.40|T. 40"), 30);
+		final JTextField manCostumeSizesField = new JTextField(getDefault(Context.MAN_COSTUME_SIZES, context, "M |.M |T.40|T. 40"), 30);
 		formPanel.add(manCostumeSizesField, "wrap");
 		
 		JLabel manShirtSizesLabel = new JLabel("Man Shirt Sizes");
 		formPanel.add(manShirtSizesLabel, "align right");
-		final JTextField manShirtSizesField = new JTextField(getDefault(VPClient.MAN_SHIRT_SIZES, context, "T.39|T. 39| M "), 30);
+		final JTextField manShirtSizesField = new JTextField(getDefault(Context.MAN_SHIRT_SIZES, context, "T.39|T. 39| M "), 30);
 		formPanel.add(manShirtSizesField, "wrap");
 		
 		JLabel manClothingSizesLabel = new JLabel("Man Clothing Sizes");
 		formPanel.add(manClothingSizesLabel, "align right");
-		final JTextField manClothingSizesField = new JTextField(getDefault(VPClient.MAN_CLOTHING_SIZES, context, "M |.M | 38 | 40 |T.40|T. 40"), 30);
+		final JTextField manClothingSizesField = new JTextField(getDefault(Context.MAN_CLOTHING_SIZES, context, "M |.M | 38 | 40 |T.40|T. 40"), 30);
 		formPanel.add(manClothingSizesField, "wrap");
 		
 		JButton button = new JButton("Start");
@@ -245,34 +242,34 @@ public class VPGUI {
 			public void actionPerformed(ActionEvent e) {
 				new Thread() {
 					public void run() {
-						Map<String, String> context = new HashMap<String, String>();
-						context.put(VPClient.USER, loginField.getText());
-						context.put(VPClient.PWD, new String(passwordField.getPassword()));
-						Map<String, String> selectedSale = (Map<String, String>) selectedSaleList.getSelectedItem();
-						context.put(VPClient.SELECTED_SALE, selectedSale.get("name"));
-						context.put(VPClient.SELECTED_SALE_DATE, selectedSale.get("dateSales"));
-						context.put(VPClient.SELECTED_SALE_LINK, selectedSale.get("link"));
+						Context context = new Context();
+						context.put(Context.USER, loginField.getText());
+						context.put(Context.PWD, new String(passwordField.getPassword()));
+						Sale selectedSale = (Sale) selectedSaleList.getSelectedItem();
+						/*context.put(Context.SELECTED_SALE, selectedSale.get("name"));
+						context.put(Context.SELECTED_SALE_DATE, selectedSale.get("dateSales"));
+						context.put(Context.SELECTED_SALE_LINK, selectedSale.get("link"));*/
 						
-						context.put(VPClient.SELECTED_CATS, selectedCatsField.getText());
-						context.put(VPClient.IGNORE_SUB_CATS, ignoreSubCatsField.getText());
-                        context.put(VPClient.EXCLUSIVE_ARTICLES, exclusiveArticlesField.getText());
+						context.put(Context.SELECTED_CATS, selectedCatsField.getText());
+						context.put(Context.IGNORE_SUB_CATS, ignoreSubCatsField.getText());
+                        context.put(Context.EXCLUSIVE_ARTICLES, exclusiveArticlesField.getText());
 
-						context.put(VPClient.WOMAN_JEAN_SIZES, womanJeanSizesField.getText());
-						context.put(VPClient.WOMAN_SHOES_SIZES, womanShoesSizesField.getText());
-						context.put(VPClient.WOMAN_LINGERIE_SIZES, womanLingerieSizesField.getText());
-						context.put(VPClient.WOMAN_SHIRT_SIZES, womanShirtSizesField.getText());
-						context.put(VPClient.WOMAN_CLOTHING_SIZES, womanClothingSizesField.getText());
-						context.put(VPClient.GIRL_SHOES_SIZES, girlShoesSizesField.getText());
-						context.put(VPClient.GIRL_CLOTHING_SIZES, girlClothingSizesField.getText());
-						context.put(VPClient.MAN_JEAN_SIZES, manJeanSizesField.getText());
-						context.put(VPClient.MAN_SHOES_SIZES, manShoesSizesField.getText());
-						context.put(VPClient.MAN_COSTUME_SIZES, manCostumeSizesField.getText());
-						context.put(VPClient.MAN_SHIRT_SIZES, manShirtSizesField.getText());
-						context.put(VPClient.MAN_CLOTHING_SIZES, manClothingSizesField.getText());
+						context.put(Context.WOMAN_JEAN_SIZES, womanJeanSizesField.getText());
+						context.put(Context.WOMAN_SHOES_SIZES, womanShoesSizesField.getText());
+						context.put(Context.WOMAN_LINGERIE_SIZES, womanLingerieSizesField.getText());
+						context.put(Context.WOMAN_SHIRT_SIZES, womanShirtSizesField.getText());
+						context.put(Context.WOMAN_CLOTHING_SIZES, womanClothingSizesField.getText());
+						context.put(Context.GIRL_SHOES_SIZES, girlShoesSizesField.getText());
+						context.put(Context.GIRL_CLOTHING_SIZES, girlClothingSizesField.getText());
+						context.put(Context.MAN_JEAN_SIZES, manJeanSizesField.getText());
+						context.put(Context.MAN_SHOES_SIZES, manShoesSizesField.getText());
+						context.put(Context.MAN_COSTUME_SIZES, manCostumeSizesField.getText());
+						context.put(Context.MAN_SHIRT_SIZES, manShirtSizesField.getText());
+						context.put(Context.MAN_CLOTHING_SIZES, manClothingSizesField.getText());
 						
 						//context.put(VPClient.P, value)
 						final VPClientAsync client = new VPClientAsync(context);
-						client.start();
+						client.start(selectedSale);
 						
 						try {
 							SwingUtilities.invokeAndWait(new Runnable() {
@@ -284,11 +281,7 @@ public class VPGUI {
 									infoPanel.revalidate();
 								}
 							});
-						} catch (InvocationTargetException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
+						} catch (InvocationTargetException|InterruptedException e) {
 							e.printStackTrace();
 						}
 					}
@@ -319,13 +312,9 @@ public class VPGUI {
 			try {
 				props.load(new FileInputStream(proxyFile));
 				System.getProperties().putAll(props);
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			} 
 		} else {
 			Properties props = new Properties();
 			props.setProperty(MyHtmlUnitDriver.HTTP_PROXY_HOST, "");
@@ -335,11 +324,7 @@ public class VPGUI {
 			
 			try {
 				props.store(new FileOutputStream(proxyFile), "Auto generated file");
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -354,7 +339,7 @@ public class VPGUI {
 		return value != null ? value : defaultValue;
 	}
 	
-	private static Map<String, String> loadContext(String vphome) {
+	public static Context loadContext(String vphome) {
 		String config = "config.properties";
 		InputStream input = VPGUI.class.getResourceAsStream(config);
 		if (input == null) {
@@ -369,7 +354,7 @@ public class VPGUI {
 			}
 		}
 		
-		HashMap<String, String> context = new HashMap<String, String>();
+		Context context = new Context();
 		if (input != null) {
 			Properties props = new Properties();
 			try {

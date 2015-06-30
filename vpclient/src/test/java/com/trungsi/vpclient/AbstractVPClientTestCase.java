@@ -21,25 +21,26 @@ import static com.trungsi.vpclient.utils.CollectionUtils.map;
 public abstract class AbstractVPClientTestCase {
     protected WebDriver driver;
 
-    protected Map<String, String> context;
+    protected Context context;
 
     @Before
     public void setUp() {
-        context = map(
-                entry(DRIVER_NAME, HTML_UNIT));
+        context = new Context();
+        context.put(
+                Context.DRIVER_NAME, Context.HTML_UNIT);
         loadDriverForTest("dtht2000@yahoo.com", "dtht2000");
     }
 
     protected void loadDriverForTest(String user, String pwd) {
-        context.put(USER, user);
-        context.put(PWD, pwd);
+        context.put(Context.USER, user);
+        context.put(Context.PWD, pwd);
 
         driver = loadDriver(context);
     }
 
-    protected Map<String, String> getSelectedSale(List<Map<String, String>> saleList, String selectedMark) {
-        for (Map<String, String> sale : saleList) {
-            if (sale.get("name").toLowerCase().contains(selectedMark)) {
+    protected Sale getSelectedSale(List<Sale> saleList, String selectedMark) {
+        for (Sale sale : saleList) {
+            if (sale.getName().toLowerCase().contains(selectedMark)) {
                 return sale;
             }
         }
@@ -49,14 +50,11 @@ public abstract class AbstractVPClientTestCase {
     }
 
     protected List<Article> findAllArticles(String selectedMark, String selectedCategory) {
-        List<Map<String, String>> saleList = getSalesList(driver);
+        List<Sale> saleList = getSalesList(driver);
 
-        Map<String, String> selectedSale = getSelectedSale(saleList, selectedMark);
+        Sale selectedSale = getSelectedSale(saleList, selectedMark);
 
-        context.put(SELECTED_SALE_DATE, selectedSale.get("dateSales"));
-        context.put(SELECTED_SALE_LINK, selectedSale.get("link"));
-
-        List<Category> categories = findAllCategories(driver, context);
+        List<Category> categories = findAllCategories(driver, selectedSale, context);
         //System.out.println(categories);
         Category category = getSelectedCategory(categories, selectedCategory);
 

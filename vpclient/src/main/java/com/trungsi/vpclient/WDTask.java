@@ -11,18 +11,7 @@ import java.util.List;
  * Time: 21:51
  * To change this template use File | Settings | File Templates.
  */
-public abstract class WDTask implements VPTask {
+public interface WDTask {
 
-    private final WebDriverProvider provider;
-
-    public WDTask(WebDriverProvider provider) {
-        this.provider = provider;
-    }
-
-    @Override
-    public List<VPTask> execute() {
-        return provider.doWithWebDriver(this);  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    protected abstract List<VPTask> execute(WebDriver webDriver);
+    List<VPTask> execute(WebDriver webDriver);
 }
