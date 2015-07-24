@@ -34,6 +34,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return name;
+        return name + "::::" + link;
     }
 }

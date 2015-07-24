@@ -785,7 +785,7 @@ public class VPClient {
 
 		openCategory(driver, category);
 
-		List<WebElement> subCategoryElems = driver.findElements(By.xpath("//ul[@class=\"subMenuEV\"]/li/a"));
+		List<WebElement> subCategoryElems = driver.findElements(By.xpath("//ul[@class='menuEV_Container']/li[@class='open']//ul[@class=\"subMenuEV\"]/li/a"));
 
         List<SubCategory> subCategories = new ArrayList<>();
 
