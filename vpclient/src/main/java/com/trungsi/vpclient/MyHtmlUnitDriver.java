@@ -4,7 +4,11 @@ import java.net.URL;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import com.gargoylesoftware.htmlunit.util.WebClientUtils;
+
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.w3c.css.sac.CSSException;
+import org.w3c.css.sac.CSSParseException;
+import org.w3c.css.sac.ErrorHandler;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.HttpMethod;
@@ -30,7 +34,8 @@ class MyHtmlUnitDriver extends HtmlUnitDriver {
 	private final int id;
 	
 	public MyHtmlUnitDriver() {
-		super(BrowserVersion.FIREFOX_24);
+		super(BrowserVersion.CHROME);
+		//setJavascriptEnabled(true);
 		id = COUNTER.incrementAndGet();
 	}
 
@@ -48,11 +53,31 @@ class MyHtmlUnitDriver extends HtmlUnitDriver {
 			    credentialsProvider.addCredentials(httpProxyUsername, httpProxyPassword);
 			}
 		}
-		
+		client.waitForBackgroundJavaScript(15000);
 		client.getOptions().setThrowExceptionOnScriptError(false);
-
+		//client.getOptions().setCssEnabled(true);
         //WebClientUtils.attachVisualDebugger(client);
+		client.setCssErrorHandler(new ErrorHandler() {
 
+			@Override
+			public void warning(CSSParseException exception)
+					throws CSSException {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void error(CSSParseException exception) throws CSSException {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void fatalError(CSSParseException exception)
+					throws CSSException {
+				// TODO Auto-generated method stub
+				
+			}});
         this.webClient = client;
 
 		return client;
@@ -77,5 +102,21 @@ class MyHtmlUnitDriver extends HtmlUnitDriver {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "Driver " + id;
+	}
+
+	public String getRequest(String url) {
+		try {
+			System.out.println("get url = " + url);
+			WebRequest request = new WebRequest(new URL(url), HttpMethod.GET);
+			//request.setRequestBody(body);
+			//System.out.println(body);
+            //System.out.println(request.getAdditionalHeaders());
+			Page p = webClient.getPage(request);
+            //System.out.println(p.getWebResponse().getResponseHeaders());
+			return p.getWebResponse().getContentAsString();
+		} catch (Exception e) {
+			e.printStackTrace();
+            return e.toString();
+		}
 	}
 }

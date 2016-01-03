@@ -50,7 +50,7 @@ public abstract class AbstractVPClientTestCase {
     }
 
     protected List<Article> findAllArticles(String selectedMark, String selectedCategory) {
-        List<Sale> saleList = getSalesList(driver);
+        List<Sale> saleList = getSalesListNew(driver);
 
         Sale selectedSale = getSelectedSale(saleList, selectedMark);
 

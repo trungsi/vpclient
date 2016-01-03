@@ -118,7 +118,7 @@ public class VPClientAsync {
 	public static void main(String[] args) throws Exception {
 		
 		Context context = VPGUI.loadContext(getVpHome(args));
-		List<Sale> saleList = VPClient.getSalesList(VPClient.loadDriver(context));
+		List<Sale> saleList = VPClient.getSalesListNew(VPClient.loadDriver(context));
 		Optional<Sale> sale = saleList.stream()
 			.filter(map -> map.getName().toLowerCase().contains(getSelectedSaleName(args)))
 			.findFirst();
@@ -315,12 +315,17 @@ public class VPClientAsync {
         basket.addUpdateListener(obj);
 	}
 
-	public List<Sale> getSalesList() {
+	/*public List<Sale> getSalesList() {
 		WebDriver driver = loadDriver(context);
 		return VPClient.getSalesList(driver);
+	}*/
+
+	public List<Sale> getSalesListNew() {
+		WebDriver driver = loadDriver(context);
+		return VPClient.getSalesListNew(driver);
 	}
 
-    public int getBasketSize() {
+	public int getBasketSize() {
         WebDriver driver = loadDriver(context);
         return VPClient.getBasketSize(driver);
     }

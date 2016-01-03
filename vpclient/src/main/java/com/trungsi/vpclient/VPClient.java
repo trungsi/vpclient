@@ -5,19 +5,24 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.*;
-import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitWebElement;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.trungsi.vpclient.utils.DateRange;
 
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.trungsi.vpclient.utils.CollectionUtils.*;
@@ -40,14 +45,16 @@ public class VPClient {
 		//} while (!loggedin && count++ <= 2);
 
 		if (!loggedin) {
-			throw new RuntimeException("cannot log in after 2 tentatives " + driver.getPageSource());
+			throw new RuntimeException("cannot log in after 2 tentatives " + 
+					"\nurl:" + driver.getCurrentUrl() + "\n" +
+					driver.getPageSource());
 		}
 		
 		return driver;
 	}
 
 	public static WebDriver cloneDriver(WebDriver driver, Context context) {
-		WebDriver newDriver = newDriver(context);
+		/*WebDriver newDriver = newDriver(context);
 		// XXX : copy cookies seems not to work anymore
         // Vente-privee BUG ??? : when get baseUrl (http://fr.vente-privee.com) page,
         // user session if any will be expired and then user has to logon again
@@ -55,16 +62,16 @@ public class VPClient {
         // So the trick here is to get url ${baseUrl}/vp4/_sales/ which as of now, will not be redirected
         // Then the cookies from domain fr.vente-privee.com will be copied correctly
         //newDriver.get(baseUrl);
-        newDriver.get(baseUrl +"/vp4/_sales/");
+        newDriver.get(baseUrl +"/homev6/fr");
 
         for (Cookie cookie : driver.manage().getCookies()) {
 			newDriver.manage().addCookie(cookie);
-            //System.out.println("new cookie added " + cookie);
+            System.out.println("new cookie added " + cookie);
         }
 
-        return newDriver;
-
-        //return loadDriver(context);
+        newDriver.navigate().refresh();
+        return newDriver;*/
+        return loadDriver(context);
 	}
 	private static WebDriver newDriver(Context context) {
 		WebDriver driver = null;
@@ -72,6 +79,10 @@ public class VPClient {
 		
 		if (driverName.equals(Context.HTML_UNIT)) {
 			driver = new MyHtmlUnitDriver();
+		} else if (driverName.equals(Context.FIREFOX)) {
+			driver = new FirefoxDriver();
+		} else if (driverName.equals(Context.SAFARI)) {
+			driver = new SafariDriver();
 		}
 		return driver;
 	}
@@ -80,14 +91,13 @@ public class VPClient {
 		try {
 			Thread.sleep(timeout);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	private final static String baseUrl = "http://fr.vente-privee.com";
 	private final static String homePage = "/vp4/home/default.aspx";
-	private final static String vpLoungeHomePage = "/home/fr/Lounge";
+	//private final static String vpLoungeHomePage = "/home/fr/Lounge";
 	
 	private static boolean login(WebDriver driver, Context context) {
 		driver.get(baseUrl);// + "/vp4/Login/Portal.ashx");
@@ -105,13 +115,16 @@ public class VPClient {
 
 		submitElem.click();
 
-		sleep(20);
-
+		//sleep(5000);
+		//System.out.println("wakeup after login");
 		return checkLoggedIn(driver);
 	}
 
 	private static boolean checkLoggedIn(WebDriver driver) {
-		return driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]")).size() == 1;
+		//return driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]")).size() == 1;
+		// have accueil menu
+		//System.out.println(driver.findElement(By.xpath("//li[@class=\"nav_hme\"]")));
+		return driver.findElements(By.xpath("//a[@title=\"Accueil\"]")).size() >= 1;
 	}
 
 	static interface VPSupplier<T> {
@@ -123,6 +136,7 @@ public class VPClient {
 		try {
 			return s.get();
 		} catch (Exception e) {
+			//Thread.dumpStack();
 			throw e instanceof RuntimeException ? (RuntimeException) e : new RuntimeException(e);
 		} finally {
 			LOG.debug(webDriver + "==========" + name + " : " + (System.currentTimeMillis() - start));
@@ -130,17 +144,86 @@ public class VPClient {
 	}
 	
 	
-	private static List<Sale> findCurrentSaleList(WebDriver driver) {
+	/*private static List<Sale> findCurrentSaleList(WebDriver driver) {
 		return watch(driver, "findCurrentSaleList", () -> {
 			//List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]//a[@id=\"linkSale\"]"));
-	        List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"currentlySales\"]//a[@class=\"linkAccess\"]"));
-
+	        List<WebElement> currentSalesElem = driver.findElements(By.xpath("//ul[@class=\"currentlySalesWrap\"]/li[@date-opfullname]"));
+	        if (currentSalesElem.isEmpty()) {
+	        	throw new RuntimeException("Current sale is empty\n" + driver.getPageSource());
+	        }
 			return toSaleList(currentSalesElem);
+		});
+		
+	}*/
+
+	public static List<Sale> getSalesListNew(WebDriver driver) {
+		return watch(driver, "getSalesListNew", () -> {
+			List<Sale> sales = getSalesListNew(driver, baseUrl + homePage);
+			// no need to search in lounge home page any more
+			//sales.addAll(getSalesListNew(driver, baseUrl + vpLoungeHomePage));
+			
+			return sales;
 		});
 		
 	}
 
-	public static List<Sale> getSalesList(WebDriver driver) {
+	private static List<Sale> getSalesListNew(WebDriver driver, String link) {
+		String seqUri = getSeqUri(driver);
+		System.out.println("seqUri = " + seqUri);
+		
+		String getClientDataUrl = baseUrl + "/homev6/fr/Default/GetClientData" + seqUri + "&homeName=Default";
+		String result = ((MyHtmlUnitDriver) driver).getRequest(getClientDataUrl);
+		
+		try {
+			JSONObject jsonResult = new JSONObject(result);
+			List<Sale> sales = buildSaleList(jsonResult.getJSONArray("CurrentSales"));
+			sales.addAll(buildSaleList(jsonResult.getJSONArray("UpcomingSales")));
+			
+			return sales;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			throw new RuntimeException("Cannot parse json result " + result, e);
+		}
+	}
+
+	private static List<Sale> buildSaleList(JSONArray jsonArray) throws JSONException {
+		List<Sale> sales = new ArrayList<Sale>();
+		for (int i = 0; i < jsonArray.length(); i++) {
+			JSONObject currentSaleObj = jsonArray.getJSONObject(i);
+			String name = getSaleName(currentSaleObj.getString("DataAttributes"));
+			if (name != null) {
+				String link = currentSaleObj.getString("LinkUrl");
+				String date = currentSaleObj.getString("FormattedDate");
+				
+				sales.add(new Sale(name, link, date));
+			} else {
+				LOG.debug("Ignore sale " + currentSaleObj);
+			}
+		}
+		
+		return sales;
+	}
+
+	private static String getSaleName(String string) {
+		LOG.debug("data attribute = " + string);
+		String prefix = "date-opfullname=\"";
+		int startPos = string.indexOf(prefix) + prefix.length();
+		
+		if (startPos < prefix.length()) return null;
+		
+		int endPos = string.indexOf("\"", startPos);
+		
+		return string.substring(startPos, endPos);
+	}
+
+	private static String getSeqUri(WebDriver driver) {
+		String url = driver.getCurrentUrl();
+		int pos = url.lastIndexOf("?");
+		return url.substring(pos);
+	}
+
+	/*public static List<Sale> getSalesList(WebDriver driver) {
 		return watch(driver, "getSalesList", () -> {
 			List<Sale> sales = getSalesList(driver, baseUrl + homePage);
 			sales.addAll(getSalesList(driver, baseUrl + vpLoungeHomePage));
@@ -151,10 +234,20 @@ public class VPClient {
 	}
 
 	private static List<Sale> getSalesList(WebDriver driver, String link) {
+		// as of now have to activate javascript to retrieve sale list
+		if (driver instanceof MyHtmlUnitDriver) {
+			((MyHtmlUnitDriver) driver).setJavascriptEnabled(true);
+		}
 		goToLink(driver, link);
+		// wait for js execution
+		sleep(5000);
 		
 		List<Sale> sales = findCurrentSaleList(driver);
 		sales.addAll(findSoonSaleList(driver));
+		
+		if (driver instanceof MyHtmlUnitDriver) {
+			((MyHtmlUnitDriver) driver).setJavascriptEnabled(false);
+		}
 		
 		return sales;
 	}
@@ -164,37 +257,61 @@ public class VPClient {
 	}
 
 	private static Sale getSaleInfos(WebElement elem) {
-        
-        WebElement allElem = elem.findElement(By.xpath("h4"));
-        String name = getTextOfHiddenElement(allElem);
-        
-        String link = elem.getAttribute("href");
+        String name = getSaleName(elem); 
+        String link = getSaleLink(elem);
+        String dateSales = getSaleDates(elem, name);
 
+        return new Sale(name, link, dateSales);
 
-        String dateSales = null;
-        if (name.startsWith("One Day")) {
+	}
+
+	private static String getSaleDates(WebElement elem, String name) {
+		String dateSales = null;
+        if (isOneDaySale(name, elem)) {
             dateSales = new Date().toString();
         } else {
             try {
                 dateSales = elem.findElement(By.xpath("./..//p[@class=\"dateSales\"]")).getText();
             } catch (NoSuchElementException e) {
                 // some wine sale operations don't have sale date ???
-                System.out.println("No date sale found for " + name + " : " + elem.findElement(By.xpath("..")).getAttribute("data-opcategory"));
+                LOG.debug("No date sale found for " + name + " : " + elem.findElement(By.xpath("..")).getAttribute("data-opcategory"));
                 dateSales = "";
             }
             if (dateSales.isEmpty()) {
                 dateSales = new Date().toString();
             }
         }
+		return dateSales;
+	}
 
-        return new Sale(name, link, dateSales);
+	private static boolean isOneDaySale(String name, WebElement elem) {
+		return name.startsWith("One Day");
+	}
 
+	private static String getSaleLink(WebElement liSaleElem) {
+		//return liSaleElem.getAttribute("href");
+		String linkSale = liSaleElem.findElement(By.xpath(".//a[contains(@class, \"linkAccess\")]")).getAttribute("href");
+		LOG.debug("linkSale = " + linkSale);
+		return linkSale;
+	}
+
+	private static String getSaleName(WebElement liSaleElem) {
+		//WebElement allElem = elem.findElement(By.xpath("h4"));
+        //String name = getTextOfHiddenElement(allElem);
+		String name = liSaleElem.getAttribute("date-opfullname");
+		if (name == null) {
+			throw new RuntimeException("Could not extract sale name from " + liSaleElem);
+		}
+		return name;
 	}
 	
 	private static List<Sale> findSoonSaleList(WebDriver driver) {
 		return watch(driver, "findSoonSaleList", () -> {
-			List<WebElement> saleElems = driver.findElements(By.xpath("//ul[@class=\"soonSales\"]/li/div/a[@class='linkAccess']"));
-			
+			List<WebElement> saleElems = driver.findElements(By.xpath("//ul[@class=\"soonSalesWrap\"]/li[@date-opfullname]"));
+			if (saleElems.isEmpty()) {
+				//throw new RuntimeException("Soon sale is empty\n" + driver.getPageSource());
+				LOG.warn("Soon sale is empty");
+			}
 	        // additional processing for "les 3 jours rose et sucrée" : 3 days after christmas
 	        // like summer camp
 	        // have hidden div containing mark list
@@ -207,37 +324,41 @@ public class VPClient {
 	            if (elem.getAttribute("style").contains("display: none")) {
 	                iter.remove();
 	            }
-	        }*/
+	        }*
 
 			return toSaleList(saleElems);
 
 		});
-	}
+	}*/
 
 	/**
 	 * Bug in HtmlUnit ??? <br/>
 	 * getText() of hidden element returns nothing.<br/>
 	 * Workaround : call HtmlElement.getTextContent() directly
-	 * 
+	 * public List<Sale> getSalesList() {
+		WebDriver driver = loadDriver(context);
+		return VPClient.getSalesList(driver);
+	}
+
 	 * @param allElem
 	 * @return
 	 */
-	private static String getTextOfHiddenElement(WebElement allElem) {
+	/*private static String getTextOfHiddenElement(WebElement allElem) {
 		try {
 			return getElement(allElem).getTextContent();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "";
 		}
-	}
+	}*/
 
-	private static HtmlElement getElement(WebElement allElem) throws Exception {
+	private static DomElement getElement(WebElement allElem) throws Exception {
 		HtmlUnitWebElement webElem = (HtmlUnitWebElement) allElem;
 		Method[] methods = HtmlUnitWebElement.class.getDeclaredMethods();
 		for (Method m : methods) {
-			if (m.getName().equals("getElement") && m.getReturnType().equals(HtmlElement.class)) {
+			if (m.getName().equals("getElement") && m.getReturnType().equals(DomElement.class)) {
 				m.setAccessible(true);
-				return (HtmlElement) m.invoke(webElem, new Object[0]);
+				return (DomElement) m.invoke(webElem, new Object[0]);
 			}
 		}
 		
@@ -277,6 +398,7 @@ public class VPClient {
 					sleep(sleep);
 				}
 				
+				System.out.println("openSelectedSale " + selectedSale.getName() + " with link " + selectedSale.getLink());
 				goToLink(driver, selectedSale.getLink());
 		
 	
@@ -292,7 +414,7 @@ public class VPClient {
 	    				accessLinks.get(0).click();
 	    				sleep(100);
 	    			} else {
-	    				throw new RuntimeException("Cannot find menu in seleted sale");
+	    				throw new RuntimeException("Cannot find menu in seleted sale " + driver.getPageSource());
 	    			}
 	            	// old interface
 	            }
@@ -356,14 +478,9 @@ public class VPClient {
 	public static boolean addArticle(WebDriver driver, Article article, Context context) {
 		return watch(driver, "addArticle", () -> {
 			boolean added = false;
-			//String mainWindowHandle = driver.getWindowHandle();
 			try {
-				Map<String, Object> result = openExpressPurchaseWindow(driver, article);
-				if ((Boolean)result.get("ok")) {
-					added = addArticleToCart(driver, article, context);
-				} else {
-					LOG.info(" Cannot add article $articleName.\nCause :" + result.get("message"));
-				}
+				openExpressPurchaseWindow(driver, article);
+				added = addArticleToCart(driver, article, context);
 			} catch (Exception e) {
 				e.printStackTrace();
 				//println(driver.getPageSource)
@@ -393,8 +510,6 @@ public class VPClient {
 		return watch(driver, "addArticleToCart", () -> {
 			
             boolean selected = selectSize(driver, article, context);
-
-            LOG.info("selected" + selected);
 			if (selected) {
                 return submitAddToCartAction(driver);
 			} else {
@@ -530,90 +645,39 @@ public class VPClient {
             LOG.info(article.getInfo() + " No model/size found. The article must not have this info");
             
             WebElement productSize = driver.findElement(By.id("singleProduct"));
-            
-            String sizeText = productSize.getText();
-            //println("sizeText=" + sizeText);
-            
-            List<String> preferedSize = SizeHelper.getPreferedSize(article, context, null);
-            boolean match = listContains(preferedSize, sizeText);
-            
-            LOG.info("sizeText=" + sizeText + " match (" + match + ") in " + preferedSize);
-            if (sizeText.contains("T.")
-                    && !match) {
-                LOG.info(article.getInfo() + " size " + sizeText + " not in " + preferedSize);
-                //return false;
-            }
-            
-            LOG.debug("Unique size model ??? \n" + driver.getPageSource());
-            return true;
+            return SizeHelper.selectSize(article, context, new SingleSizes(productSize));
         } else {
+        	// when article is sold out, sizes and quantities dropdown boxes are hidden
+        	// try adding it to cart anyway by reactivating drop boxes for selection
+        	makeSelectSizeElementVisibleIfNeeded(driver);
         	WebElement selectElems = driver.findElement(By.id("model"));
-            return getMostAppropriateSizes(article, context, selectElems);
+        	
+        	return SizeHelper.selectSize(article, context, new MultipleSizes(selectElems));
         }
     }
 
-    private static boolean getMostAppropriateSizes(Article article,
-			Context context, WebElement selectElem) {
-        //log(driver.getPageSource());
-		Select select = new Select(selectElem);
-		
-		return selectMostAppropriateSizes(article, context, select);
-		
-		//return selected;
-
-	}
-
-	private static boolean selectMostAppropriateSizes (Article article, Context context, Select select) {
-		
-		List<String> availableSizes = select.getOptions().stream().map(option -> getOptionText(option)).collect(Collectors.toList());
-        List<String> preferedSize = SizeHelper.getPreferedSize(article, context, availableSizes);
-		if (preferedSize.isEmpty()) {
-            LOG.info("No prefered size found for " + article.getInfo());
-			return false;
-		} else {
-            //log(driver.getPageSource());
-			LOG.info("preferedSize " + preferedSize + " selected for article " + article.getInfo());
-			return selectSize(select, preferedSize);
+	private static void makeSelectSizeElementVisibleIfNeeded(WebDriver driver) {
+		WebElement div = driver.findElement(By.id("withStock"));
+		if (!div.isDisplayed()) {
+			makeElementVisible(div);
 		}
 	}
-	
-	private static boolean selectSize(Select select, List<String> selectSizeList) {
-		
-		List<WebElement> options = select.getOptions();
 
-		for ( int i = 0; i < options.size(); i++) {
-			WebElement option = options.get(i);
-
-			String optionText = getOptionText(option);
-
-			if (listContains(selectSizeList, optionText)) {
-				LOG.info("selected index " + i + ", " + optionText + ", " + selectSizeList);
-				select.selectByIndex(i);
-				//return optionText
-				return true;
-			} else {
-				LOG.info("optionText = " + optionText + " NOT FOUND in " + selectSizeList);
-			}
+    private static void makeElementVisible(WebElement div) {
+		try {
+			DomElement domElem = getElement(div);
+			domElem.setAttribute("style", "display:block;");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		return false;
 	}
-
-    static String getOptionText(WebElement option) {
-        // option may be hidden here
-        return getTextOfHiddenElement(option);
-    }
 
 	@SuppressWarnings("all")
-	public static Map<String, Object> openExpressPurchaseWindow(WebDriver driver, Article article) {
+	public static void openExpressPurchaseWindow(WebDriver driver, Article article) {
 		long start = System.currentTimeMillis();
-		try {
-			
-			// must activate javascript because will submit form using ajax
-			//HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
-			//htmlUnitDriver.setJavascriptEnabled(true);
-						
-			String openNewWindow = article.getLink();
+		try {			
+			/*String articleLink = article.getLink();
             int time = 0;
 
 			do {
@@ -621,17 +685,20 @@ public class VPClient {
                     sleep(50);
                     LOG.info("retry to open purchase windows " + (time+1) + " times");
                 }
-                goToLink(driver, openNewWindow);
+                goToLink(driver, articleLink);
 
-            } while (!driver.getCurrentUrl().contains(openNewWindow) && ++time <= 10);
+            } while (!driver.getCurrentUrl().contains(articleLink) && ++time <= 10);
 
             LOG.info("openExpressPurchaseWindow:" + article + " -> " + driver.getCurrentUrl());
 
 			//sleep(500);
-            if (driver.getCurrentUrl().contains(openNewWindow))
+            if (driver.getCurrentUrl().contains(articleLink))
 			    return map(entry("ok", (Object) Boolean.TRUE));
             else
-                return map(entry("ok", (Object) Boolean.FALSE));
+                return map(entry("ok", (Object) Boolean.FALSE));*/
+			
+			goToLink(driver, article.getLink());
+
 		} finally {
 			long time = System.currentTimeMillis() - start;
 			LOG.info(driver + " openExpressPurchaseWindow : " + time);
@@ -644,6 +711,9 @@ public class VPClient {
 		}
 		driver.navigate().to(link);
         //assert driver.getCurrentUrl().equals(link) : driver.getCurrentUrl() + " <> " + link;
+		// wait for async page load
+		//sleep(5000);
+				
 	}
 	
 	@SuppressWarnings("all")
@@ -664,64 +734,85 @@ public class VPClient {
 				By.xpath("//ul[starts-with(@class,\"artList\")]/li"));
 		
 		LOG.info("after findArticleElements " + articleElems.size() + ", "+ (System.currentTimeMillis() - start));
-		if (articleElems.isEmpty()) {
+		if (articleElems.isEmpty()) { // not sure it's still working
 			LOG.info(" Cannot find ul with class 'artList viewAllProduct'. Will parse Json to get article infos");
 			articles.addAll(findAllArticlesByParsingJson(driver, subCategory));
 
 
 		} else {
-			for (WebElement articleElem : articleElems) {
-				//List<WebElement> elems = articleElem.findElements(By.xpath(".//*"));
-				//System.out.println(elems);
-                //log("articleElem: " + articleElem.getText() + category + subCategory);
-				String name = articleElem.findElement(By.xpath(".//div[@class=\"infoArtTitle\"]")).getText();
-				// Achat Express link could not exist
-				// have to treate this case by using Fiche Produit
-				//try {
-					String link = null;
-                    if (context.isNewInterface()) {
-                        List<WebElement> xPressBts = articleElem.findElements(By.xpath(".//a[@class=\"infoExpressBt\"]"));
-                        if (xPressBts.isEmpty()) {
-                        	LOG.error("Cannot find 'Achat express' button for " + name);
-                        	continue;
-                        } else {
-                        	link = xPressBts.get(0).getAttribute("href");
-                        }
-                    } else {
-                    	List<WebElement> xPressBts = articleElem.findElements(By.xpath(".//a[@class=\"btStoreXpress\"]"));
-                        if (xPressBts.isEmpty()) {
-                        	LOG.error("Cannot find 'Achat express' button for " + name);
-                        	continue;
-                        } else {
-	                        link = xPressBts.get(0).getAttribute("onclick");
-	                        int firstIndex = link.indexOf("'");
-	                        int lastIndex = link.lastIndexOf("'");
-	                        link = link.substring(firstIndex+1, lastIndex);
-                        }
-                    }
-
-					articles.add(new Article(name, link, subCategory));
-				/*} catch (NoSuchElementException e) {
-					LOG.error("Cannot find 'Achat express' button for " + name + " in " + articleElem.findElements(By.xpath(".//a[@class=\"btStoreXpress\"]")) + articleElem.findElements(By.xpath(".//span[@class=\"artState\"]")));
-				}*/
+			// when showing articles of sub category, only first 12 articles will be shown.
+			// In order to see more, the page must be scrolled down in which case, an ajax call
+			// will be triggered to load more articles.
+			// As javascript is disabled for HtmlUnit, will have to manually open next page urls
+			// to load further items.
+			// Can be slow when there are too many items to load. Is it possible to load it concurrently with other steps ?
+			List<WebElement> totalArticleCountElems = driver.findElements(By.id("availableProductsCount"));
+			int totalArticleCount = -1;
+			if (!totalArticleCountElems.isEmpty()) {
+				totalArticleCount = Integer.parseInt(totalArticleCountElems.get(0).getAttribute("value"));
 			}
+			
+			do {
+				for (WebElement articleElem : articleElems) {
+					//List<WebElement> elems = articleElem.findElements(By.xpath(".//*"));
+					//System.out.println(elems);
+	                //log("articleElem: " + articleElem.getText() + category + subCategory);
+					String name = articleElem.findElement(By.xpath(".//div[@class=\"infoArtTitle\"]")).getText();
+					// Achat Express link could not exist
+					// have to treate this case by using Fiche Produit
+					//try {
+						String link = null;
+	                    if (context.isNewInterface()) {
+	                    	WebElement moreInfoBtn = articleElem.findElement(By.xpath(".//a[contains(@class,\"infoMoreBt\")]"));
+	                    	String moreInfoLink = moreInfoBtn.getAttribute("href"); // format : /catalogue/Product/ProductSheet/xxx/site/1/yyy
+	                    	link = moreInfoLink.replace("ProductSheet", "ExpressProductSheet");
+	                    	
+	                        /*List<WebElement> xPressBts = articleElem.findElements(By.xpath(".//a[@class=\"infoExpressBt\"]"));
+	                        if (xPressBts.isEmpty()) {
+	                        	LOG.error("Cannot find 'Achat express' button for " + name);
+	                        	continue;
+	                        } else {
+	                        	link = xPressBts.get(0).getAttribute("href");
+	                        }*/
+	                    } else { // does old interface still exist ?
+	                    	List<WebElement> xPressBts = articleElem.findElements(By.xpath(".//a[@class=\"btStoreXpress\"]"));
+	                        if (xPressBts.isEmpty()) {
+	                        	LOG.error("Cannot find 'Achat express' button for " + name);
+	                        	continue;
+	                        } else {
+		                        link = xPressBts.get(0).getAttribute("onclick");
+		                        int firstIndex = link.indexOf("'");
+		                        int lastIndex = link.lastIndexOf("'");
+		                        link = link.substring(firstIndex+1, lastIndex);
+	                        }
+	                    }
+	
+						articles.add(new Article(name, link, subCategory));
+					/*} catch (NoSuchElementException e) {
+						LOG.error("Cannot find 'Achat express' button for " + name + " in " + articleElem.findElements(By.xpath(".//a[@class=\"btStoreXpress\"]")) + articleElem.findElements(By.xpath(".//span[@class=\"artState\"]")));
+					}*/
+				}
+				
+				LOG.debug("SubCategory " + subCategory.getInfo() + ", currentCount=" + articles.size() + ", totalCount=" + totalArticleCount);
+				if (articles.size() < totalArticleCount) {
+					String url = subCategory.getLink().toLowerCase().replace("/salespace/operation", "/salespace/products") + "?item-index=" + articles.size();
+					LOG.debug("Next articles page url : " + url);
+					goToLink(driver, url);
+					articleElems = driver.findElements(
+							By.xpath("//li"));
+					if (articleElems.isEmpty()) {
+						LOG.error("SubCategory " + subCategory.getInfo() + " get next page with url " + url + " returns no result\n" + driver.getPageSource());
+						// no result, so break to avoid infinite loop
+						break;
+					}
+				} else {
+					break;
+				}
+			} while (true);
 		}
 
-		// detecte woman|man articles
-		// do not work correctly when man,woman,kids are mixted
-		/*String catSubCat = subCategory.getInfo().toLowerCase();
-		if (!catSubCat.contains("femme") && !catSubCat.contains("homme")) {
-			String source = driver.getPageSource();
-			if (source.contains("Tailles femme")) {
-				subCategory.addAttribute("femme", "true");
-			} else if (source.contains("Tailles homme")) {
-				subCategory.addAttribute("homme", "true");
-			}
-		}*/
-		
 		long time = System.currentTimeMillis() - start;
-
-		LOG.info(driver + " findAllArticlesInSubCategory " + subCategory.getInfo() + " : size=" + articleElems.size() + " , " + time);
+		LOG.info(driver + " findAllArticlesInSubCategory " + subCategory.getInfo() + " : size=" + articles.size() + " , " + time);
 
 		Collections.shuffle(articles); // random :)
 		return articles;
@@ -850,8 +941,8 @@ public class VPClient {
 	}
 
     public static void goToViewOrders(WebDriver driver) {
-        HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
-        htmlUnitDriver.setJavascriptEnabled(true);
+        //HtmlUnitDriver htmlUnitDriver = (HtmlUnitDriver) driver;
+        //htmlUnitDriver.setJavascriptEnabled(true);
 
 
         goToLink(driver, "/memberaccount/order");
@@ -953,6 +1044,9 @@ public class VPClient {
     public static int getBasketSize(WebDriver driver) {
         goToLink(driver, "/cart/");
 
+        if (driver.findElements(By.xpath("//h1[text()=\"Panier vide\"]")).size() == 1) {
+        	return 0;
+        }
         String pageSource = driver.getPageSource();
 
         String startPattern = "require([\"Command/CartManager\"], function(manager){";

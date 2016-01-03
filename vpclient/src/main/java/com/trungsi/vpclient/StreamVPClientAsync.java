@@ -36,7 +36,7 @@ public class StreamVPClientAsync {
 		String vpHome = System.getProperty("user.home") + "/vente-privee";
 		Context context = VPGUI.loadContext(vpHome);
 		
-		List<Sale> saleList = VPClient.getSalesList(VPClient.loadDriver(context));
+		List<Sale> saleList = VPClient.getSalesListNew(VPClient.loadDriver(context));
 		Optional<Sale> sale = saleList.stream()
 			.filter(map -> map.getName().toLowerCase().contains("mcs"))
 			.findFirst();

@@ -22,16 +22,21 @@ import static org.junit.Assert.assertEquals;
  */
 public class VPClientTest extends AbstractVPClientTestCase {
 
+	@Test
+	public void testGetSaleListNew() {
+		//System.out.println(driver.getCurrentUrl());
+		System.out.println(VPClient.getSalesListNew(driver).size());
+	}
 
 	@Test
 	public void testGetSalesList() {
-		List<Sale> salesList = VPClient.getSalesList(driver);
+		List<Sale> salesList = VPClient.getSalesListNew(driver);
 		assertFalse(salesList.isEmpty());
 		Sale sale = salesList.get(0);
 		//System.out.println(driver.getPageSource());
 		assertNotNull(sale.getLink());
 		assertNotNull(sale.getDatesSale());
-		System.out.println(salesList);
+		System.out.println(salesList.size());
 		for (Sale otherSale : salesList) {
 			assertFalse(sale.getName().isEmpty());
 			String dateSales = otherSale.getDatesSale();
@@ -147,7 +152,7 @@ public class VPClientTest extends AbstractVPClientTestCase {
     }
     
 	private List<Sale> getSalesList() {
-		List<Sale> salesList = VPClient.getSalesList(driver);
+		List<Sale> salesList = VPClient.getSalesListNew(driver);
         Iterator<Sale> iter = salesList.iterator();
         while (iter.hasNext()) {
             Sale sale = iter.next();

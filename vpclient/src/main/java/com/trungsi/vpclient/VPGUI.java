@@ -135,7 +135,7 @@ public class VPGUI {
 						context.put(Context.PWD, new String(passwordField.getPassword()));
 						
 						VPClientAsync vpClient = new VPClientAsync(context);
-						final List<Sale> salesList = vpClient.getSalesList();
+						final List<Sale> salesList = vpClient.getSalesListNew();
 						
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
@@ -203,13 +203,23 @@ public class VPGUI {
 		
 		JLabel girlShoesSizesLabel = new JLabel("Girl Shoes Sizes");
 		formPanel.add(girlShoesSizesLabel, "align right");
-		final JTextField girlShoesSizesField = new JTextField(getDefault(Context.GIRL_SHOES_SIZES, context, "26 |T.26|T. 26"), 30);
+		final JTextField girlShoesSizesField = new JTextField(getDefault(Context.GIRL_SHOES_SIZES, context, "29 |T.29|T. 29"), 30);
 		formPanel.add(girlShoesSizesField, "wrap");
 		
 		JLabel girlClothingSizesLabel = new JLabel("Girl Clothing Sizes");
 		formPanel.add(girlClothingSizesLabel, "align right");
-		final JTextField girlClothingSizesField = new JTextField(getDefault(Context.GIRL_CLOTHING_SIZES, context, "4 ans"), 30);
+		final JTextField girlClothingSizesField = new JTextField(getDefault(Context.GIRL_CLOTHING_SIZES, context, "6 ans"), 30);
 		formPanel.add(girlClothingSizesField, "wrap");
+		
+		JLabel boyShoesSizesLabel = new JLabel("Boy Shoes Sizes");
+		formPanel.add(boyShoesSizesLabel, "align right");
+		final JTextField boyShoesSizesField = new JTextField(getDefault(Context.BOY_SHOES_SIZES, context, "26 |T.26|T. 26"), 30);
+		formPanel.add(boyShoesSizesField, "wrap");
+		
+		JLabel boyClothingSizesLabel = new JLabel("Boy Clothing Sizes");
+		formPanel.add(boyClothingSizesLabel, "align right");
+		final JTextField boyClothingSizesField = new JTextField(getDefault(Context.BOY_CLOTHING_SIZES, context, "4 ans"), 30);
+		formPanel.add(boyClothingSizesField, "wrap");
 		
 		JLabel manJeanSizesLabel = new JLabel("Man Jean Sizes");
 		formPanel.add(manJeanSizesLabel, "align right");

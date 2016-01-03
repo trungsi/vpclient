@@ -3,9 +3,6 @@ package com.trungsi.vpclient;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
-
-import static com.trungsi.vpclient.VPClient.getSalesList;
 
 /**
  * Created with IntelliJ IDEA.

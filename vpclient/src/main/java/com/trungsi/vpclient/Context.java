@@ -27,6 +27,8 @@ public class Context extends HashMap<String, String> {
 	
 	public static final String GIRL_SHOES_SIZES = "girlShoesSizes";
 	public static final String GIRL_CLOTHING_SIZES = "girlClothingSizes";
+	public static final String BOY_SHOES_SIZES = "boyShoesSizes";
+	public static final String BOY_CLOTHING_SIZES = "boyClothingSizes";
 	
 	public static final String MAN_JEAN_SIZES = "manJeanSizes";
 	public static final String MAN_SHOES_SIZES = "manShoesSizes";
@@ -39,6 +41,10 @@ public class Context extends HashMap<String, String> {
 	
 	public static final String NEW_INTERFACE = "NEW_INTERFACE";
 	public static final String EXCLUSIVE_ARTICLES = "exclusiveArticles";
+	public static final String CHROME = "CHROME";
+	public static final String FIREFOX = "FIREFOX";
+	public static final String SAFARI = "SAFARI";
+	
 
 	public void setNewInterface() {
 		put(NEW_INTERFACE, "true");
