@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <Document>
+    <name>ShakeMap: 72282711</name>
+    <open>1</open>
+    <LookAt>
+      <longitude>-122.3117</longitude>
+      <latitude>38.2155</latitude>
+      <range>200000</range>
+      <tilt>0</tilt>
+      <heading>0</heading>
+    </LookAt>
+    <NetworkLink>
+      <name>Intensity Overlay</name>
+      <Link>
+        <href>files/overlay.kml</href>
+        <refreshMode>onInterval</refreshMode>
+        <refreshInterval>300</refreshInterval>
+      </Link>
+    </NetworkLink>
+    <NetworkLink>
+      <name>Epicenter</name>
+      <Link>
+        <href>files/epicenter.kml</href>
+        <refreshMode>onInterval</refreshMode>
+        <refreshInterval>300</refreshInterval>
+      </Link>
+    </NetworkLink>
+    <NetworkLink>
+      <name>Seismic Stations</name>
+      <Link>
+        <href>files/stations.kml</href>
+        <refreshMode>onInterval</refreshMode>
+        <refreshInterval>300</refreshInterval>
+      </Link>
+    </NetworkLink>
+    <Folder>
+      <name>Intensity Polygons</name>
+      <NetworkLink>
+        <name>Intensity Polygons</name>
+        <visibility>0</visibility>
+        <Link>
+          <href>files/polygons_mi.kml</href>
+          <refreshMode>onInterval</refreshMode>
+          <refreshInterval>300</refreshInterval>
+        </Link>
+      </NetworkLink>
+      <NetworkLink>
+        <name>Polygon Labels</name>
+        <visibility>0</visibility>
+        <Link>
+          <href>files/polygon_labels_mi.kml</href>
+          <refreshMode>onInterval</refreshMode>
+          <refreshInterval>300</refreshInterval>
+        </Link>
+      </NetworkLink>
+    </Folder>
+    <Folder>
+      <name>Contours</name>
+      <open>1</open>
+      <Style>
+        <ListStyle>
+          <listItemType>radioFolder</listItemType>
+        </ListStyle>
+      </Style>
+      <NetworkLink>
+        <name>Intensity</name>
+        <Link>
+          <href>files/cont_mi.kml</href>
+        </Link>
+      </NetworkLink>
+      <NetworkLink>
+        <name>pga</name>
+        <Link>
+          <href>files/cont_pga.kml</href>
+        </Link>
+      </NetworkLink>
+      <NetworkLink>
+        <name>pgv</name>
+        <Link>
+          <href>files/cont_pgv.kml</href>
+        </Link>
+      </NetworkLink>
+      <NetworkLink>
+        <name>psa03</name>
+        <Link>
+          <href>files/cont_psa03.kml</href>
+        </Link>
+      </NetworkLink>
+      <NetworkLink>
+        <name>psa10</name>
+        <Link>
+          <href>files/cont_psa10.kml</href>
+        </Link>
+      </NetworkLink>
+      <NetworkLink>
+        <name>psa30</name>
+        <Link>
+          <href>files/cont_psa30.kml</href>
+        </Link>
+      </NetworkLink>
+    </Folder>
+    <NetworkLink>
+      <name>Fault</name>
+      <Link>
+        <href>files/fault.kml</href>
+        <refreshMode>onInterval</refreshMode>
+        <refreshInterval>300</refreshInterval>
+      </Link>
+    </NetworkLink>
+    <ScreenOverlay>
+      <name>Intensity Legend</name>
+      <Icon>
+        <href>files/shakemap.png</href>
+      </Icon>
+      <overlayXY x="0" y="90" xunits="pixels" yunits="pixels" />
+      <screenXY x="5" y="1" xunits="pixels" yunits="fraction" />
+      <size x="0" y="0" xunits="pixels" yunits="pixels" />
+    </ScreenOverlay>
+  </Document>
+</kml>
+

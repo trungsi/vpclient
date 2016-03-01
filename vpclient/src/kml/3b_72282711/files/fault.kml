@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <NetworkLinkControl>
+    <minRefreshPeriod>604800</minRefreshPeriod>
+  </NetworkLinkControl>
+  <Document>
+    <Style id="lineFaultStyle">
+      <ListStyle>
+        <listItemType>checkHideChildren</listItemType>
+      </ListStyle>
+      <BalloonStyle>
+        <text>$[description]</text>
+      </BalloonStyle>
+      <IconStyle>
+        <scale>0.6</scale>
+        <Icon>
+          <href>icon35.png</href>
+        </Icon>
+      </IconStyle>
+    </Style>
+    <Style id="polyFaultStyle">
+      <ListStyle>
+        <listItemType>checkHideChildren</listItemType>
+      </ListStyle>
+      <BalloonStyle>
+        <text>$[description]</text>
+      </BalloonStyle>
+      <IconStyle>
+        <scale>0.6</scale>
+        <Icon>
+          <href>icon35.png</href>
+        </Icon>
+      </IconStyle>
+      <PolyStyle>
+        <colorMode>normal</colorMode>
+        <color>BFFF0000</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>FF000000</color>
+        <width>6</width>
+      </LineStyle>
+    </Style>
+    <Placemark>
+      <styleUrl>#polyFaultStyle</styleUrl>
+      <name>Fault Surface</name>
+      <description>The blue area(s) represent the approximate surface projection of the fault rupture plane(s).  You may change its transparency by selecting the 'Fault' item in the 'Places' window and adjusting the slider at the bottom of that window.</description>
+      <Snippet maxLines="0">
+      </Snippet>
+      <Point>
+        <coordinates>-122.313,38.220</coordinates>
+      </Point>
+      <visibility>1</visibility>
+      <open>0</open>
+    </Placemark>
+    <Placemark>
+      <styleUrl>#polyFaultStyle</styleUrl>
+      <name>Fault Surface Projection</name>
+      <MultiGeometry>
+        <Polygon>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>relativeToGround</altitudeMode>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>-122.313000,38.220000,1000 -122.313000,38.220000,1000 -122.333000,38.310000,1000 -122.333000,38.310000,1000 -122.313000,38.220000,1000</coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </MultiGeometry>
+    </Placemark>
+  </Document>
+</kml>
+

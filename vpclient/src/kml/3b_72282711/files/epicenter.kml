@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <NetworkLinkControl>
+    <minRefreshPeriod>604800</minRefreshPeriod>
+  </NetworkLinkControl>
+  <Document>
+    <Style id="epicenterStyle">
+      <BalloonStyle>
+        <text>$[description]</text>
+      </BalloonStyle>
+    </Style>
+    <Placemark>
+      <styleUrl>#epicenterStyle</styleUrl>
+<description><![CDATA[<dl><dt>Event ID:</dt><dd> <b>72282711</b></dd><dt>Magnitude:</dt><dd> <b>6.0</b></dd><dt>Date:</dt><dd> <b>Aug 24, 2014</b></dd>Time:</dt><dd> <b>03:20:44 AM PDT</b></dd><dt>Lat:</dt><dd> <b>38.22</b></dd>Lon:</dt><dd> <b>-122.31</b></dd>]]></description>      <Snippet maxLines="0">
+      </Snippet>
+      <visibility>1</visibility>
+      <open>1</open>
+      <Style>
+        <IconStyle>
+          <scale>0.95</scale>
+          <Icon>
+            <href>icon50.png</href>
+          </Icon>
+        </IconStyle>
+      </Style>
+      <Point>
+        <extrude>1</extrude>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.311700,38.215500,0</coordinates>
+      </Point>
+    </Placemark>
+  </Document>
+</kml>
+

@@ -1,0 +1,1338 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <NetworkLinkControl>
+    <minRefreshPeriod>604800</minRefreshPeriod>
+  </NetworkLinkControl>
+  <Document>
+    <Style id="style_mi_3.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffe6a0</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffe6a0</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_7">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff00c8ff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff00c8ff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_11.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0000b0</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0000b0</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_4.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffff80</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffff80</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_1.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffe5df</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffe5df</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_10">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0000c8</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0000c8</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_4.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffc9ff7d</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffc9ff7d</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_11">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0000b0</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0000b0</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_10.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0000c8</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0000c8</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_9.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0000ff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0000ff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_1.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffffff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffffff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_0.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffffff</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffffff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_0.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffffff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffffff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_7.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff00adff</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff00adff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_5.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff93ff7a</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff93ff7a</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_2">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffccbf</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffccbf</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_1">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffffff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffffff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_3.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>fffff390</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>fffff390</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_7.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff00c8ff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff00c8ff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_2.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffccbf</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffccbf</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_6.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff00ffff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff00ffff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_10.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0000bc</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0000bc</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_5.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff4affbc</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff4affbc</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_8.0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0091ff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0091ff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_0">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffffff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffffff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_2.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffd9b0</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffd9b0</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_6">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff00ffff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff00ffff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_8.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0049ff</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0049ff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_3">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffe6a0</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffe6a0</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_9">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0000ff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0000ff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_6.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff00e4ff</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff00e4ff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_8">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0091ff</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0091ff</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_9.5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff0000e4</color>
+        <width>6</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff0000e4</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_4">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ffffff80</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ffffff80</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <Style id="style_mi_5">
+      <IconStyle>
+        <Icon>
+        </Icon>
+      </IconStyle>
+      <LineStyle>
+        <colorMode>normal</colorMode>
+        <color>ff93ff7a</color>
+        <width>1</width>
+      </LineStyle>
+      <LabelStyle>
+        <color>ff93ff7a</color>
+        <scale>1</scale>
+      </LabelStyle>
+      <BalloonStyle>
+        <text>&lt;b&gt;$[name]&lt;/b&gt;</text>
+      </BalloonStyle>
+    </Style>
+    <name>Intensity Contours</name>
+    <visibility>1</visibility>
+    <Placemark>
+      <name>Intensity 2 Contour</name>
+      <styleUrl>#style_mi_2</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-123.54091,37.38217,0 -123.54503,37.38885,0 -123.54617,37.39050,0 -123.55337,37.39770,0 -123.55501,37.39883,0 -123.56170,37.40292,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2 Contour</name>
+      <styleUrl>#style_mi_2</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-123.52337,39.04883,0 -123.52683,39.04050,0 -123.52837,39.03795,0 -123.53083,39.03217,0 -123.53481,39.02383,0 -123.53670,39.01944,0 -123.53823,39.01550,0 -123.54108,39.00717,0 -123.54369,38.99883,0 -123.54503,38.99442,0 -123.54637,38.99050,0 -123.54795,38.98217,0 -123.54901,38.97383,0 -123.55337,38.96628,0 -123.55423,38.96550,0 -123.56170,38.96221,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2 Contour</name>
+      <styleUrl>#style_mi_2</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-123.56170,38.76506,0 -123.55991,38.76550,0 -123.55337,38.76678,0 -123.54503,38.76749,0 -123.54062,38.76550,0 -123.53936,38.75717,0 -123.53834,38.74883,0 -123.53670,38.74541,0 -123.53453,38.74050,0 -123.52837,38.73274,0 -123.52782,38.73217,0 -123.52003,38.72531,0 -123.51626,38.72383,0 -123.51170,38.72115,0 -123.50337,38.71767,0 -123.49973,38.71550,0 -123.49503,38.71112,0 -123.48787,38.70717,0 -123.48670,38.70609,0 -123.47837,38.70062,0 -123.47599,38.69883,0 -123.47461,38.69050,0 -123.47837,38.68770,0 -123.48670,38.68628,0 -123.49503,38.68482,0 -123.50213,38.68217,0 -123.50337,38.68158,0 -123.51170,38.67642,0 -123.51561,38.67383,0 -123.52003,38.67072,0 -123.52711,38.66550,0 -123.52837,38.66474,0 -123.53670,38.66172,0 -123.54503,38.66323,0 -123.55039,38.66550,0 -123.55337,38.66686,0 -123.56170,38.67040,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2.5 Contour</name>
+      <styleUrl>#style_mi_2.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-123.01997,37.38217,0 -123.02003,37.38222,0 -123.02837,37.38889,0 -123.03028,37.39050,0 -123.03670,37.39414,0 -123.04503,37.39883,0 -123.04503,37.39883,0 -123.05337,37.40310,0 -123.06055,37.40717,0 -123.06170,37.40788,0 -123.07003,37.41314,0 -123.07420,37.41550,0 -123.07837,37.41786,0 -123.08670,37.42312,0 -123.08785,37.42383,0 -123.09503,37.42801,0 -123.10195,37.43217,0 -123.10337,37.43313,0 -123.11170,37.43953,0 -123.11311,37.44050,0 -123.12003,37.44467,0 -123.12695,37.44883,0 -123.12837,37.44980,0 -123.13670,37.45620,0 -123.13811,37.45717,0 -123.14503,37.46133,0 -123.15193,37.46550,0 -123.15337,37.46651,0 -123.16170,37.47361,0 -123.16196,37.47383,0 -123.17003,37.47973,0 -123.17420,37.48217,0 -123.17837,37.48460,0 -123.18641,37.49050,0 -123.18670,37.49075,0 -123.19503,37.49858,0 -123.19532,37.49883,0 -123.20337,37.50473,0 -123.20753,37.50717,0 -123.21170,37.50960,0 -123.21974,37.51550,0 -123.22003,37.51575,0 -123.22837,37.52383,0 -123.22837,37.52383,0 -123.23670,37.53217,0 -123.23670,37.53217,0 -123.24503,37.54007,0 -123.24558,37.54050,0 -123.25337,37.54586,0 -123.25862,37.54883,0 -123.26170,37.55064,0 -123.26987,37.55717,0 -123.27003,37.55731,0 -123.27837,37.56550,0 -123.27837,37.56550,0 -123.28670,37.57383,0 -123.28670,37.57383,0 -123.29503,37.58217,0 -123.29503,37.58217,0 -123.30337,37.59050,0 -123.30337,37.59050,0 -123.31170,37.59883,0 -123.31170,37.59883,0 -123.32003,37.60717,0 -123.32003,37.60717,0 -123.32837,37.61550,0 -123.32837,37.61550,0 -123.33670,37.62383,0 -123.33670,37.62383,0 -123.34503,37.63217,0 -123.34503,37.63217,0 -123.35294,37.64050,0 -123.35337,37.64106,0 -123.35911,37.64883,0 -123.36170,37.65324,0 -123.36395,37.65717,0 -123.37003,37.66511,0 -123.37034,37.66550,0 -123.37837,37.67383,0 -123.37837,37.67383,0 -123.38668,37.68217,0 -123.38670,37.68219,0 -123.39404,37.69050,0 -123.39503,37.69199,0 -123.39920,37.69883,0 -123.40337,37.70567,0 -123.40436,37.70717,0 -123.41159,37.71550,0 -123.41170,37.71562,0 -123.41832,37.72383,0 -123.42003,37.72676,0 -123.42318,37.73217,0 -123.42837,37.73982,0 -123.42886,37.74050,0 -123.43571,37.74883,0 -123.43670,37.75033,0 -123.44087,37.75717,0 -123.44503,37.76417,0 -123.44588,37.76550,0 -123.45170,37.77383,0 -123.45337,37.77673,0 -123.45650,37.78217,0 -123.46170,37.79034,0 -123.46180,37.79050,0 -123.46712,37.79883,0 -123.47003,37.80413,0 -123.47173,37.80717,0 -123.47682,37.81550,0 -123.47837,37.81836,0 -123.48133,37.82383,0 -123.48554,37.83217,0 -123.48670,37.83449,0 -123.48980,37.84050,0 -123.49456,37.84883,0 -123.49503,37.84968,0 -123.49898,37.85717,0 -123.50266,37.86550,0 -123.50337,37.86714,0 -123.50641,37.87383,0 -123.51054,37.88217,0 -123.51170,37.88464,0 -123.51451,37.89050,0 -123.51824,37.89883,0 -123.52003,37.90300,0 -123.52182,37.90717,0 -123.52535,37.91550,0 -123.52837,37.92383,0 -123.52837,37.92383,0 -123.53138,37.93217,0 -123.53483,37.94050,0 -123.53670,37.94538,0 -123.53800,37.94883,0 -123.54089,37.95717,0 -123.54370,37.96550,0 -123.54503,37.96953,0 -123.54662,37.97383,0 -123.54978,37.98217,0 -123.55300,37.99050,0 -123.55337,37.99148,0 -123.55733,37.99883,0 -123.56150,38.00717,0 -123.56170,38.00762,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2.5 Contour</name>
+      <styleUrl>#style_mi_2.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-121.70739,37.38217,0 -121.70941,37.39050,0 -121.71125,37.39883,0 -121.71120,37.40717,0 -121.70995,37.41550,0 -121.70981,37.42383,0 -121.71170,37.43130,0 -121.71192,37.43217,0 -121.71170,37.43392,0 -121.71080,37.44050,0 -121.70575,37.44883,0 -121.70337,37.45112,0 -121.69503,37.45545,0 -121.68889,37.45717,0 -121.68670,37.45761,0 -121.67837,37.45889,0 -121.67003,37.45985,0 -121.66170,37.46053,0 -121.65337,37.46117,0 -121.64503,37.46180,0 -121.63670,37.46234,0 -121.62837,37.46268,0 -121.62003,37.46278,0 -121.61170,37.46266,0 -121.60337,37.46234,0 -121.59503,37.46179,0 -121.58670,37.46107,0 -121.57837,37.46033,0 -121.57003,37.45968,0 -121.56170,37.45926,0 -121.55337,37.45949,0 -121.54503,37.46113,0 -121.53676,37.46550,0 -121.53670,37.46554,0 -121.52837,37.47141,0 -121.52420,37.47383,0 -121.52003,37.47626,0 -121.51170,37.48217,0 -121.51170,37.48217,0 -121.50337,37.48807,0 -121.49920,37.49050,0 -121.49503,37.49293,0 -121.48696,37.49883,0 -121.48670,37.49906,0 -121.47837,37.50615,0 -121.47693,37.50717,0 -121.47003,37.51133,0 -121.46314,37.51550,0 -121.46170,37.51651,0 -121.45339,37.52383,0 -121.45337,37.52386,0 -121.44503,37.53178,0 -121.44449,37.53217,0 -121.43670,37.53522,0 -121.42837,37.53495,0 -121.42003,37.53440,0 -121.41170,37.53529,0 -121.40337,37.53822,0 -121.39901,37.54050,0 -121.39503,37.54213,0 -121.38670,37.54580,0 -121.37866,37.54883,0 -121.37837,37.54894,0 -121.37003,37.54943,0 -121.36661,37.54883,0 -121.36170,37.54797,0 -121.35337,37.54619,0 -121.34503,37.54457,0 -121.33670,37.54270,0 -121.32837,37.54064,0 -121.32003,37.54096,0 -121.31170,37.54426,0 -121.30337,37.54681,0 -121.29503,37.54674,0 -121.28670,37.54435,0 -121.27929,37.54050,0 -121.27837,37.53996,0 -121.27003,37.53534,0 -121.26179,37.53217,0 -121.26170,37.53214,0 -121.25337,37.52989,0 -121.24503,37.52794,0 -121.23670,37.52582,0 -121.22837,37.52398,0 -121.22003,37.52431,0 -121.21170,37.52862,0 -121.20655,37.53217,0 -121.20337,37.53369,0 -121.19503,37.53413,0 -121.18815,37.53217,0 -121.18670,37.53180,0 -121.17837,37.52829,0 -121.17003,37.52527,0 -121.16321,37.52383,0 -121.16170,37.52349,0 -121.15932,37.52383,0 -121.15337,37.52535,0 -121.14503,37.53175,0 -121.14454,37.53217,0 -121.13670,37.53722,0 -121.13002,37.54050,0 -121.12837,37.54124,0 -121.12003,37.54626,0 -121.11698,37.54883,0 -121.11170,37.55454,0 -121.10869,37.55717,0 -121.10337,37.56374,0 -121.10197,37.56550,0 -121.09896,37.57383,0 -121.09503,37.58062,0 -121.09419,37.58217,0 -121.08670,37.59040,0 -121.08661,37.59050,0 -121.07837,37.59864,0 -121.07815,37.59883,0 -121.07003,37.60611,0 -121.06807,37.60717,0 -121.06170,37.61115,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2.5 Contour</name>
+      <styleUrl>#style_mi_2.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-121.06170,38.49578,0 -121.07003,38.49668,0 -121.07837,38.49786,0 -121.08032,38.49883,0 -121.08670,38.50502,0 -121.08771,38.50717,0 -121.08851,38.51550,0 -121.08868,38.52383,0 -121.09070,38.53217,0 -121.09503,38.53860,0 -121.09783,38.54050,0 -121.10337,38.54387,0 -121.11170,38.54587,0 -121.11666,38.54883,0 -121.12003,38.55318,0 -121.12176,38.55717,0 -121.12370,38.56550,0 -121.12411,38.57383,0 -121.12433,38.58217,0 -121.12498,38.59050,0 -121.12641,38.59883,0 -121.12837,38.60434,0 -121.12916,38.60717,0 -121.13254,38.61550,0 -121.13646,38.62383,0 -121.13670,38.62441,0 -121.13882,38.63217,0 -121.13932,38.64050,0 -121.13744,38.64883,0 -121.13670,38.65111,0 -121.13318,38.65717,0 -121.12837,38.66132,0 -121.12105,38.66550,0 -121.12003,38.66615,0 -121.11373,38.67383,0 -121.11170,38.67938,0 -121.11079,38.68217,0 -121.11149,38.69050,0 -121.11170,38.69077,0 -121.12003,38.69221,0 -121.12266,38.69050,0 -121.12837,38.68721,0 -121.13670,38.68427,0 -121.14503,38.68537,0 -121.15337,38.68869,0 -121.15793,38.69050,0 -121.16170,38.69307,0 -121.17003,38.69811,0 -121.17114,38.69883,0 -121.17837,38.70646,0 -121.17897,38.70717,0 -121.18637,38.71550,0 -121.18670,38.71593,0 -121.19123,38.72383,0 -121.19503,38.72925,0 -121.19706,38.73217,0 -121.20280,38.74050,0 -121.20337,38.74132,0 -121.20747,38.74883,0 -121.21087,38.75717,0 -121.21087,38.76550,0 -121.21170,38.76735,0 -121.21563,38.77383,0 -121.22003,38.77623,0 -121.22837,38.78033,0 -121.23064,38.78217,0 -121.23518,38.79050,0 -121.23499,38.79883,0 -121.23424,38.80717,0 -121.23501,38.81550,0 -121.23670,38.82034,0 -121.23824,38.82383,0 -121.24057,38.83217,0 -121.23670,38.83890,0 -121.23596,38.84050,0 -121.23318,38.84883,0 -121.23595,38.85717,0 -121.23670,38.85768,0 -121.24503,38.86164,0 -121.25240,38.86550,0 -121.25337,38.86595,0 -121.26161,38.87383,0 -121.26170,38.87404,0 -121.26368,38.88217,0 -121.26416,38.89050,0 -121.26457,38.89883,0 -121.26563,38.90717,0 -121.26728,38.91550,0 -121.26900,38.92383,0 -121.27003,38.92665,0 -121.27271,38.93217,0 -121.27837,38.93750,0 -121.28323,38.94050,0 -121.28670,38.94385,0 -121.29019,38.94883,0 -121.29187,38.95717,0 -121.29325,38.96550,0 -121.29503,38.96984,0 -121.29699,38.97383,0 -121.30337,38.97914,0 -121.30647,38.98217,0 -121.31170,38.98767,0 -121.31406,38.99050,0 -121.31977,38.99883,0 -121.32003,38.99919,0 -121.32626,39.00717,0 -121.32837,39.01029,0 -121.33153,39.01550,0 -121.33492,39.02383,0 -121.33670,39.02696,0 -121.34053,39.03217,0 -121.34503,39.03628,0 -121.35337,39.04040,0 -121.35394,39.04050,0 -121.36170,39.04302,0 -121.37003,39.04537,0 -121.37298,39.04883,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2.5 Contour</name>
+      <styleUrl>#style_mi_2.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.97464,39.04883,0 -122.97430,39.04050,0 -122.97420,39.03217,0 -122.97819,39.02383,0 -122.97837,39.02363,0 -122.98670,39.01561,0 -122.98682,39.01550,0 -122.99503,39.00888,0 -122.99751,39.00717,0 -123.00337,39.00357,0 -123.01064,38.99883,0 -123.01170,38.99811,0 -123.02003,38.99158,0 -123.02159,38.99050,0 -123.02837,38.98769,0 -123.03670,38.98794,0 -123.04503,38.98928,0 -123.05337,38.98945,0 -123.06170,38.98709,0 -123.07003,38.98332,0 -123.07837,38.98313,0 -123.08670,38.98663,0 -123.09265,38.99050,0 -123.09503,38.99220,0 -123.10337,38.99876,0 -123.10347,38.99883,0 -123.11170,39.00566,0 -123.11443,39.00717,0 -123.12003,39.01166,0 -123.12529,39.01550,0 -123.12837,39.01868,0 -123.13582,39.02383,0 -123.13670,39.02459,0 -123.13877,39.02383,0 -123.14486,39.01550,0 -123.13998,39.00717,0 -123.13915,38.99883,0 -123.14503,38.99238,0 -123.14903,38.99050,0 -123.15074,38.98217,0 -123.14640,38.97383,0 -123.14503,38.97185,0 -123.14085,38.96550,0 -123.13670,38.96078,0 -123.13402,38.95717,0 -123.12837,38.95064,0 -123.12604,38.94883,0 -123.12003,38.94194,0 -123.11774,38.94050,0 -123.11989,38.93217,0 -123.12003,38.93203,0 -123.12837,38.92523,0 -123.13062,38.92383,0 -123.13670,38.92177,0 -123.14503,38.92053,0 -123.15337,38.92078,0 -123.16170,38.92243,0 -123.16585,38.92383,0 -123.17003,38.92553,0 -123.17837,38.93085,0 -123.17986,38.93217,0 -123.18670,38.93799,0 -123.19045,38.94050,0 -123.19503,38.94257,0 -123.20337,38.94536,0 -123.21170,38.94844,0 -123.21263,38.94883,0 -123.22003,38.95279,0 -123.22725,38.95717,0 -123.22837,38.95820,0 -123.23670,38.96505,0 -123.23729,38.96550,0 -123.23670,38.96613,0 -123.23423,38.97383,0 -123.22837,38.97992,0 -123.22681,38.98217,0 -123.22003,38.98875,0 -123.21770,38.99050,0 -123.21170,38.99645,0 -123.20863,38.99883,0 -123.20613,39.00717,0 -123.20713,39.01550,0 -123.20829,39.02383,0 -123.20838,39.03217,0 -123.20722,39.04050,0 -123.20563,39.04883,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2.5 Contour</name>
+      <styleUrl>#style_mi_2.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-123.26700,39.04883,0 -123.27003,39.04540,0 -123.27556,39.04050,0 -123.27837,39.03897,0 -123.28670,39.03467,0 -123.29040,39.03217,0 -123.29503,39.02869,0 -123.30086,39.02383,0 -123.30337,39.02147,0 -123.30968,39.01550,0 -123.31170,39.01213,0 -123.31341,39.00717,0 -123.31218,38.99883,0 -123.31170,38.99777,0 -123.30862,38.99050,0 -123.30427,38.98217,0 -123.30337,38.98078,0 -123.29865,38.97383,0 -123.29503,38.96868,0 -123.29268,38.96550,0 -123.28670,38.95733,0 -123.28652,38.95717,0 -123.27877,38.94883,0 -123.27837,38.94773,0 -123.27358,38.94050,0 -123.27837,38.93278,0 -123.27876,38.93217,0 -123.28670,38.92719,0 -123.29503,38.92712,0 -123.30337,38.92939,0 -123.31058,38.93217,0 -123.31170,38.93262,0 -123.32003,38.93691,0 -123.32641,38.94050,0 -123.32837,38.94174,0 -123.33670,38.94734,0 -123.33905,38.94883,0 -123.34503,38.95245,0 -123.35337,38.95711,0 -123.35354,38.95717,0 -123.36170,38.95973,0 -123.37003,38.96044,0 -123.37693,38.95717,0 -123.37837,38.95600,0 -123.38565,38.94883,0 -123.38670,38.94773,0 -123.39370,38.94050,0 -123.39503,38.93893,0 -123.40120,38.93217,0 -123.40337,38.92942,0 -123.40747,38.92383,0 -123.40968,38.91550,0 -123.40740,38.90717,0 -123.40350,38.89883,0 -123.40337,38.89864,0 -123.39875,38.89050,0 -123.39503,38.88373,0 -123.39416,38.88217,0 -123.38870,38.87383,0 -123.38670,38.87092,0 -123.38277,38.86550,0 -123.37837,38.85896,0 -123.37726,38.85717,0 -123.37357,38.84883,0 -123.37021,38.84050,0 -123.37003,38.84009,0 -123.36729,38.83217,0 -123.36170,38.82492,0 -123.36104,38.82383,0 -123.35337,38.81652,0 -123.35250,38.81550,0 -123.34503,38.80875,0 -123.34356,38.80717,0 -123.33670,38.80014,0 -123.33559,38.79883,0 -123.32904,38.79050,0 -123.32837,38.78943,0 -123.32416,38.78217,0 -123.32197,38.77383,0 -123.32122,38.76550,0 -123.32003,38.75935,0 -123.31962,38.75717,0 -123.31722,38.74883,0 -123.31505,38.74050,0 -123.31358,38.73217,0 -123.31351,38.72383,0 -123.31582,38.71550,0 -123.32003,38.70801,0 -123.32061,38.70717,0 -123.32748,38.69883,0 -123.32837,38.69777,0 -123.33630,38.69050,0 -123.33670,38.69005,0 -123.34503,38.68259,0 -123.34561,38.68217,0 -123.35158,38.67383,0 -123.35337,38.66724,0 -123.35396,38.66550,0 -123.36036,38.65717,0 -123.36170,38.65626,0 -123.37003,38.65313,0 -123.37793,38.64883,0 -123.37837,38.64855,0 -123.38670,38.64159,0 -123.38770,38.64050,0 -123.39350,38.63217,0 -123.39503,38.63024,0 -123.39924,38.62383,0 -123.40337,38.62026,0 -123.41058,38.61550,0 -123.41170,38.61501,0 -123.42003,38.61189,0 -123.42837,38.60878,0 -123.43224,38.60717,0 -123.43670,38.60561,0 -123.44503,38.60229,0 -123.45337,38.59887,0 -123.45346,38.59883,0 -123.46170,38.59575,0 -123.47003,38.59299,0 -123.47837,38.59085,0 -123.48103,38.59050,0 -123.48670,38.58947,0 -123.49503,38.58939,0 -123.50337,38.59033,0 -123.50443,38.59050,0 -123.51170,38.59134,0 -123.52003,38.59248,0 -123.52837,38.59371,0 -123.53670,38.59490,0 -123.54503,38.59580,0 -123.55337,38.59555,0 -123.56170,38.59323,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2.5 Contour</name>
+      <styleUrl>#style_mi_2.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-123.45337,38.86662,0 -123.44503,38.86741,0 -123.43670,38.86582,0 -123.43590,38.86550,0 -123.42837,38.86172,0 -123.42111,38.85717,0 -123.42003,38.85627,0 -123.41256,38.84883,0 -123.41170,38.84713,0 -123.40785,38.84050,0 -123.41170,38.83772,0 -123.42003,38.83721,0 -123.42837,38.83855,0 -123.43670,38.84014,0 -123.43869,38.84050,0 -123.44503,38.84327,0 -123.45337,38.84629,0 -123.46074,38.84883,0 -123.46105,38.85717,0 -123.45532,38.86550,0 -123.45337,38.86662,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 2.5 Contour</name>
+      <styleUrl>#style_mi_2.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-121.65337,37.62416,0 -121.65178,37.62383,0 -121.64503,37.62118,0 -121.64071,37.61550,0 -121.63864,37.60717,0 -121.63948,37.59883,0 -121.64297,37.59050,0 -121.64503,37.58700,0 -121.64931,37.58217,0 -121.65337,37.57690,0 -121.65663,37.57383,0 -121.66170,37.56833,0 -121.67003,37.56987,0 -121.67014,37.57383,0 -121.67003,37.57480,0 -121.66828,37.58217,0 -121.66683,37.59050,0 -121.66537,37.59883,0 -121.66354,37.60717,0 -121.66170,37.61336,0 -121.66044,37.61550,0 -121.65389,37.62383,0 -121.65337,37.62416,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3 Contour</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.53219,37.38217,0 -122.53670,37.38751,0 -122.53877,37.39050,0 -122.54503,37.39731,0 -122.54654,37.39883,0 -122.55337,37.40419,0 -122.55735,37.40717,0 -122.56170,37.41104,0 -122.56604,37.41550,0 -122.57003,37.42031,0 -122.57291,37.42383,0 -122.57837,37.43161,0 -122.57878,37.43217,0 -122.58413,37.44050,0 -122.58670,37.44447,0 -122.58985,37.44883,0 -122.59503,37.45690,0 -122.59522,37.45717,0 -122.60006,37.46550,0 -122.60337,37.47267,0 -122.60408,37.47383,0 -122.60956,37.48217,0 -122.61170,37.48471,0 -122.61841,37.49050,0 -122.62003,37.49205,0 -122.62837,37.49810,0 -122.62964,37.49883,0 -122.63670,37.50284,0 -122.64407,37.50717,0 -122.64503,37.50773,0 -122.65337,37.51265,0 -122.65811,37.51550,0 -122.66170,37.51797,0 -122.67003,37.52223,0 -122.67452,37.52383,0 -122.67837,37.52528,0 -122.68670,37.52808,0 -122.69503,37.53098,0 -122.69826,37.53217,0 -122.70337,37.53405,0 -122.71170,37.53724,0 -122.72003,37.54050,0 -122.72003,37.54050,0 -122.72837,37.54376,0 -122.73670,37.54695,0 -122.74181,37.54883,0 -122.74503,37.55004,0 -122.75337,37.55314,0 -122.76170,37.55663,0 -122.76286,37.55717,0 -122.77003,37.56051,0 -122.77837,37.56411,0 -122.78159,37.56550,0 -122.78670,37.56771,0 -122.79503,37.57177,0 -122.79920,37.57383,0 -122.80337,37.57589,0 -122.81170,37.58001,0 -122.81630,37.58217,0 -122.82003,37.58396,0 -122.82837,37.58819,0 -122.83273,37.59050,0 -122.83670,37.59251,0 -122.84503,37.59682,0 -122.84894,37.59883,0 -122.85337,37.60124,0 -122.86170,37.60619,0 -122.86308,37.60717,0 -122.87003,37.61441,0 -122.87060,37.61550,0 -122.87214,37.62383,0 -122.87223,37.63217,0 -122.87201,37.64050,0 -122.87199,37.64883,0 -122.87250,37.65717,0 -122.87370,37.66550,0 -122.87548,37.67383,0 -122.87783,37.68217,0 -122.87837,37.68355,0 -122.88160,37.69050,0 -122.88585,37.69883,0 -122.88670,37.70028,0 -122.89255,37.70717,0 -122.89503,37.70984,0 -122.90213,37.71550,0 -122.90337,37.71667,0 -122.91170,37.72353,0 -122.91206,37.72383,0 -122.92003,37.73016,0 -122.92253,37.73217,0 -122.92837,37.73633,0 -122.93422,37.74050,0 -122.93670,37.74246,0 -122.94461,37.74883,0 -122.94503,37.74922,0 -122.95337,37.75688,0 -122.95368,37.75717,0 -122.96170,37.76455,0 -122.96268,37.76550,0 -122.97003,37.77175,0 -122.97233,37.77383,0 -122.97837,37.77812,0 -122.98369,37.78217,0 -122.98670,37.78375,0 -122.99503,37.78791,0 -123.00009,37.79050,0 -123.00337,37.79171,0 -123.01170,37.79470,0 -123.02003,37.79724,0 -123.02732,37.79883,0 -123.02837,37.79902,0 -123.03670,37.80006,0 -123.04503,37.80083,0 -123.05337,37.80165,0 -123.06170,37.80257,0 -123.07003,37.80313,0 -123.07837,37.80314,0 -123.08670,37.80300,0 -123.09503,37.80337,0 -123.10337,37.80523,0 -123.10696,37.80717,0 -123.11170,37.81210,0 -123.11432,37.81550,0 -123.12003,37.82324,0 -123.12055,37.82383,0 -123.12824,37.83217,0 -123.12837,37.83231,0 -123.13498,37.84050,0 -123.13670,37.84298,0 -123.14032,37.84883,0 -123.14503,37.85611,0 -123.14585,37.85717,0 -123.15240,37.86550,0 -123.15337,37.86689,0 -123.15759,37.87383,0 -123.16170,37.88063,0 -123.16275,37.88217,0 -123.16910,37.89050,0 -123.17003,37.89190,0 -123.17414,37.89883,0 -123.17837,37.90690,0 -123.17851,37.90717,0 -123.18288,37.91550,0 -123.18670,37.92244,0 -123.18751,37.92383,0 -123.19265,37.93217,0 -123.19503,37.93652,0 -123.19708,37.94050,0 -123.20126,37.94883,0 -123.20337,37.95325,0 -123.20524,37.95717,0 -123.20903,37.96550,0 -123.21170,37.97174,0 -123.21259,37.97383,0 -123.21622,37.98217,0 -123.22001,37.99050,0 -123.22003,37.99054,0 -123.22363,37.99883,0 -123.22682,38.00717,0 -123.22837,38.01147,0 -123.22981,38.01550,0 -123.23253,38.02383,0 -123.23525,38.03217,0 -123.23670,38.03633,0 -123.23815,38.04050,0 -123.24075,38.04883,0 -123.24298,38.05717,0 -123.24503,38.06550,0 -123.24503,38.06550,0 -123.24710,38.07383,0 -123.24920,38.08217,0 -123.25131,38.09050,0 -123.25337,38.09883,0 -123.25337,38.09883,0 -123.25543,38.10717,0 -123.25753,38.11550,0 -123.25964,38.12383,0 -123.26170,38.13216,0 -123.26170,38.13217,0 -123.26376,38.14050,0 -123.26587,38.14883,0 -123.26797,38.15717,0 -123.27003,38.16550,0 -123.27003,38.16550,0 -123.27198,38.17383,0 -123.27357,38.18217,0 -123.27483,38.19050,0 -123.27642,38.19883,0 -123.27823,38.20717,0 -123.27837,38.20794,0 -123.27973,38.21550,0 -123.28090,38.22383,0 -123.28206,38.23217,0 -123.28316,38.24050,0 -123.28437,38.24883,0 -123.28544,38.25717,0 -123.28623,38.26550,0 -123.28670,38.27382,0 -123.28670,38.27383,0 -123.28715,38.28217,0 -123.28769,38.29050,0 -123.28800,38.29883,0 -123.28806,38.30717,0 -123.28806,38.31550,0 -123.28800,38.32383,0 -123.28769,38.33217,0 -123.28715,38.34050,0 -123.28670,38.34883,0 -123.28670,38.34884,0 -123.28623,38.35717,0 -123.28557,38.36550,0 -123.28495,38.37383,0 -123.28506,38.38217,0 -123.28670,38.38691,0 -123.28784,38.39050,0 -123.29419,38.39883,0 -123.29503,38.39969,0 -123.30159,38.40717,0 -123.30337,38.40904,0 -123.30943,38.41550,0 -123.31170,38.41817,0 -123.31625,38.42383,0 -123.32003,38.42934,0 -123.32190,38.43217,0 -123.32596,38.44050,0 -123.32837,38.44649,0 -123.32934,38.44883,0 -123.33220,38.45717,0 -123.33608,38.46550,0 -123.33670,38.46642,0 -123.34122,38.47383,0 -123.34503,38.47858,0 -123.34776,38.48217,0 -123.35337,38.49001,0 -123.35370,38.49050,0 -123.35816,38.49883,0 -123.36077,38.50717,0 -123.36108,38.51550,0 -123.35966,38.52383,0 -123.35782,38.53217,0 -123.35650,38.54050,0 -123.35558,38.54883,0 -123.35569,38.55717,0 -123.35616,38.56550,0 -123.35689,38.57383,0 -123.36031,38.58217,0 -123.36170,38.58408,0 -123.36545,38.59050,0 -123.36384,38.59883,0 -123.36170,38.60056,0 -123.35337,38.60471,0 -123.34874,38.60717,0 -123.34503,38.60898,0 -123.33670,38.61504,0 -123.33607,38.61550,0 -123.32837,38.62073,0 -123.32247,38.62383,0 -123.32003,38.62569,0 -123.31347,38.63217,0 -123.31170,38.63607,0 -123.31005,38.64050,0 -123.30463,38.64883,0 -123.30337,38.65041,0 -123.29712,38.65717,0 -123.29503,38.66062,0 -123.29222,38.66550,0 -123.28919,38.67383,0 -123.28670,38.68015,0 -123.28520,38.68217,0 -123.27837,38.68850,0 -123.27332,38.69050,0 -123.27003,38.69169,0 -123.26170,38.69280,0 -123.25337,38.69318,0 -123.24503,38.69303,0 -123.23670,38.69264,0 -123.22837,38.69214,0 -123.22003,38.69158,0 -123.21170,38.69085,0 -123.20933,38.69050,0 -123.20337,38.68947,0 -123.19503,38.68755,0 -123.18670,38.68561,0 -123.17837,38.68345,0 -123.17483,38.68217,0 -123.17003,38.68025,0 -123.16170,38.67731,0 -123.15337,38.67490,0 -123.14953,38.67383,0 -123.14503,38.67258,0 -123.13670,38.67043,0 -123.12837,38.66911,0 -123.12003,38.66867,0 -123.11170,38.66854,0 -123.10337,38.66825,0 -123.09503,38.66755,0 -123.08670,38.66690,0 -123.07837,38.66680,0 -123.07003,38.66735,0 -123.06170,38.66799,0 -123.05337,38.66845,0 -123.04503,38.66925,0 -123.03670,38.67130,0 -123.03049,38.67383,0 -123.02837,38.67500,0 -123.02003,38.68056,0 -123.01787,38.68217,0 -123.01170,38.68859,0 -123.01005,38.69050,0 -123.00540,38.69883,0 -123.00669,38.70717,0 -123.01170,38.71233,0 -123.01395,38.71550,0 -123.02003,38.72259,0 -123.02093,38.72383,0 -123.02751,38.73217,0 -123.02837,38.73424,0 -123.03206,38.74050,0 -123.02865,38.74883,0 -123.02837,38.74902,0 -123.02003,38.75308,0 -123.01191,38.75717,0 -123.01170,38.75729,0 -123.00784,38.76550,0 -123.01051,38.77383,0 -123.01170,38.77509,0 -123.01877,38.78217,0 -123.02003,38.78376,0 -123.02325,38.79050,0 -123.02462,38.79883,0 -123.02347,38.80717,0 -123.02003,38.81534,0 -123.01990,38.81550,0 -123.01170,38.82196,0 -123.00337,38.81693,0 -123.00232,38.81550,0 -122.99696,38.80717,0 -122.99503,38.80428,0 -122.99197,38.79883,0 -122.98772,38.79050,0 -122.98670,38.78936,0 -122.97837,38.78301,0 -122.97673,38.78217,0 -122.97003,38.77919,0 -122.96170,38.77525,0 -122.95482,38.77383,0 -122.95337,38.77349,0 -122.95282,38.77383,0 -122.94928,38.78217,0 -122.94881,38.79050,0 -122.94871,38.79883,0 -122.94902,38.80717,0 -122.94873,38.81550,0 -122.94573,38.82383,0 -122.94503,38.82547,0 -122.94276,38.83217,0 -122.94066,38.84050,0 -122.93799,38.84883,0 -122.93670,38.85244,0 -122.93484,38.85717,0 -122.93037,38.86550,0 -122.92837,38.86839,0 -122.92273,38.87383,0 -122.92003,38.87582,0 -122.91170,38.87963,0 -122.90370,38.88217,0 -122.90337,38.88226,0 -122.89503,38.88463,0 -122.88670,38.88720,0 -122.87920,38.89050,0 -122.87837,38.89091,0 -122.87003,38.89780,0 -122.86913,38.89883,0 -122.86558,38.90717,0 -122.86207,38.91550,0 -122.86170,38.91598,0 -122.85337,38.91980,0 -122.84503,38.91949,0 -122.83670,38.91898,0 -122.82837,38.92031,0 -122.82202,38.92383,0 -122.82003,38.92550,0 -122.81170,38.93006,0 -122.80337,38.92884,0 -122.79503,38.92558,0 -122.79080,38.92383,0 -122.78670,38.92184,0 -122.77837,38.91813,0 -122.77003,38.91572,0 -122.76170,38.91635,0 -122.75337,38.92070,0 -122.74503,38.92365,0 -122.73670,38.92322,0 -122.72837,38.92137,0 -122.72003,38.91848,0 -122.71170,38.91764,0 -122.70337,38.91925,0 -122.69503,38.92037,0 -122.68670,38.92026,0 -122.67837,38.91913,0 -122.67003,38.91752,0 -122.66170,38.91695,0 -122.65337,38.92152,0 -122.65208,38.92383,0 -122.64893,38.93217,0 -122.64719,38.94050,0 -122.64738,38.94883,0 -122.64745,38.95717,0 -122.64503,38.96527,0 -122.64497,38.96550,0 -122.64192,38.97383,0 -122.63925,38.98217,0 -122.63670,38.99030,0 -122.63662,38.99050,0 -122.63670,38.99191,0 -122.63766,38.99883,0 -122.64503,39.00268,0 -122.65337,39.00362,0 -122.66170,39.00460,0 -122.66859,39.00717,0 -122.67003,39.00855,0 -122.67338,39.01550,0 -122.67020,39.02383,0 -122.67003,39.02410,0 -122.66170,39.02674,0 -122.65337,39.02493,0 -122.64964,39.02383,0 -122.64503,39.02215,0 -122.63670,39.01999,0 -122.62837,39.01836,0 -122.62003,39.01656,0 -122.61170,39.01636,0 -122.60337,39.02153,0 -122.60161,39.02383,0 -122.59503,39.03183,0 -122.59479,39.03217,0 -122.58995,39.04050,0 -122.58853,39.04883,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>III</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-123.30943,38.41550,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3 Contour</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-121.80112,37.38217,0 -121.80337,37.38541,0 -121.81170,37.38972,0 -121.81252,37.39050,0 -121.82003,37.39586,0 -121.82336,37.39883,0 -121.82837,37.40326,0 -121.83670,37.40695,0 -121.83719,37.40717,0 -121.84503,37.41228,0 -121.84821,37.41550,0 -121.85337,37.42289,0 -121.85394,37.42383,0 -121.85771,37.43217,0 -121.86170,37.43853,0 -121.86338,37.44050,0 -121.86764,37.44883,0 -121.86170,37.45377,0 -121.85337,37.45486,0 -121.84589,37.45717,0 -121.84503,37.45774,0 -121.84111,37.46550,0 -121.84503,37.47244,0 -121.84600,37.47383,0 -121.85337,37.47896,0 -121.86170,37.47775,0 -121.86415,37.47383,0 -121.86704,37.46550,0 -121.87003,37.45728,0 -121.87837,37.45753,0 -121.88670,37.46016,0 -121.89503,37.46306,0 -121.90167,37.46550,0 -121.90337,37.46618,0 -121.91170,37.47315,0 -121.91221,37.47383,0 -121.91424,37.48217,0 -121.91170,37.48909,0 -121.91093,37.49050,0 -121.90769,37.49883,0 -121.90816,37.50717,0 -121.90975,37.51550,0 -121.91170,37.52094,0 -121.91286,37.52383,0 -121.91709,37.53217,0 -121.92003,37.53857,0 -121.92104,37.54050,0 -121.92288,37.54883,0 -121.92340,37.55717,0 -121.92501,37.56550,0 -121.92708,37.57383,0 -121.92595,37.58217,0 -121.92003,37.58673,0 -121.91170,37.58927,0 -121.90337,37.58588,0 -121.89613,37.58217,0 -121.89503,37.58167,0 -121.88670,37.57720,0 -121.88148,37.57383,0 -121.87837,37.57261,0 -121.87616,37.57383,0 -121.87447,37.58217,0 -121.87837,37.58632,0 -121.88446,37.59050,0 -121.88670,37.59131,0 -121.89503,37.59357,0 -121.90337,37.59524,0 -121.91170,37.59413,0 -121.91494,37.59883,0 -121.91660,37.60717,0 -121.91170,37.61008,0 -121.90337,37.61479,0 -121.90263,37.61550,0 -121.89503,37.61942,0 -121.88670,37.61929,0 -121.87837,37.61739,0 -121.87003,37.61909,0 -121.86474,37.62383,0 -121.86170,37.62894,0 -121.86028,37.63217,0 -121.85661,37.64050,0 -121.85337,37.64521,0 -121.84880,37.64883,0 -121.84503,37.65085,0 -121.83670,37.65217,0 -121.82837,37.65120,0 -121.82003,37.64915,0 -121.81811,37.64883,0 -121.81170,37.64797,0 -121.80337,37.64843,0 -121.80174,37.64883,0 -121.79503,37.65182,0 -121.78917,37.65717,0 -121.78670,37.66152,0 -121.78433,37.66550,0 -121.78008,37.67383,0 -121.78074,37.68217,0 -121.78434,37.69050,0 -121.78670,37.69845,0 -121.78684,37.69883,0 -121.78931,37.70717,0 -121.78670,37.71087,0 -121.78271,37.71550,0 -121.77837,37.71687,0 -121.77003,37.72064,0 -121.76170,37.72250,0 -121.75337,37.72349,0 -121.75163,37.72383,0 -121.74503,37.72831,0 -121.74290,37.73217,0 -121.74041,37.74050,0 -121.73842,37.74883,0 -121.73781,37.75717,0 -121.73670,37.76096,0 -121.73426,37.76550,0 -121.72837,37.76935,0 -121.72003,37.76943,0 -121.71170,37.76568,0 -121.71130,37.76550,0 -121.70337,37.76188,0 -121.69503,37.76145,0 -121.68670,37.76222,0 -121.67837,37.76298,0 -121.67003,37.76431,0 -121.66650,37.76550,0 -121.66170,37.76688,0 -121.65337,37.76917,0 -121.64503,37.77130,0 -121.63670,37.77189,0 -121.62837,37.76982,0 -121.62003,37.76574,0 -121.61969,37.76550,0 -121.61547,37.75717,0 -121.61170,37.75602,0 -121.60337,37.75329,0 -121.59503,37.74996,0 -121.59310,37.74883,0 -121.58670,37.74517,0 -121.58093,37.74050,0 -121.57837,37.73600,0 -121.57611,37.73217,0 -121.57359,37.72383,0 -121.57164,37.71550,0 -121.57003,37.71131,0 -121.56804,37.70717,0 -121.56170,37.70020,0 -121.55883,37.69883,0 -121.55337,37.69600,0 -121.54503,37.69510,0 -121.53670,37.69585,0 -121.52837,37.69690,0 -121.52003,37.69798,0 -121.51405,37.69883,0 -121.51170,37.69909,0 -121.50337,37.69976,0 -121.49503,37.69972,0 -121.48670,37.69933,0 -121.47837,37.69899,0 -121.47479,37.69883,0 -121.47003,37.69866,0 -121.46170,37.69857,0 -121.45922,37.69883,0 -121.45337,37.70009,0 -121.44503,37.70503,0 -121.44207,37.70717,0 -121.43670,37.70991,0 -121.42837,37.71171,0 -121.42003,37.71162,0 -121.41170,37.71079,0 -121.40337,37.71032,0 -121.39503,37.71133,0 -121.38708,37.71550,0 -121.38670,37.71580,0 -121.37837,37.72381,0 -121.37834,37.72383,0 -121.37003,37.73217,0 -121.37003,37.73217,0 -121.36234,37.74050,0 -121.36170,37.74118,0 -121.35466,37.74883,0 -121.35337,37.74988,0 -121.34503,37.75524,0 -121.34122,37.75717,0 -121.33670,37.75986,0 -121.33031,37.76550,0 -121.32837,37.76862,0 -121.32617,37.77383,0 -121.32303,37.78217,0 -121.32003,37.78787,0 -121.31850,37.79050,0 -121.31295,37.79883,0 -121.31170,37.80102,0 -121.30812,37.80717,0 -121.30337,37.81528,0 -121.30323,37.81550,0 -121.29843,37.82383,0 -121.29503,37.83148,0 -121.29474,37.83217,0 -121.29117,37.84050,0 -121.28771,37.84883,0 -121.28670,37.85114,0 -121.28367,37.85717,0 -121.27910,37.86550,0 -121.27837,37.86666,0 -121.27332,37.87383,0 -121.27003,37.87747,0 -121.26570,37.88217,0 -121.26170,37.88843,0 -121.26060,37.89050,0 -121.25834,37.89883,0 -121.25659,37.90717,0 -121.25397,37.91550,0 -121.25337,37.91688,0 -121.25026,37.92383,0 -121.24619,37.93217,0 -121.24503,37.93486,0 -121.24255,37.94050,0 -121.23918,37.94883,0 -121.23670,37.95512,0 -121.23593,37.95717,0 -121.23308,37.96550,0 -121.23117,37.97383,0 -121.23003,37.98217,0 -121.22837,37.98979,0 -121.22819,37.99050,0 -121.22462,37.99883,0 -121.22188,38.00717,0 -121.22055,38.01550,0 -121.22003,38.01714,0 -121.21799,38.02383,0 -121.21445,38.03217,0 -121.21247,38.04050,0 -121.21174,38.04883,0 -121.21170,38.04920,0 -121.21087,38.05717,0 -121.20911,38.06550,0 -121.20658,38.07383,0 -121.20402,38.08217,0 -121.20337,38.08526,0 -121.20214,38.09050,0 -121.20077,38.09883,0 -121.19948,38.10717,0 -121.19777,38.11550,0 -121.19525,38.12383,0 -121.19503,38.12484,0 -121.19371,38.13217,0 -121.19345,38.14050,0 -121.19357,38.14883,0 -121.19365,38.15717,0 -121.19349,38.16550,0 -121.19441,38.17383,0 -121.19503,38.17465,0 -121.20146,38.18217,0 -121.20337,38.18323,0 -121.21170,38.18757,0 -121.21686,38.19050,0 -121.22003,38.19273,0 -121.22837,38.19849,0 -121.22886,38.19883,0 -121.23398,38.20717,0 -121.23483,38.21550,0 -121.23479,38.22383,0 -121.23343,38.23217,0 -121.22856,38.24050,0 -121.22837,38.24088,0 -121.22429,38.24883,0 -121.22837,38.25696,0 -121.22848,38.25717,0 -121.23405,38.26550,0 -121.23533,38.27383,0 -121.23608,38.28217,0 -121.23670,38.28504,0 -121.23779,38.29050,0 -121.23918,38.29883,0 -121.24012,38.30717,0 -121.24029,38.31550,0 -121.24089,38.32383,0 -121.24356,38.33217,0 -121.24503,38.33570,0 -121.24724,38.34050,0 -121.24992,38.34883,0 -121.25145,38.35717,0 -121.25280,38.36550,0 -121.25337,38.36869,0 -121.25465,38.37383,0 -121.25697,38.38217,0 -121.25968,38.39050,0 -121.26170,38.39662,0 -121.26254,38.39883,0 -121.26321,38.40717,0 -121.26170,38.40994,0 -121.25918,38.41550,0 -121.25337,38.42052,0 -121.24773,38.42383,0 -121.24503,38.42596,0 -121.23770,38.43217,0 -121.23670,38.43566,0 -121.23534,38.44050,0 -121.23670,38.44245,0 -121.24503,38.44503,0 -121.25337,38.44488,0 -121.26170,38.44316,0 -121.26529,38.44050,0 -121.27003,38.43796,0 -121.27837,38.43731,0 -121.28326,38.44050,0 -121.28670,38.44399,0 -121.29027,38.44883,0 -121.29503,38.45285,0 -121.29848,38.45717,0 -121.30337,38.46238,0 -121.30607,38.46550,0 -121.31170,38.47071,0 -121.31516,38.47383,0 -121.32003,38.47820,0 -121.32495,38.48217,0 -121.32837,38.48547,0 -121.33348,38.49050,0 -121.33483,38.49883,0 -121.33223,38.50717,0 -121.32864,38.51550,0 -121.32837,38.51599,0 -121.32292,38.52383,0 -121.32003,38.52773,0 -121.31627,38.53217,0 -121.31170,38.53896,0 -121.31077,38.54050,0 -121.30782,38.54883,0 -121.30559,38.55717,0 -121.30537,38.56550,0 -121.30840,38.57383,0 -121.30954,38.58217,0 -121.30801,38.59050,0 -121.30673,38.59883,0 -121.30718,38.60717,0 -121.31170,38.61325,0 -121.31963,38.61550,0 -121.32003,38.61560,0 -121.32837,38.61786,0 -121.33468,38.62383,0 -121.33670,38.62667,0 -121.34002,38.63217,0 -121.34500,38.64050,0 -121.34503,38.64056,0 -121.34986,38.64883,0 -121.35337,38.65330,0 -121.35632,38.65717,0 -121.36170,38.66475,0 -121.36219,38.66550,0 -121.36831,38.67383,0 -121.37003,38.67611,0 -121.37438,38.68217,0 -121.37837,38.68873,0 -121.37938,38.69050,0 -121.38461,38.69883,0 -121.38670,38.70242,0 -121.38919,38.70717,0 -121.39346,38.71550,0 -121.39503,38.71849,0 -121.39781,38.72383,0 -121.40198,38.73217,0 -121.40337,38.73499,0 -121.40631,38.74050,0 -121.41170,38.74833,0 -121.41210,38.74883,0 -121.41933,38.75717,0 -121.42003,38.75801,0 -121.42519,38.76550,0 -121.42837,38.77039,0 -121.43035,38.77383,0 -121.43510,38.78217,0 -121.43670,38.78508,0 -121.44011,38.79050,0 -121.44503,38.79789,0 -121.44583,38.79883,0 -121.45337,38.80714,0 -121.45339,38.80717,0 -121.46169,38.81550,0 -121.46170,38.81552,0 -121.46966,38.82383,0 -121.47003,38.82422,0 -121.47632,38.83217,0 -121.47837,38.83551,0 -121.48037,38.84050,0 -121.48111,38.84883,0 -121.48203,38.85717,0 -121.48670,38.86360,0 -121.48770,38.86550,0 -121.49162,38.87383,0 -121.49361,38.88217,0 -121.49494,38.89050,0 -121.49503,38.89172,0 -121.49619,38.89883,0 -121.50337,38.90360,0 -121.51170,38.90287,0 -121.52003,38.90160,0 -121.52837,38.90340,0 -121.53503,38.90717,0 -121.53670,38.90848,0 -121.54306,38.91550,0 -121.54503,38.92061,0 -121.54598,38.92383,0 -121.54564,38.93217,0 -121.54532,38.94050,0 -121.54838,38.94883,0 -121.55337,38.95612,0 -121.55446,38.95717,0 -121.56170,38.96197,0 -121.57003,38.96494,0 -121.57137,38.96550,0 -121.57837,38.96774,0 -121.58666,38.97383,0 -121.58670,38.97387,0 -121.59316,38.98217,0 -121.59503,38.98533,0 -121.59968,38.99050,0 -121.60337,38.99457,0 -121.60803,38.99883,0 -121.61170,39.00186,0 -121.61860,39.00717,0 -121.62003,39.00831,0 -121.62837,39.01470,0 -121.62954,39.01550,0 -121.63670,39.02018,0 -121.64282,39.02383,0 -121.64503,39.02522,0 -121.65337,39.03011,0 -121.65702,39.03217,0 -121.66170,39.03517,0 -121.66933,39.04050,0 -121.67003,39.04126,0 -121.67837,39.04871,0 -121.67852,39.04883,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>III</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-121.24255,37.94050,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3 Contour</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.41135,39.04883,0 -122.41170,39.04826,0 -122.41986,39.04050,0 -122.42003,39.04038,0 -122.42837,39.03810,0 -122.43670,39.03776,0 -122.44503,39.03858,0 -122.45337,39.04005,0 -122.45522,39.04050,0 -122.46170,39.04259,0 -122.47003,39.04545,0 -122.47837,39.04785,0 -122.48670,39.04801,0 -122.49503,39.04448,0 -122.50066,39.04050,0 -122.50337,39.03857,0 -122.51170,39.03655,0 -122.52003,39.04039,0 -122.52014,39.04050,0 -122.52372,39.04883,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3 Contour</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.66819,39.04883,0 -122.67003,39.04608,0 -122.67629,39.04050,0 -122.67837,39.03927,0 -122.68670,39.03819,0 -122.69503,39.03941,0 -122.69790,39.04050,0 -122.70337,39.04363,0 -122.70901,39.04883,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3 Contour</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.90337,39.03815,0 -122.89503,39.03396,0 -122.89021,39.03217,0 -122.88670,39.03069,0 -122.87837,39.02885,0 -122.87003,39.02919,0 -122.86170,39.03070,0 -122.85337,39.03091,0 -122.84503,39.02968,0 -122.83670,39.02882,0 -122.83061,39.02383,0 -122.83670,39.01899,0 -122.84183,39.01550,0 -122.84503,39.01378,0 -122.85337,39.00891,0 -122.85581,39.00717,0 -122.86170,39.00342,0 -122.86748,38.99883,0 -122.87003,38.99683,0 -122.87677,38.99050,0 -122.87837,38.98870,0 -122.88419,38.98217,0 -122.88670,38.97895,0 -122.89503,38.97498,0 -122.90109,38.98217,0 -122.90337,38.98566,0 -122.90445,38.99050,0 -122.90417,38.99883,0 -122.90337,39.00262,0 -122.90160,39.00717,0 -122.90125,39.01550,0 -122.90337,39.02150,0 -122.90417,39.02383,0 -122.90561,39.03217,0 -122.90337,39.03815,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3 Contour</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-123.14503,37.99976,0 -123.13670,38.00330,0 -123.13030,37.99883,0 -123.12837,37.99691,0 -123.12458,37.99050,0 -123.12003,37.98293,0 -123.11964,37.98217,0 -123.11473,37.97383,0 -123.11170,37.96891,0 -123.10996,37.96550,0 -123.10651,37.95717,0 -123.10337,37.94965,0 -123.10303,37.94883,0 -123.09982,37.94050,0 -123.09906,37.93217,0 -123.10337,37.92832,0 -123.11170,37.92744,0 -123.12003,37.92951,0 -123.12537,37.93217,0 -123.12837,37.93402,0 -123.13670,37.94031,0 -123.13690,37.94050,0 -123.14356,37.94883,0 -123.14503,37.95098,0 -123.14882,37.95717,0 -123.15237,37.96550,0 -123.15337,37.97290,0 -123.15346,37.97383,0 -123.15337,37.97481,0 -123.15233,37.98217,0 -123.15029,37.99050,0 -123.14586,37.99883,0 -123.14503,37.99976,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3 Contour</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.06170,37.66832,0 -122.05337,37.67094,0 -122.04503,37.67277,0 -122.03670,37.67287,0 -122.02837,37.66917,0 -122.02003,37.66678,0 -122.01170,37.66591,0 -122.01033,37.66550,0 -122.00337,37.66206,0 -121.99829,37.65717,0 -121.99503,37.65239,0 -121.99205,37.64883,0 -121.98670,37.64637,0 -121.97837,37.64506,0 -121.97003,37.64302,0 -121.96563,37.64050,0 -121.96170,37.63647,0 -121.95889,37.63217,0 -121.95812,37.62383,0 -121.95511,37.61550,0 -121.95337,37.61218,0 -121.94697,37.60717,0 -121.94503,37.60584,0 -121.93670,37.60310,0 -121.93253,37.59883,0 -121.93210,37.59050,0 -121.93159,37.58217,0 -121.93670,37.57772,0 -121.94356,37.57383,0 -121.94503,37.57360,0 -121.94574,37.57383,0 -121.95337,37.57692,0 -121.96170,37.57874,0 -121.97003,37.57603,0 -121.97478,37.57383,0 -121.97837,37.57207,0 -121.98670,37.56888,0 -121.99503,37.56726,0 -122.00337,37.56712,0 -122.01170,37.56676,0 -122.01421,37.56550,0 -122.01525,37.55717,0 -122.01170,37.55520,0 -122.00337,37.54910,0 -122.00300,37.54883,0 -121.99503,37.54437,0 -121.99059,37.54050,0 -121.98670,37.53549,0 -121.98418,37.53217,0 -121.98383,37.52383,0 -121.98670,37.52253,0 -121.99503,37.52047,0 -122.00337,37.51866,0 -122.01170,37.51849,0 -122.02003,37.52074,0 -122.02837,37.52305,0 -122.03293,37.52383,0 -122.03670,37.52490,0 -122.04503,37.52662,0 -122.05337,37.52779,0 -122.06170,37.52817,0 -122.07003,37.53139,0 -122.07108,37.53217,0 -122.07837,37.53641,0 -122.08670,37.54032,0 -122.08693,37.54050,0 -122.09355,37.54883,0 -122.09160,37.55717,0 -122.08670,37.56078,0 -122.07910,37.56550,0 -122.07837,37.56826,0 -122.07660,37.57383,0 -122.07806,37.58217,0 -122.07837,37.58354,0 -122.07931,37.59050,0 -122.07837,37.59529,0 -122.07003,37.59848,0 -122.06891,37.59883,0 -122.06170,37.60081,0 -122.05715,37.60717,0 -122.05497,37.61550,0 -122.05964,37.62383,0 -122.06170,37.62621,0 -122.06448,37.63217,0 -122.06674,37.64050,0 -122.06895,37.64883,0 -122.07003,37.65651,0 -122.07012,37.65717,0 -122.07003,37.65741,0 -122.06548,37.66550,0 -122.06170,37.66832,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>III</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.06170,37.66832,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>III</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-121.99503,37.54437,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3 Contour</name>
+      <styleUrl>#style_mi_3</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.17837,37.64472,0 -122.17661,37.64050,0 -122.17003,37.63330,0 -122.16970,37.63217,0 -122.16954,37.62383,0 -122.16950,37.61550,0 -122.16783,37.60717,0 -122.16361,37.59883,0 -122.16170,37.59385,0 -122.16112,37.59050,0 -122.16062,37.58217,0 -122.15799,37.57383,0 -122.15337,37.56873,0 -122.15095,37.56550,0 -122.14503,37.55791,0 -122.14456,37.55717,0 -122.14063,37.54883,0 -122.13670,37.54397,0 -122.13430,37.54050,0 -122.12837,37.53301,0 -122.12781,37.53217,0 -122.12769,37.52383,0 -122.12837,37.52312,0 -122.13670,37.52040,0 -122.14503,37.52113,0 -122.15337,37.52287,0 -122.15645,37.52383,0 -122.16170,37.52717,0 -122.16710,37.53217,0 -122.17003,37.53621,0 -122.17286,37.54050,0 -122.17658,37.54883,0 -122.17837,37.55382,0 -122.18013,37.55717,0 -122.18395,37.56550,0 -122.18431,37.57383,0 -122.18507,37.58217,0 -122.18595,37.59050,0 -122.18575,37.59883,0 -122.18649,37.60717,0 -122.18670,37.61129,0 -122.18684,37.61550,0 -122.18670,37.61656,0 -122.18536,37.62383,0 -122.18319,37.63217,0 -122.18044,37.64050,0 -122.17837,37.64472,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3.5 Contour</name>
+      <styleUrl>#style_mi_3.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.43204,37.38217,0 -122.43535,37.39050,0 -122.43670,37.39318,0 -122.43922,37.39883,0 -122.44146,37.40717,0 -122.44318,37.41550,0 -122.44467,37.42383,0 -122.44503,37.42663,0 -122.44558,37.43217,0 -122.44537,37.44050,0 -122.44503,37.44567,0 -122.44467,37.44883,0 -122.44503,37.45035,0 -122.44608,37.45717,0 -122.44935,37.46550,0 -122.45337,37.47341,0 -122.45363,37.47383,0 -122.46031,37.48217,0 -122.46170,37.48448,0 -122.46583,37.49050,0 -122.46170,37.49784,0 -122.45337,37.49657,0 -122.44503,37.49295,0 -122.43670,37.49060,0 -122.42837,37.49119,0 -122.42003,37.49315,0 -122.41170,37.49491,0 -122.40337,37.49595,0 -122.39503,37.49703,0 -122.39053,37.49883,0 -122.39503,37.50275,0 -122.40337,37.50392,0 -122.40817,37.50717,0 -122.41170,37.50921,0 -122.41751,37.51550,0 -122.42003,37.52173,0 -122.42092,37.52383,0 -122.42837,37.53187,0 -122.42869,37.53217,0 -122.43670,37.53822,0 -122.43933,37.54050,0 -122.44503,37.54519,0 -122.45126,37.54883,0 -122.45337,37.54959,0 -122.46170,37.55231,0 -122.47003,37.55459,0 -122.47698,37.55717,0 -122.47837,37.55753,0 -122.48670,37.55910,0 -122.49080,37.55717,0 -122.49379,37.54883,0 -122.49314,37.54050,0 -122.49266,37.53217,0 -122.49030,37.52383,0 -122.48670,37.51788,0 -122.48556,37.51550,0 -122.48096,37.50717,0 -122.48005,37.49883,0 -122.48670,37.49494,0 -122.49503,37.49326,0 -122.50337,37.49674,0 -122.50638,37.49883,0 -122.51170,37.50324,0 -122.51600,37.50717,0 -122.51951,37.51550,0 -122.52003,37.52066,0 -122.52025,37.52383,0 -122.52261,37.53217,0 -122.52542,37.54050,0 -122.52459,37.54883,0 -122.52276,37.55717,0 -122.52356,37.56550,0 -122.52837,37.57313,0 -122.52893,37.57383,0 -122.53335,37.58217,0 -122.53228,37.59050,0 -122.53463,37.59883,0 -122.53670,37.59921,0 -122.53806,37.59883,0 -122.54503,37.59701,0 -122.54952,37.59883,0 -122.55337,37.60033,0 -122.55927,37.60717,0 -122.56170,37.60903,0 -122.57003,37.61449,0 -122.57176,37.61550,0 -122.57837,37.61861,0 -122.58670,37.62214,0 -122.59002,37.62383,0 -122.59503,37.62836,0 -122.59874,37.63217,0 -122.60009,37.64050,0 -122.60050,37.64883,0 -122.60239,37.65717,0 -122.60337,37.66226,0 -122.60391,37.66550,0 -122.60413,37.67383,0 -122.60337,37.67645,0 -122.59503,37.68183,0 -122.58670,37.68070,0 -122.58194,37.68217,0 -122.57837,37.68438,0 -122.57595,37.69050,0 -122.57003,37.69622,0 -122.56558,37.69883,0 -122.56170,37.70093,0 -122.55337,37.69891,0 -122.55330,37.69883,0 -122.54503,37.69132,0 -122.54387,37.69050,0 -122.53670,37.68692,0 -122.53259,37.69050,0 -122.53432,37.69883,0 -122.53670,37.70268,0 -122.54410,37.70717,0 -122.54503,37.70749,0 -122.55337,37.71190,0 -122.56170,37.71518,0 -122.57003,37.71207,0 -122.57837,37.70979,0 -122.58670,37.70733,0 -122.58757,37.70717,0 -122.59503,37.70480,0 -122.60008,37.70717,0 -122.60165,37.71550,0 -122.59645,37.72383,0 -122.59503,37.72534,0 -122.58745,37.73217,0 -122.58670,37.73307,0 -122.57891,37.74050,0 -122.57837,37.74101,0 -122.57003,37.74713,0 -122.56852,37.74883,0 -122.56436,37.75717,0 -122.56170,37.76464,0 -122.56073,37.76550,0 -122.55337,37.76878,0 -122.54503,37.76900,0 -122.53670,37.76687,0 -122.52837,37.76654,0 -122.52003,37.77200,0 -122.51804,37.77383,0 -122.51170,37.77812,0 -122.50744,37.78217,0 -122.50337,37.78824,0 -122.50171,37.79050,0 -122.49503,37.79847,0 -122.49436,37.79883,0 -122.48670,37.80376,0 -122.48200,37.80717,0 -122.47837,37.81061,0 -122.47118,37.81550,0 -122.47003,37.81593,0 -122.46170,37.81756,0 -122.45337,37.81866,0 -122.44503,37.81979,0 -122.43670,37.82078,0 -122.42837,37.82168,0 -122.42003,37.82048,0 -122.41170,37.81587,0 -122.41080,37.81550,0 -122.40337,37.81125,0 -122.39503,37.81292,0 -122.38999,37.81550,0 -122.38964,37.82383,0 -122.38832,37.83217,0 -122.38670,37.83503,0 -122.38269,37.84050,0 -122.37837,37.84388,0 -122.37003,37.84482,0 -122.36427,37.84050,0 -122.36170,37.83604,0 -122.36021,37.83217,0 -122.36170,37.82528,0 -122.36204,37.82383,0 -122.37003,37.81702,0 -122.37453,37.81550,0 -122.37837,37.81362,0 -122.38593,37.80717,0 -122.38473,37.79883,0 -122.38368,37.79050,0 -122.38224,37.78217,0 -122.38010,37.77383,0 -122.37837,37.76819,0 -122.37745,37.76550,0 -122.37219,37.75717,0 -122.37003,37.75550,0 -122.36569,37.74883,0 -122.36213,37.74050,0 -122.36170,37.73915,0 -122.35859,37.73217,0 -122.35684,37.72383,0 -122.35377,37.71550,0 -122.35337,37.71448,0 -122.35012,37.70717,0 -122.34503,37.70265,0 -122.33837,37.69883,0 -122.33670,37.69826,0 -122.32837,37.69570,0 -122.32003,37.69304,0 -122.31353,37.69050,0 -122.31170,37.68971,0 -122.30337,37.68582,0 -122.29579,37.68217,0 -122.29503,37.68184,0 -122.28670,37.67747,0 -122.28165,37.67383,0 -122.27837,37.67114,0 -122.27229,37.66550,0 -122.27003,37.66279,0 -122.26549,37.65717,0 -122.26170,37.65146,0 -122.25952,37.64883,0 -122.25401,37.64050,0 -122.25337,37.63932,0 -122.25037,37.63217,0 -122.24758,37.62383,0 -122.24554,37.61550,0 -122.24554,37.60717,0 -122.24632,37.59883,0 -122.24633,37.59050,0 -122.24503,37.58718,0 -122.24334,37.58217,0 -122.23670,37.57422,0 -122.23645,37.57383,0 -122.23011,37.56550,0 -122.22837,37.56301,0 -122.22463,37.55717,0 -122.22003,37.55048,0 -122.21875,37.54883,0 -122.21170,37.54115,0 -122.21057,37.54050,0 -122.20337,37.53567,0 -122.19823,37.53217,0 -122.19503,37.52841,0 -122.19154,37.52383,0 -122.18670,37.51557,0 -122.18665,37.51550,0 -122.18583,37.50717,0 -122.18670,37.50446,0 -122.19503,37.50506,0 -122.20337,37.50347,0 -122.20761,37.49883,0 -122.21170,37.49523,0 -122.21629,37.49050,0 -122.22003,37.48718,0 -122.22837,37.48548,0 -122.23670,37.48837,0 -122.24098,37.49050,0 -122.24503,37.49198,0 -122.25337,37.49552,0 -122.25832,37.49883,0 -122.26170,37.50106,0 -122.26870,37.50717,0 -122.27003,37.50813,0 -122.27837,37.51300,0 -122.28298,37.51550,0 -122.28670,37.51721,0 -122.29503,37.51976,0 -122.30337,37.51988,0 -122.31170,37.51846,0 -122.32003,37.51836,0 -122.32837,37.52056,0 -122.33430,37.51550,0 -122.33340,37.50717,0 -122.33220,37.49883,0 -122.32837,37.49102,0 -122.32802,37.49050,0 -122.32003,37.48414,0 -122.31753,37.48217,0 -122.31511,37.47383,0 -122.31873,37.46550,0 -122.32003,37.46457,0 -122.32837,37.46107,0 -122.33670,37.45919,0 -122.34391,37.45717,0 -122.34503,37.45595,0 -122.34855,37.44883,0 -122.34503,37.44590,0 -122.33964,37.44050,0 -122.33670,37.43464,0 -122.33606,37.43217,0 -122.33670,37.43098,0 -122.34414,37.42383,0 -122.34503,37.42334,0 -122.35337,37.42095,0 -122.36084,37.41550,0 -122.35778,37.40717,0 -122.35358,37.39883,0 -122.35407,37.39050,0 -122.35719,37.38217,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 3.5 Contour</name>
+      <styleUrl>#style_mi_3.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.23670,38.88466,0 -122.22837,38.88526,0 -122.22003,38.88309,0 -122.21824,38.88217,0 -122.21170,38.87809,0 -122.20677,38.87383,0 -122.20337,38.87047,0 -122.19804,38.86550,0 -122.19503,38.86271,0 -122.18670,38.85752,0 -122.18551,38.85717,0 -122.17837,38.85479,0 -122.17003,38.85296,0 -122.16170,38.85197,0 -122.15337,38.85090,0 -122.14503,38.84936,0 -122.14244,38.84883,0 -122.13670,38.84767,0 -122.12837,38.84572,0 -122.12003,38.84369,0 -122.11170,38.84155,0 -122.10739,38.84050,0 -122.10337,38.83951,0 -122.09503,38.83729,0 -122.08670,38.83503,0 -122.07837,38.83324,0 -122.07003,38.83272,0 -122.06170,38.83315,0 -122.05337,38.83361,0 -122.04548,38.83217,0 -122.04503,38.83207,0 -122.03670,38.82811,0 -122.02871,38.82383,0 -122.02837,38.82372,0 -122.02003,38.82020,0 -122.01196,38.81550,0 -122.01170,38.81534,0 -122.00337,38.81112,0 -121.99503,38.80805,0 -121.99203,38.80717,0 -121.98670,38.80527,0 -121.97837,38.80313,0 -121.97003,38.80100,0 -121.96490,38.79883,0 -121.96170,38.79438,0 -121.95956,38.79050,0 -121.95337,38.78443,0 -121.95038,38.78217,0 -121.94503,38.77925,0 -121.93670,38.77482,0 -121.93495,38.77383,0 -121.92837,38.77025,0 -121.92003,38.76580,0 -121.91947,38.76550,0 -121.91170,38.76110,0 -121.90543,38.75717,0 -121.90337,38.75585,0 -121.89503,38.75059,0 -121.89190,38.74883,0 -121.88670,38.74608,0 -121.87837,38.74403,0 -121.87531,38.74883,0 -121.87564,38.75717,0 -121.87787,38.76550,0 -121.87837,38.76642,0 -121.88262,38.77383,0 -121.88670,38.77944,0 -121.88883,38.78217,0 -121.89503,38.78886,0 -121.89645,38.79050,0 -121.90235,38.79883,0 -121.90337,38.80123,0 -121.90680,38.80717,0 -121.91114,38.81550,0 -121.91170,38.81689,0 -121.91663,38.82383,0 -121.91943,38.83217,0 -121.92003,38.83702,0 -121.92041,38.84050,0 -121.92032,38.84883,0 -121.92003,38.85091,0 -121.91916,38.85717,0 -121.91670,38.86550,0 -121.91170,38.87015,0 -121.90337,38.87042,0 -121.89503,38.86831,0 -121.88734,38.86550,0 -121.88670,38.86527,0 -121.87837,38.86184,0 -121.87003,38.85797,0 -121.86880,38.85717,0 -121.86170,38.85199,0 -121.85778,38.84883,0 -121.85337,38.84588,0 -121.84503,38.84108,0 -121.84404,38.84050,0 -121.83670,38.83630,0 -121.82973,38.83217,0 -121.82837,38.83117,0 -121.82003,38.82548,0 -121.81733,38.82383,0 -121.81170,38.81963,0 -121.80337,38.81563,0 -121.80316,38.81550,0 -121.79503,38.81069,0 -121.79060,38.80717,0 -121.78670,38.80307,0 -121.78291,38.79883,0 -121.77837,38.79473,0 -121.77232,38.79050,0 -121.77003,38.78932,0 -121.76170,38.78511,0 -121.75652,38.78217,0 -121.75337,38.78002,0 -121.74503,38.77399,0 -121.74483,38.77383,0 -121.73670,38.76826,0 -121.73278,38.76550,0 -121.72837,38.76244,0 -121.72160,38.75717,0 -121.72003,38.75571,0 -121.71170,38.74910,0 -121.71135,38.74883,0 -121.70337,38.74118,0 -121.70269,38.74050,0 -121.69503,38.73248,0 -121.69472,38.73217,0 -121.68670,38.72460,0 -121.68589,38.72383,0 -121.67837,38.71708,0 -121.67641,38.71550,0 -121.67003,38.71052,0 -121.66537,38.70717,0 -121.66170,38.70411,0 -121.65699,38.69883,0 -121.65337,38.69469,0 -121.65095,38.69050,0 -121.64585,38.68217,0 -121.64503,38.68093,0 -121.64042,38.67383,0 -121.63670,38.66875,0 -121.63432,38.66550,0 -121.62837,38.65806,0 -121.62760,38.65717,0 -121.62071,38.64883,0 -121.62003,38.64791,0 -121.61413,38.64050,0 -121.61170,38.63768,0 -121.60658,38.63217,0 -121.60337,38.62888,0 -121.59810,38.62383,0 -121.59503,38.62039,0 -121.59145,38.61550,0 -121.58670,38.60814,0 -121.58612,38.60717,0 -121.58094,38.59883,0 -121.57837,38.59457,0 -121.57599,38.59050,0 -121.57219,38.58217,0 -121.57003,38.57501,0 -121.56971,38.57383,0 -121.56742,38.56550,0 -121.56368,38.55717,0 -121.56170,38.55413,0 -121.55826,38.54883,0 -121.55337,38.54121,0 -121.55292,38.54050,0 -121.54975,38.53217,0 -121.54758,38.52383,0 -121.54503,38.51735,0 -121.54416,38.51550,0 -121.53987,38.50717,0 -121.53670,38.49920,0 -121.53661,38.49883,0 -121.53548,38.49050,0 -121.53670,38.48554,0 -121.53801,38.48217,0 -121.54503,38.47423,0 -121.54529,38.47383,0 -121.54867,38.46550,0 -121.54884,38.45717,0 -121.54700,38.44883,0 -121.54689,38.44050,0 -121.55024,38.43217,0 -121.55337,38.42807,0 -121.55613,38.42383,0 -121.56170,38.41625,0 -121.56221,38.41550,0 -121.56807,38.40717,0 -121.57003,38.40415,0 -121.57341,38.39883,0 -121.57770,38.39050,0 -121.57837,38.38859,0 -121.58052,38.38217,0 -121.58171,38.37383,0 -121.58178,38.36550,0 -121.58062,38.35717,0 -121.57837,38.35179,0 -121.57683,38.34883,0 -121.57099,38.34050,0 -121.57003,38.33962,0 -121.56170,38.33381,0 -121.55989,38.33217,0 -121.55337,38.32935,0 -121.54725,38.32383,0 -121.54503,38.32229,0 -121.53842,38.31550,0 -121.53670,38.31389,0 -121.52955,38.30717,0 -121.52837,38.30615,0 -121.52003,38.29948,0 -121.51937,38.29883,0 -121.51362,38.29050,0 -121.51181,38.28217,0 -121.51305,38.27383,0 -121.51353,38.26550,0 -121.51170,38.26070,0 -121.50916,38.25717,0 -121.50337,38.25291,0 -121.49537,38.24883,0 -121.49516,38.24050,0 -121.49610,38.23217,0 -121.49503,38.22694,0 -121.49439,38.22383,0 -121.48881,38.21550,0 -121.48670,38.21341,0 -121.47929,38.20717,0 -121.47837,38.20613,0 -121.47183,38.19883,0 -121.47136,38.19050,0 -121.47386,38.18217,0 -121.47610,38.17383,0 -121.47666,38.16550,0 -121.47601,38.15717,0 -121.47533,38.14883,0 -121.47515,38.14050,0 -121.47531,38.13217,0 -121.47491,38.12383,0 -121.47326,38.11550,0 -121.47064,38.10717,0 -121.47003,38.10559,0 -121.46725,38.09883,0 -121.46419,38.09050,0 -121.46170,38.08250,0 -121.46157,38.08217,0 -121.46170,38.08115,0 -121.46254,38.07383,0 -121.46650,38.06550,0 -121.46742,38.05717,0 -121.46412,38.04883,0 -121.46170,38.04534,0 -121.45817,38.04050,0 -121.45337,38.03364,0 -121.45238,38.03217,0 -121.44793,38.02383,0 -121.44503,38.01690,0 -121.44453,38.01550,0 -121.44368,38.00717,0 -121.44503,38.00421,0 -121.44898,37.99883,0 -121.45337,37.99555,0 -121.45746,37.99050,0 -121.46153,37.98217,0 -121.46170,37.98172,0 -121.46732,37.97383,0 -121.47003,37.97187,0 -121.47837,37.97199,0 -121.48670,37.97266,0 -121.49503,37.97183,0 -121.50337,37.96849,0 -121.50713,37.96550,0 -121.51170,37.96020,0 -121.51378,37.95717,0 -121.51719,37.94883,0 -121.51953,37.94050,0 -121.52003,37.93878,0 -121.52249,37.93217,0 -121.52837,37.92517,0 -121.53670,37.92560,0 -121.54503,37.93019,0 -121.54697,37.93217,0 -121.55150,37.94050,0 -121.55307,37.94883,0 -121.55337,37.95089,0 -121.55421,37.95717,0 -121.55612,37.96550,0 -121.55902,37.97383,0 -121.56170,37.97951,0 -121.56288,37.98217,0 -121.56766,37.99050,0 -121.57003,37.99372,0 -121.57343,37.99883,0 -121.57837,38.00439,0 -121.58052,38.00717,0 -121.58670,38.01430,0 -121.58755,38.01550,0 -121.59474,38.02383,0 -121.59503,38.02411,0 -121.60337,38.03173,0 -121.60388,38.03217,0 -121.61170,38.03842,0 -121.61456,38.04050,0 -121.62003,38.04438,0 -121.62772,38.04883,0 -121.62837,38.04925,0 -121.63670,38.05345,0 -121.64503,38.05517,0 -121.65337,38.05508,0 -121.66170,38.05390,0 -121.67003,38.05129,0 -121.67663,38.04883,0 -121.67837,38.04822,0 -121.68670,38.04662,0 -121.69503,38.04432,0 -121.70064,38.04050,0 -121.70337,38.03702,0 -121.70649,38.03217,0 -121.70929,38.02383,0 -121.71170,38.01978,0 -121.72003,38.01609,0 -121.72837,38.01719,0 -121.73670,38.01901,0 -121.74503,38.02016,0 -121.75337,38.02015,0 -121.76170,38.01958,0 -121.77003,38.01914,0 -121.77837,38.01844,0 -121.78670,38.01700,0 -121.79249,38.01550,0 -121.79503,38.01446,0 -121.80337,38.01060,0 -121.81170,38.00731,0 -121.81235,38.00717,0 -121.82003,38.00364,0 -121.82837,37.99918,0 -121.82905,37.99883,0 -121.83670,37.99616,0 -121.84503,37.99514,0 -121.85337,37.99502,0 -121.86170,37.99501,0 -121.87003,37.99422,0 -121.87837,37.99232,0 -121.88465,37.99050,0 -121.88670,37.98971,0 -121.89503,37.98655,0 -121.90337,37.98349,0 -121.90800,37.98217,0 -121.91170,37.98049,0 -121.91909,37.97383,0 -121.92003,37.97289,0 -121.92460,37.96550,0 -121.92741,37.95717,0 -121.92643,37.94883,0 -121.92433,37.94050,0 -121.92692,37.93217,0 -121.92837,37.93075,0 -121.93670,37.92657,0 -121.94503,37.92751,0 -121.95337,37.92758,0 -121.95748,37.92383,0 -121.96030,37.91550,0 -121.96073,37.90717,0 -121.95990,37.89883,0 -121.95624,37.89050,0 -121.95337,37.88639,0 -121.94503,37.88256,0 -121.94380,37.88217,0 -121.93670,37.87678,0 -121.93188,37.87383,0 -121.92837,37.87179,0 -121.92186,37.86550,0 -121.92003,37.85967,0 -121.91687,37.85717,0 -121.92003,37.85610,0 -121.92729,37.84883,0 -121.92099,37.84050,0 -121.92003,37.83983,0 -121.91714,37.84050,0 -121.91170,37.84336,0 -121.90588,37.84883,0 -121.90337,37.85235,0 -121.90076,37.84883,0 -121.89503,37.84067,0 -121.89499,37.84050,0 -121.89503,37.84025,0 -121.89703,37.83217,0 -121.90336,37.82383,0 -121.90337,37.82379,0 -121.90591,37.81550,0 -121.90337,37.81377,0 -121.89503,37.81065,0 -121.88748,37.80717,0 -121.88992,37.79883,0 -121.89503,37.79645,0 -121.90337,37.79329,0 -121.91170,37.79258,0 -121.92003,37.79158,0 -121.92401,37.79050,0 -121.92837,37.78926,0 -121.93670,37.78736,0 -121.94503,37.78603,0 -121.95337,37.78462,0 -121.96170,37.78388,0 -121.97003,37.78443,0 -121.97837,37.78769,0 -121.98298,37.79050,0 -121.98670,37.79210,0 -121.99503,37.79466,0 -122.00337,37.79742,0 -122.00572,37.79883,0 -122.01170,37.80266,0 -122.01841,37.80717,0 -122.02003,37.80810,0 -122.02837,37.81038,0 -122.03670,37.80965,0 -122.04503,37.80743,0 -122.05337,37.80958,0 -122.06170,37.81323,0 -122.06968,37.81550,0 -122.07003,37.81560,0 -122.07837,37.81758,0 -122.08670,37.81906,0 -122.09503,37.81947,0 -122.10337,37.81867,0 -122.11170,37.81811,0 -122.12003,37.81715,0 -122.12837,37.81692,0 -122.13670,37.81961,0 -122.14503,37.82270,0 -122.14771,37.82383,0 -122.15337,37.82753,0 -122.15936,37.83217,0 -122.16170,37.83482,0 -122.17003,37.83885,0 -122.17837,37.83529,0 -122.18437,37.83217,0 -122.18670,37.83141,0 -122.19503,37.83050,0 -122.20337,37.83070,0 -122.21170,37.82983,0 -122.22003,37.82547,0 -122.22179,37.82383,0 -122.22366,37.81550,0 -122.22003,37.80953,0 -122.21870,37.80717,0 -122.21459,37.79883,0 -122.21214,37.79050,0 -122.21170,37.78764,0 -122.21090,37.78217,0 -122.20706,37.77383,0 -122.20337,37.77042,0 -122.19872,37.76550,0 -122.19503,37.76223,0 -122.19054,37.75717,0 -122.18670,37.74969,0 -122.18626,37.74883,0 -122.18670,37.74415,0 -122.18717,37.74050,0 -122.19351,37.73217,0 -122.19503,37.73088,0 -122.20337,37.72392,0 -122.20347,37.72383,0 -122.21170,37.71699,0 -122.21399,37.71550,0 -122.22003,37.71267,0 -122.22837,37.71150,0 -122.23670,37.71391,0 -122.23915,37.71550,0 -122.24503,37.71985,0 -122.24909,37.72383,0 -122.25337,37.72769,0 -122.26034,37.73217,0 -122.26170,37.73303,0 -122.26914,37.74050,0 -122.27003,37.74228,0 -122.27244,37.74883,0 -122.27619,37.75717,0 -122.27837,37.75976,0 -122.28670,37.76413,0 -122.29503,37.76473,0 -122.30337,37.76408,0 -122.31170,37.76452,0 -122.31457,37.76550,0 -122.32003,37.76767,0 -122.32837,37.77258,0 -122.32989,37.77383,0 -122.33654,37.78217,0 -122.33670,37.78248,0 -122.34027,37.79050,0 -122.34321,37.79883,0 -122.34238,37.80717,0 -122.33899,37.81550,0 -122.33670,37.82029,0 -122.33483,37.82383,0 -122.32837,37.83199,0 -122.32822,37.83217,0 -122.32475,37.84050,0 -122.32484,37.84883,0 -122.32673,37.85717,0 -122.32837,37.86064,0 -122.33173,37.86550,0 -122.33670,37.87299,0 -122.33769,37.87383,0 -122.34363,37.88217,0 -122.34503,37.88391,0 -122.35202,37.89050,0 -122.35337,37.89118,0 -122.36170,37.89353,0 -122.37003,37.89629,0 -122.37475,37.89883,0 -122.37837,37.90105,0 -122.38670,37.90629,0 -122.39503,37.90495,0 -122.40061,37.89883,0 -122.40306,37.89050,0 -122.40337,37.88998,0 -122.41170,37.88460,0 -122.42003,37.88331,0 -122.42381,37.88217,0 -122.42837,37.88104,0 -122.43670,37.87681,0 -122.44050,37.87383,0 -122.44503,37.87033,0 -122.45337,37.86604,0 -122.45462,37.86550,0 -122.46170,37.86234,0 -122.47003,37.85808,0 -122.47084,37.85717,0 -122.47837,37.85211,0 -122.48670,37.84967,0 -122.49503,37.85003,0 -122.50337,37.85262,0 -122.51147,37.85717,0 -122.51170,37.85731,0 -122.52003,37.86013,0 -122.52837,37.86358,0 -122.53171,37.86550,0 -122.53670,37.86851,0 -122.54503,37.87256,0 -122.55337,37.87358,0 -122.56170,37.87081,0 -122.56919,37.86550,0 -122.57003,37.86501,0 -122.57837,37.86388,0 -122.58670,37.86529,0 -122.59503,37.86467,0 -122.60133,37.85717,0 -122.60337,37.85349,0 -122.60634,37.84883,0 -122.61170,37.84502,0 -122.62003,37.84186,0 -122.62410,37.84050,0 -122.62837,37.83879,0 -122.63670,37.83480,0 -122.64083,37.83217,0 -122.64503,37.82782,0 -122.64784,37.82383,0 -122.65116,37.81550,0 -122.65337,37.80893,0 -122.65392,37.80717,0 -122.65807,37.79883,0 -122.66170,37.79443,0 -122.66588,37.79050,0 -122.67003,37.78682,0 -122.67837,37.78227,0 -122.68007,37.78217,0 -122.68670,37.78170,0 -122.68808,37.78217,0 -122.69503,37.78447,0 -122.70337,37.78902,0 -122.70577,37.79050,0 -122.71170,37.79394,0 -122.72003,37.79883,0 -122.72003,37.79883,0 -122.72837,37.80358,0 -122.73467,37.80717,0 -122.73670,37.80830,0 -122.74503,37.81297,0 -122.74948,37.81550,0 -122.75337,37.81756,0 -122.76170,37.82246,0 -122.76367,37.82383,0 -122.77003,37.82832,0 -122.77526,37.83217,0 -122.77837,37.83455,0 -122.78670,37.84046,0 -122.78675,37.84050,0 -122.79503,37.84665,0 -122.79769,37.84883,0 -122.80337,37.85367,0 -122.80771,37.85717,0 -122.81170,37.86054,0 -122.81762,37.86550,0 -122.82003,37.86773,0 -122.82630,37.87383,0 -122.82837,37.87583,0 -122.83444,37.88217,0 -122.83670,37.88445,0 -122.84227,37.89050,0 -122.84503,37.89359,0 -122.84954,37.89883,0 -122.85337,37.90337,0 -122.85677,37.90717,0 -122.86170,37.91140,0 -122.86614,37.91550,0 -122.87003,37.91823,0 -122.87499,37.92383,0 -122.87837,37.92775,0 -122.88058,37.93217,0 -122.88483,37.94050,0 -122.88670,37.94400,0 -122.88900,37.94883,0 -122.89325,37.95717,0 -122.89503,37.96069,0 -122.89761,37.96550,0 -122.90190,37.97383,0 -122.90337,37.97666,0 -122.90672,37.98217,0 -122.91170,37.98987,0 -122.91212,37.99050,0 -122.91663,37.99883,0 -122.92003,38.00507,0 -122.92133,38.00717,0 -122.92837,38.01318,0 -122.93102,38.01550,0 -122.93670,38.01920,0 -122.94371,38.02383,0 -122.94503,38.02521,0 -122.95296,38.03217,0 -122.95337,38.03330,0 -122.95676,38.04050,0 -122.95732,38.04883,0 -122.95694,38.05717,0 -122.95672,38.06550,0 -122.95816,38.07383,0 -122.96170,38.08154,0 -122.96205,38.08217,0 -122.96652,38.09050,0 -122.96983,38.09883,0 -122.97003,38.10009,0 -122.97060,38.10717,0 -122.97003,38.11480,0 -122.96997,38.11550,0 -122.96905,38.12383,0 -122.96762,38.13217,0 -122.96489,38.14050,0 -122.96170,38.14685,0 -122.96036,38.14883,0 -122.95337,38.15464,0 -122.94770,38.15717,0 -122.94503,38.15832,0 -122.93670,38.16039,0 -122.92837,38.15984,0 -122.92330,38.15717,0 -122.92003,38.15405,0 -122.91610,38.14883,0 -122.91403,38.14050,0 -122.91242,38.13217,0 -122.91170,38.13108,0 -122.90355,38.12383,0 -122.90337,38.12375,0 -122.89503,38.12260,0 -122.89209,38.12383,0 -122.88670,38.13103,0 -122.88614,38.13217,0 -122.88091,38.14050,0 -122.87837,38.14716,0 -122.87798,38.14883,0 -122.87787,38.15717,0 -122.87837,38.15962,0 -122.87996,38.16550,0 -122.88227,38.17383,0 -122.88588,38.18217,0 -122.88670,38.18302,0 -122.89503,38.18924,0 -122.89708,38.19050,0 -122.90337,38.19302,0 -122.91170,38.19568,0 -122.92003,38.19807,0 -122.92285,38.19883,0 -122.92837,38.20022,0 -122.93670,38.20166,0 -122.94503,38.20207,0 -122.95337,38.20245,0 -122.96170,38.20368,0 -122.97003,38.20621,0 -122.97447,38.20717,0 -122.97837,38.20776,0 -122.98327,38.20717,0 -122.98670,38.20659,0 -122.99503,38.20427,0 -123.00337,38.20301,0 -123.01170,38.20279,0 -123.02003,38.20328,0 -123.02837,38.20494,0 -123.03392,38.20717,0 -123.03670,38.20858,0 -123.04503,38.21441,0 -123.04641,38.21550,0 -123.05337,38.22315,0 -123.05393,38.22383,0 -123.05935,38.23217,0 -123.06170,38.23639,0 -123.06393,38.24050,0 -123.06800,38.24883,0 -123.07003,38.25405,0 -123.07126,38.25717,0 -123.07405,38.26550,0 -123.07645,38.27383,0 -123.07781,38.28217,0 -123.07677,38.29050,0 -123.07431,38.29883,0 -123.07413,38.30717,0 -123.07702,38.31550,0 -123.07837,38.31768,0 -123.08278,38.32383,0 -123.08603,38.33217,0 -123.08670,38.33889,0 -123.08695,38.34050,0 -123.08670,38.34414,0 -123.08648,38.34883,0 -123.08638,38.35717,0 -123.08670,38.35917,0 -123.08790,38.36550,0 -123.09084,38.37383,0 -123.09503,38.38107,0 -123.09569,38.38217,0 -123.09545,38.39050,0 -123.09503,38.39090,0 -123.08670,38.39104,0 -123.08537,38.39050,0 -123.07837,38.38687,0 -123.07202,38.38217,0 -123.07003,38.38008,0 -123.06366,38.37383,0 -123.06170,38.37192,0 -123.05337,38.36877,0 -123.04796,38.37383,0 -123.04503,38.37961,0 -123.04390,38.38217,0 -123.03670,38.38991,0 -123.03586,38.39050,0 -123.02837,38.39438,0 -123.02003,38.39680,0 -123.01170,38.39768,0 -123.00337,38.39824,0 -123.00124,38.39883,0 -122.99503,38.40041,0 -122.98670,38.40706,0 -122.98661,38.40717,0 -122.97837,38.41489,0 -122.97757,38.41550,0 -122.97003,38.41945,0 -122.96170,38.42315,0 -122.96048,38.42383,0 -122.95337,38.43028,0 -122.95188,38.43217,0 -122.94581,38.44050,0 -122.94503,38.44131,0 -122.93670,38.44741,0 -122.93388,38.44883,0 -122.92837,38.45362,0 -122.92466,38.45717,0 -122.92003,38.46220,0 -122.91657,38.46550,0 -122.91170,38.46901,0 -122.90845,38.47383,0 -122.90580,38.48217,0 -122.90793,38.49050,0 -122.91170,38.49503,0 -122.91761,38.49883,0 -122.92003,38.50021,0 -122.92837,38.50364,0 -122.93328,38.50717,0 -122.93561,38.51550,0 -122.93670,38.51860,0 -122.93880,38.52383,0 -122.94503,38.53096,0 -122.94610,38.53217,0 -122.95337,38.53947,0 -122.95435,38.54050,0 -122.96170,38.54683,0 -122.96419,38.54883,0 -122.97003,38.55262,0 -122.97745,38.55717,0 -122.97837,38.55772,0 -122.98670,38.56403,0 -122.98827,38.56550,0 -122.99363,38.57383,0 -122.99503,38.57891,0 -122.99580,38.58217,0 -122.99647,38.59050,0 -122.99668,38.59883,0 -122.99633,38.60717,0 -122.99516,38.61550,0 -122.99503,38.61605,0 -122.99258,38.62383,0 -122.98849,38.63217,0 -122.98670,38.63446,0 -122.98101,38.64050,0 -122.97837,38.64269,0 -122.97141,38.64883,0 -122.97003,38.64984,0 -122.96269,38.65717,0 -122.96170,38.65802,0 -122.95636,38.66550,0 -122.95337,38.67106,0 -122.95228,38.67383,0 -122.94932,38.68217,0 -122.94503,38.68824,0 -122.94084,38.69050,0 -122.93670,38.69207,0 -122.92837,38.69500,0 -122.92212,38.69883,0 -122.92003,38.70093,0 -122.91630,38.70717,0 -122.91235,38.71550,0 -122.91170,38.71618,0 -122.90337,38.72333,0 -122.90263,38.72383,0 -122.89503,38.72826,0 -122.88788,38.73217,0 -122.88670,38.73344,0 -122.88064,38.74050,0 -122.87837,38.74648,0 -122.87749,38.74883,0 -122.87612,38.75717,0 -122.87369,38.76550,0 -122.87003,38.77123,0 -122.86816,38.77383,0 -122.86284,38.78217,0 -122.86170,38.78465,0 -122.85909,38.79050,0 -122.85456,38.79883,0 -122.85337,38.80013,0 -122.84503,38.80569,0 -122.84206,38.80717,0 -122.83670,38.80915,0 -122.82837,38.81237,0 -122.82127,38.81550,0 -122.82003,38.81613,0 -122.81170,38.82133,0 -122.80786,38.82383,0 -122.80337,38.82831,0 -122.79813,38.83217,0 -122.79503,38.83493,0 -122.78761,38.84050,0 -122.78670,38.84116,0 -122.77837,38.84654,0 -122.77003,38.84754,0 -122.76170,38.84772,0 -122.75950,38.84883,0 -122.75457,38.85717,0 -122.75337,38.85902,0 -122.74503,38.86358,0 -122.73670,38.86051,0 -122.73160,38.85717,0 -122.72837,38.85509,0 -122.72003,38.85462,0 -122.71498,38.85717,0 -122.71170,38.85864,0 -122.70337,38.86262,0 -122.69503,38.86279,0 -122.68670,38.86310,0 -122.67837,38.86464,0 -122.67003,38.86495,0 -122.66170,38.86408,0 -122.65337,38.86373,0 -122.64503,38.86526,0 -122.64443,38.86550,0 -122.63670,38.86861,0 -122.62837,38.87290,0 -122.62619,38.87383,0 -122.62003,38.87666,0 -122.61170,38.87844,0 -122.60337,38.87659,0 -122.60047,38.87383,0 -122.59514,38.86550,0 -122.59503,38.86536,0 -122.58848,38.85717,0 -122.58670,38.85511,0 -122.58225,38.84883,0 -122.57837,38.84276,0 -122.57694,38.84050,0 -122.57005,38.83217,0 -122.57003,38.83215,0 -122.56202,38.82383,0 -122.56170,38.82351,0 -122.55363,38.81550,0 -122.55337,38.81528,0 -122.54503,38.80824,0 -122.54373,38.80717,0 -122.53670,38.80031,0 -122.53500,38.79883,0 -122.52837,38.79178,0 -122.52615,38.79050,0 -122.52003,38.78756,0 -122.51170,38.78506,0 -122.50337,38.78331,0 -122.49503,38.78236,0 -122.49188,38.78217,0 -122.48670,38.78196,0 -122.47837,38.78182,0 -122.47491,38.78217,0 -122.47003,38.78316,0 -122.46170,38.78665,0 -122.45430,38.79050,0 -122.45337,38.79107,0 -122.44503,38.79591,0 -122.43714,38.79883,0 -122.43670,38.79891,0 -122.42837,38.80010,0 -122.42003,38.80291,0 -122.41170,38.80710,0 -122.41150,38.80717,0 -122.40337,38.80975,0 -122.39503,38.81018,0 -122.38670,38.80886,0 -122.37837,38.80794,0 -122.37003,38.80828,0 -122.36170,38.80921,0 -122.35337,38.81113,0 -122.34503,38.81489,0 -122.34432,38.81550,0 -122.33884,38.82383,0 -122.33670,38.82793,0 -122.33359,38.83217,0 -122.32837,38.83618,0 -122.32003,38.84001,0 -122.31893,38.84050,0 -122.31170,38.84367,0 -122.30337,38.84785,0 -122.30145,38.84883,0 -122.29503,38.85234,0 -122.28670,38.85639,0 -122.28356,38.85717,0 -122.27837,38.85855,0 -122.27003,38.85818,0 -122.26170,38.85742,0 -122.25337,38.85770,0 -122.24503,38.86160,0 -122.24284,38.86550,0 -122.24100,38.87383,0 -122.23935,38.88217,0 -122.23670,38.88466,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 4 Contour</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.67003,38.80730,0 -122.66892,38.80717,0 -122.66170,38.80577,0 -122.65337,38.80238,0 -122.64503,38.80058,0 -122.64051,38.79883,0 -122.63670,38.79670,0 -122.62837,38.79431,0 -122.62003,38.79688,0 -122.61536,38.79883,0 -122.61170,38.80070,0 -122.60370,38.80717,0 -122.60337,38.80742,0 -122.60257,38.80717,0 -122.59503,38.80152,0 -122.59317,38.79883,0 -122.59298,38.79050,0 -122.58822,38.78217,0 -122.58670,38.78129,0 -122.57837,38.78135,0 -122.57467,38.78217,0 -122.57003,38.78322,0 -122.56900,38.78217,0 -122.56618,38.77383,0 -122.56731,38.76550,0 -122.56747,38.75717,0 -122.56428,38.74883,0 -122.56170,38.74344,0 -122.56018,38.74050,0 -122.55773,38.73217,0 -122.56170,38.72612,0 -122.57003,38.72384,0 -122.57007,38.72383,0 -122.57837,38.72234,0 -122.58670,38.72117,0 -122.59503,38.71687,0 -122.59601,38.71550,0 -122.59833,38.70717,0 -122.60059,38.69883,0 -122.60337,38.69288,0 -122.60462,38.69050,0 -122.61170,38.68264,0 -122.61236,38.68217,0 -122.62003,38.67771,0 -122.62837,38.67403,0 -122.62880,38.67383,0 -122.63670,38.66941,0 -122.64344,38.66550,0 -122.64503,38.66426,0 -122.65337,38.65811,0 -122.65654,38.65717,0 -122.65920,38.64883,0 -122.65378,38.64050,0 -122.65337,38.63845,0 -122.65226,38.63217,0 -122.65209,38.62383,0 -122.65337,38.62011,0 -122.65589,38.61550,0 -122.66170,38.61272,0 -122.67003,38.61237,0 -122.67837,38.61393,0 -122.68131,38.61550,0 -122.68670,38.61827,0 -122.69327,38.62383,0 -122.69503,38.62539,0 -122.70337,38.63161,0 -122.70427,38.63217,0 -122.71170,38.63660,0 -122.71803,38.64050,0 -122.72003,38.64206,0 -122.72837,38.64871,0 -122.72853,38.64883,0 -122.73532,38.65717,0 -122.73605,38.66550,0 -122.72837,38.67230,0 -122.72612,38.67383,0 -122.72837,38.67749,0 -122.73670,38.67723,0 -122.74359,38.68217,0 -122.74503,38.68296,0 -122.74982,38.69050,0 -122.75337,38.69503,0 -122.76170,38.69799,0 -122.76787,38.69883,0 -122.77003,38.69911,0 -122.77837,38.70125,0 -122.78670,38.70672,0 -122.78725,38.70717,0 -122.78960,38.71550,0 -122.78670,38.72198,0 -122.78561,38.72383,0 -122.77837,38.72959,0 -122.77383,38.73217,0 -122.77003,38.73363,0 -122.76170,38.73913,0 -122.75971,38.74050,0 -122.75337,38.74567,0 -122.74972,38.74883,0 -122.74503,38.75588,0 -122.74409,38.75717,0 -122.73670,38.76481,0 -122.73613,38.76550,0 -122.72837,38.77248,0 -122.72756,38.77383,0 -122.72397,38.78217,0 -122.72003,38.78673,0 -122.71676,38.79050,0 -122.71170,38.79376,0 -122.70502,38.79883,0 -122.70337,38.79984,0 -122.69503,38.80322,0 -122.68670,38.80554,0 -122.67837,38.80694,0 -122.67307,38.80717,0 -122.67003,38.80730,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>IV</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.67003,38.80730,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>IV</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.65589,38.61550,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 4 Contour</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.83670,38.68289,0 -122.82837,38.68670,0 -122.82003,38.68717,0 -122.81170,38.68227,0 -122.81160,38.68217,0 -122.80337,38.67486,0 -122.80233,38.67383,0 -122.79503,38.66655,0 -122.79400,38.66550,0 -122.78670,38.65934,0 -122.78351,38.65717,0 -122.77837,38.65323,0 -122.77268,38.64883,0 -122.77003,38.64666,0 -122.76323,38.64050,0 -122.76170,38.63901,0 -122.75591,38.63217,0 -122.75337,38.62831,0 -122.75052,38.62383,0 -122.74583,38.61550,0 -122.74503,38.61415,0 -122.74104,38.60717,0 -122.73670,38.59884,0 -122.73669,38.59883,0 -122.73340,38.59050,0 -122.72837,38.58238,0 -122.72816,38.58217,0 -122.72003,38.57709,0 -122.71170,38.57459,0 -122.70984,38.57383,0 -122.70337,38.57051,0 -122.69503,38.56564,0 -122.69420,38.56550,0 -122.68670,38.56299,0 -122.68405,38.56550,0 -122.67837,38.56978,0 -122.67489,38.57383,0 -122.67003,38.57809,0 -122.66488,38.58217,0 -122.66170,38.58436,0 -122.65337,38.58946,0 -122.65150,38.59050,0 -122.64503,38.59485,0 -122.64028,38.59883,0 -122.63670,38.60236,0 -122.63292,38.60717,0 -122.62837,38.61152,0 -122.62259,38.61550,0 -122.62003,38.61723,0 -122.61170,38.62028,0 -122.60337,38.62171,0 -122.59503,38.62321,0 -122.59163,38.62383,0 -122.58670,38.62558,0 -122.57837,38.62868,0 -122.57036,38.63217,0 -122.57003,38.63233,0 -122.56170,38.63612,0 -122.55337,38.63897,0 -122.54764,38.64050,0 -122.54503,38.64123,0 -122.53670,38.64457,0 -122.53024,38.64883,0 -122.52837,38.65020,0 -122.52003,38.65616,0 -122.51783,38.65717,0 -122.51170,38.65891,0 -122.50337,38.66115,0 -122.49503,38.66510,0 -122.49458,38.66550,0 -122.48670,38.67358,0 -122.48612,38.67383,0 -122.47837,38.67599,0 -122.47003,38.67455,0 -122.46832,38.67383,0 -122.46170,38.67135,0 -122.45337,38.66818,0 -122.44503,38.66568,0 -122.44433,38.66550,0 -122.43670,38.66361,0 -122.42837,38.66226,0 -122.42003,38.66244,0 -122.41170,38.66296,0 -122.40337,38.66229,0 -122.39503,38.66070,0 -122.38670,38.65871,0 -122.38071,38.65717,0 -122.37837,38.65642,0 -122.37003,38.65390,0 -122.36170,38.65142,0 -122.35376,38.64883,0 -122.35337,38.64866,0 -122.34503,38.64714,0 -122.34155,38.64883,0 -122.33670,38.65190,0 -122.32931,38.65717,0 -122.32837,38.65745,0 -122.32003,38.65760,0 -122.31689,38.65717,0 -122.31170,38.65628,0 -122.30337,38.65524,0 -122.29503,38.65652,0 -122.29413,38.65717,0 -122.28692,38.66550,0 -122.28670,38.66580,0 -122.28058,38.67383,0 -122.27837,38.67543,0 -122.27003,38.67821,0 -122.26170,38.67851,0 -122.25337,38.67712,0 -122.24581,38.67383,0 -122.24503,38.67347,0 -122.23670,38.66821,0 -122.23230,38.66550,0 -122.22837,38.66165,0 -122.22217,38.65717,0 -122.22003,38.65470,0 -122.21170,38.64979,0 -122.20886,38.64883,0 -122.20337,38.64689,0 -122.19503,38.64482,0 -122.18670,38.64312,0 -122.17837,38.64130,0 -122.17513,38.64050,0 -122.17003,38.63935,0 -122.16170,38.63708,0 -122.15337,38.63545,0 -122.14503,38.63460,0 -122.13670,38.63359,0 -122.12945,38.63217,0 -122.12837,38.63192,0 -122.12003,38.62972,0 -122.11170,38.62755,0 -122.10337,38.62530,0 -122.09871,38.62383,0 -122.09503,38.62277,0 -122.08670,38.61978,0 -122.07837,38.61804,0 -122.07003,38.62063,0 -122.06170,38.62348,0 -122.05337,38.62031,0 -122.04762,38.61550,0 -122.04503,38.61356,0 -122.03670,38.60748,0 -122.03611,38.60717,0 -122.02837,38.60311,0 -122.02003,38.60191,0 -122.01170,38.60241,0 -122.00345,38.60717,0 -122.00337,38.60727,0 -121.99984,38.61550,0 -121.99618,38.62383,0 -121.99503,38.62555,0 -121.98670,38.62901,0 -121.97837,38.62783,0 -121.97003,38.62488,0 -121.96737,38.62383,0 -121.96170,38.62174,0 -121.95337,38.61969,0 -121.94503,38.61832,0 -121.93670,38.61704,0 -121.92837,38.61592,0 -121.92528,38.61550,0 -121.92003,38.61419,0 -121.91170,38.60966,0 -121.90870,38.60717,0 -121.90337,38.60000,0 -121.90286,38.59883,0 -121.90233,38.59050,0 -121.90139,38.58217,0 -121.89739,38.57383,0 -121.89503,38.57026,0 -121.89196,38.56550,0 -121.88809,38.55717,0 -121.88670,38.55397,0 -121.88367,38.54883,0 -121.87837,38.54373,0 -121.87281,38.54050,0 -121.87003,38.53882,0 -121.86170,38.53389,0 -121.85927,38.53217,0 -121.85337,38.52645,0 -121.85032,38.52383,0 -121.84503,38.51625,0 -121.84463,38.51550,0 -121.83848,38.50717,0 -121.83670,38.50485,0 -121.83094,38.49883,0 -121.82837,38.49527,0 -121.82322,38.49050,0 -121.82003,38.48398,0 -121.81874,38.48217,0 -121.82003,38.47856,0 -121.82150,38.47383,0 -121.82541,38.46550,0 -121.82614,38.45717,0 -121.82452,38.44883,0 -121.82318,38.44050,0 -121.82277,38.43217,0 -121.82409,38.42383,0 -121.82804,38.41550,0 -121.82837,38.41501,0 -121.83383,38.40717,0 -121.83670,38.40186,0 -121.83795,38.39883,0 -121.83988,38.39050,0 -121.84386,38.38217,0 -121.84503,38.38111,0 -121.85337,38.37954,0 -121.85841,38.38217,0 -121.86170,38.38442,0 -121.86560,38.39050,0 -121.86907,38.39883,0 -121.87003,38.39991,0 -121.87837,38.40411,0 -121.88203,38.39883,0 -121.88036,38.39050,0 -121.87837,38.38759,0 -121.87253,38.38217,0 -121.87003,38.38035,0 -121.86284,38.37383,0 -121.86170,38.37187,0 -121.85616,38.36550,0 -121.86170,38.35985,0 -121.86272,38.35717,0 -121.86804,38.34883,0 -121.86718,38.34050,0 -121.86565,38.33217,0 -121.86573,38.32383,0 -121.86636,38.31550,0 -121.86170,38.30730,0 -121.86160,38.30717,0 -121.85337,38.30118,0 -121.84503,38.29905,0 -121.83670,38.30178,0 -121.83198,38.30717,0 -121.82837,38.31013,0 -121.82235,38.31550,0 -121.82003,38.31700,0 -121.81234,38.32383,0 -121.81170,38.32505,0 -121.80802,38.33217,0 -121.80539,38.34050,0 -121.80337,38.34321,0 -121.79571,38.34883,0 -121.79503,38.34940,0 -121.78670,38.35343,0 -121.77837,38.35094,0 -121.77566,38.34883,0 -121.77003,38.34450,0 -121.76618,38.34050,0 -121.76284,38.33217,0 -121.76170,38.32933,0 -121.75940,38.32383,0 -121.75671,38.31550,0 -121.75493,38.30717,0 -121.75337,38.29883,0 -121.75337,38.29878,0 -121.75211,38.29050,0 -121.75119,38.28217,0 -121.74802,38.27383,0 -121.74503,38.27144,0 -121.73670,38.26983,0 -121.72837,38.26934,0 -121.72216,38.27383,0 -121.72253,38.28217,0 -121.72003,38.28491,0 -121.71170,38.28992,0 -121.70957,38.29050,0 -121.70337,38.29155,0 -121.69503,38.29254,0 -121.68670,38.29231,0 -121.67900,38.29050,0 -121.67837,38.29015,0 -121.67003,38.28360,0 -121.66835,38.28217,0 -121.66517,38.27383,0 -121.66390,38.26550,0 -121.66286,38.25717,0 -121.66209,38.24883,0 -121.66177,38.24050,0 -121.66173,38.23217,0 -121.66237,38.22383,0 -121.67003,38.21897,0 -121.67837,38.22152,0 -121.68568,38.22383,0 -121.68670,38.22421,0 -121.69503,38.22870,0 -121.70043,38.23217,0 -121.70337,38.23421,0 -121.71170,38.23913,0 -121.71433,38.24050,0 -121.72003,38.24420,0 -121.72837,38.24800,0 -121.73070,38.24883,0 -121.73670,38.25210,0 -121.74503,38.25479,0 -121.75337,38.25656,0 -121.76170,38.25581,0 -121.77003,38.25256,0 -121.77746,38.24883,0 -121.77837,38.24801,0 -121.78491,38.24050,0 -121.78670,38.23274,0 -121.78683,38.23217,0 -121.78817,38.22383,0 -121.78990,38.21550,0 -121.79107,38.20717,0 -121.79203,38.19883,0 -121.79330,38.19050,0 -121.79442,38.18217,0 -121.79503,38.17479,0 -121.79511,38.17383,0 -121.79607,38.16550,0 -121.79836,38.15717,0 -121.80337,38.14904,0 -121.80347,38.14883,0 -121.81138,38.14050,0 -121.81170,38.14026,0 -121.82003,38.13253,0 -121.82037,38.13217,0 -121.82837,38.12528,0 -121.82998,38.12383,0 -121.83670,38.11875,0 -121.84113,38.11550,0 -121.84503,38.11283,0 -121.85102,38.10717,0 -121.85337,38.10324,0 -121.85510,38.09883,0 -121.85449,38.09050,0 -121.85337,38.08811,0 -121.85025,38.08217,0 -121.84533,38.07383,0 -121.84503,38.07016,0 -121.84440,38.06550,0 -121.84503,38.06474,0 -121.85303,38.05717,0 -121.85337,38.05696,0 -121.86170,38.05202,0 -121.87003,38.04885,0 -121.87007,38.04883,0 -121.87837,38.04677,0 -121.88670,38.04395,0 -121.89248,38.04050,0 -121.89503,38.03891,0 -121.90337,38.03409,0 -121.91170,38.03271,0 -121.92003,38.03350,0 -121.92837,38.03451,0 -121.93670,38.03499,0 -121.94503,38.03512,0 -121.95337,38.03482,0 -121.96170,38.03402,0 -121.97003,38.03316,0 -121.97837,38.03254,0 -121.98117,38.03217,0 -121.98670,38.03060,0 -121.99357,38.02383,0 -121.99503,38.02107,0 -121.99763,38.01550,0 -122.00031,38.00717,0 -122.00145,37.99883,0 -122.00219,37.99050,0 -122.00337,37.98921,0 -122.01170,37.98328,0 -122.01303,37.98217,0 -122.02003,37.97804,0 -122.02416,37.97383,0 -122.02837,37.96578,0 -122.02848,37.96550,0 -122.02837,37.96128,0 -122.02823,37.95717,0 -122.02531,37.94883,0 -122.02280,37.94050,0 -122.02453,37.93217,0 -122.02837,37.92766,0 -122.03670,37.92511,0 -122.04251,37.92383,0 -122.04503,37.92333,0 -122.05337,37.92251,0 -122.06170,37.92260,0 -122.07003,37.92366,0 -122.07162,37.92383,0 -122.07837,37.92461,0 -122.08431,37.92383,0 -122.08670,37.92358,0 -122.09503,37.92321,0 -122.10330,37.92383,0 -122.10337,37.92384,0 -122.10339,37.92383,0 -122.11170,37.92147,0 -122.12003,37.91581,0 -122.12073,37.91550,0 -122.12837,37.91238,0 -122.13670,37.91077,0 -122.14503,37.90896,0 -122.15337,37.90770,0 -122.16170,37.90820,0 -122.17003,37.90979,0 -122.17837,37.91123,0 -122.18670,37.91221,0 -122.19503,37.91265,0 -122.20337,37.91226,0 -122.21170,37.91218,0 -122.22003,37.91511,0 -122.22069,37.91550,0 -122.22837,37.91944,0 -122.23670,37.92290,0 -122.24008,37.92383,0 -122.24503,37.92477,0 -122.25337,37.92516,0 -122.26052,37.92383,0 -122.26170,37.92357,0 -122.27003,37.92337,0 -122.27123,37.92383,0 -122.27837,37.92641,0 -122.28670,37.93103,0 -122.28897,37.93217,0 -122.29503,37.93445,0 -122.30337,37.93693,0 -122.31170,37.93816,0 -122.32003,37.93533,0 -122.32504,37.93217,0 -122.32837,37.93009,0 -122.33670,37.93039,0 -122.34027,37.93217,0 -122.34503,37.93468,0 -122.35337,37.93850,0 -122.36170,37.94038,0 -122.37003,37.93966,0 -122.37551,37.94050,0 -122.37837,37.94086,0 -122.38670,37.94564,0 -122.39096,37.94883,0 -122.39503,37.95233,0 -122.39916,37.95717,0 -122.40246,37.96550,0 -122.40290,37.97383,0 -122.39917,37.98217,0 -122.39503,37.98774,0 -122.39245,37.99050,0 -122.39503,37.99499,0 -122.39890,37.99883,0 -122.40337,38.00076,0 -122.41170,38.00401,0 -122.41907,38.00717,0 -122.42003,38.00755,0 -122.42837,38.00985,0 -122.43670,38.01201,0 -122.44503,38.01499,0 -122.44619,38.01550,0 -122.45337,38.01875,0 -122.46170,38.02163,0 -122.47003,38.02055,0 -122.47260,38.01550,0 -122.47837,38.00921,0 -122.48078,38.00717,0 -122.48670,38.00430,0 -122.49503,38.00425,0 -122.50337,38.00512,0 -122.51170,38.00468,0 -122.52003,38.00311,0 -122.52837,38.00205,0 -122.53670,38.00436,0 -122.54043,38.00717,0 -122.54397,38.01550,0 -122.54465,38.02383,0 -122.54481,38.03217,0 -122.54372,38.04050,0 -122.54503,38.04502,0 -122.54681,38.04883,0 -122.55337,38.05305,0 -122.56165,38.05717,0 -122.56170,38.05719,0 -122.57003,38.06185,0 -122.57481,38.06550,0 -122.57837,38.06900,0 -122.58362,38.07383,0 -122.58670,38.07673,0 -122.59503,38.08051,0 -122.59813,38.08217,0 -122.60337,38.08444,0 -122.61170,38.09044,0 -122.61177,38.09050,0 -122.61769,38.09883,0 -122.62003,38.10394,0 -122.62145,38.10717,0 -122.62602,38.11550,0 -122.62837,38.12163,0 -122.63002,38.12383,0 -122.63211,38.13217,0 -122.63670,38.13800,0 -122.63848,38.14050,0 -122.64503,38.14504,0 -122.65337,38.14807,0 -122.65539,38.14883,0 -122.66170,38.15046,0 -122.67003,38.15289,0 -122.67837,38.15442,0 -122.68670,38.15538,0 -122.69503,38.15656,0 -122.69706,38.15717,0 -122.70337,38.15881,0 -122.71170,38.16229,0 -122.71845,38.16550,0 -122.72003,38.16621,0 -122.72837,38.17117,0 -122.73127,38.17383,0 -122.73670,38.18081,0 -122.73758,38.18217,0 -122.74503,38.19004,0 -122.74554,38.19050,0 -122.75337,38.19628,0 -122.75656,38.19883,0 -122.76170,38.20442,0 -122.76392,38.20717,0 -122.76898,38.21550,0 -122.77003,38.21673,0 -122.77816,38.22383,0 -122.77837,38.22395,0 -122.78670,38.22791,0 -122.79503,38.23152,0 -122.79621,38.23217,0 -122.80337,38.23607,0 -122.81170,38.24024,0 -122.81255,38.24050,0 -122.82003,38.24334,0 -122.82837,38.24559,0 -122.83670,38.24725,0 -122.84409,38.24883,0 -122.84503,38.24909,0 -122.85337,38.25213,0 -122.86170,38.25659,0 -122.86255,38.25717,0 -122.87002,38.26550,0 -122.87003,38.26552,0 -122.87650,38.27383,0 -122.87837,38.27583,0 -122.88592,38.28217,0 -122.88670,38.28300,0 -122.89503,38.28971,0 -122.89648,38.29050,0 -122.90337,38.29759,0 -122.90471,38.29883,0 -122.91170,38.30570,0 -122.91304,38.30717,0 -122.91383,38.31550,0 -122.91170,38.31863,0 -122.90723,38.32383,0 -122.90337,38.32800,0 -122.89715,38.33217,0 -122.89503,38.33318,0 -122.88670,38.33517,0 -122.87837,38.33581,0 -122.87003,38.33678,0 -122.86170,38.33912,0 -122.85923,38.34050,0 -122.85398,38.34883,0 -122.85337,38.35397,0 -122.85300,38.35717,0 -122.85262,38.36550,0 -122.85337,38.36802,0 -122.85610,38.37383,0 -122.85440,38.38217,0 -122.85337,38.38292,0 -122.84564,38.39050,0 -122.84503,38.39093,0 -122.83670,38.39658,0 -122.83512,38.39883,0 -122.83062,38.40717,0 -122.82837,38.41175,0 -122.82703,38.41550,0 -122.82409,38.42383,0 -122.82207,38.43217,0 -122.82046,38.44050,0 -122.82003,38.44126,0 -122.81373,38.44883,0 -122.81170,38.45026,0 -122.80337,38.45395,0 -122.79503,38.45697,0 -122.79459,38.45717,0 -122.78670,38.46324,0 -122.78500,38.46550,0 -122.78315,38.47383,0 -122.78245,38.48217,0 -122.78048,38.49050,0 -122.77837,38.49848,0 -122.77830,38.49883,0 -122.77821,38.50717,0 -122.77837,38.51044,0 -122.77882,38.51550,0 -122.77868,38.52383,0 -122.77949,38.53217,0 -122.78272,38.54050,0 -122.78670,38.54777,0 -122.79367,38.54050,0 -122.79503,38.53988,0 -122.80337,38.54043,0 -122.80344,38.54050,0 -122.81170,38.54821,0 -122.81214,38.54883,0 -122.81501,38.55717,0 -122.81170,38.56327,0 -122.80337,38.56159,0 -122.79503,38.55766,0 -122.79260,38.55717,0 -122.78670,38.55002,0 -122.78279,38.55717,0 -122.77837,38.55887,0 -122.77003,38.56152,0 -122.76263,38.55717,0 -122.76319,38.54883,0 -122.76170,38.54673,0 -122.75876,38.54050,0 -122.75337,38.53667,0 -122.74531,38.53217,0 -122.74503,38.53201,0 -122.73670,38.52456,0 -122.73590,38.52383,0 -122.72997,38.51550,0 -122.72837,38.51380,0 -122.72720,38.51550,0 -122.72003,38.52360,0 -122.71988,38.52383,0 -122.71170,38.53202,0 -122.71144,38.53217,0 -122.70743,38.54050,0 -122.71170,38.54211,0 -122.72003,38.54715,0 -122.72193,38.54883,0 -122.72837,38.55434,0 -122.73670,38.55712,0 -122.73694,38.55717,0 -122.74503,38.55957,0 -122.75337,38.56210,0 -122.76170,38.56169,0 -122.76257,38.56550,0 -122.76400,38.57383,0 -122.76688,38.58217,0 -122.77003,38.58914,0 -122.77037,38.59050,0 -122.77359,38.59883,0 -122.77780,38.60717,0 -122.77837,38.60814,0 -122.78156,38.61550,0 -122.78559,38.62383,0 -122.78670,38.62543,0 -122.79183,38.63217,0 -122.79503,38.63578,0 -122.79916,38.64050,0 -122.80337,38.64487,0 -122.80773,38.64883,0 -122.81170,38.65217,0 -122.81998,38.65717,0 -122.82003,38.65721,0 -122.82837,38.66140,0 -122.83670,38.66457,0 -122.84076,38.66550,0 -122.84503,38.66760,0 -122.85337,38.66945,0 -122.85866,38.67383,0 -122.85337,38.67731,0 -122.84503,38.67895,0 -122.83943,38.68217,0 -122.83670,38.68289,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>IV</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.83670,38.68289,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>IV</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-121.90337,38.60000,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>IV</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-121.84533,38.07383,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>IV</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.67837,38.15442,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 4 Contour</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.81170,38.06600,0 -122.81086,38.06550,0 -122.80337,38.06149,0 -122.79823,38.05717,0 -122.79503,38.05489,0 -122.78953,38.04883,0 -122.78670,38.04474,0 -122.78396,38.04050,0 -122.78027,38.03217,0 -122.77837,38.02700,0 -122.77703,38.02383,0 -122.77442,38.01550,0 -122.77064,38.00717,0 -122.77003,38.00610,0 -122.76662,37.99883,0 -122.76217,37.99050,0 -122.76170,37.98974,0 -122.75828,37.98217,0 -122.75337,37.97596,0 -122.75177,37.97383,0 -122.74572,37.96550,0 -122.74503,37.96333,0 -122.74345,37.95717,0 -122.74503,37.95044,0 -122.74577,37.94883,0 -122.75337,37.94364,0 -122.76170,37.94230,0 -122.77003,37.94323,0 -122.77837,37.94602,0 -122.78296,37.94883,0 -122.78670,37.95191,0 -122.79150,37.95717,0 -122.79503,37.96144,0 -122.79829,37.96550,0 -122.80337,37.97128,0 -122.80579,37.97383,0 -122.81170,37.98012,0 -122.81378,37.98217,0 -122.82003,37.98825,0 -122.82266,37.99050,0 -122.82837,37.99643,0 -122.83078,37.99883,0 -122.83670,38.00667,0 -122.83718,38.00717,0 -122.84342,38.01550,0 -122.84503,38.01819,0 -122.84771,38.02383,0 -122.84855,38.03217,0 -122.84503,38.03671,0 -122.83670,38.03677,0 -122.82837,38.03595,0 -122.82003,38.03837,0 -122.81872,38.04050,0 -122.81721,38.04883,0 -122.81872,38.05717,0 -122.81967,38.06550,0 -122.81170,38.06600,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 4 Contour</name>
+      <styleUrl>#style_mi_4</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.40337,37.64056,0 -122.39503,37.64562,0 -122.38670,37.64715,0 -122.37837,37.64483,0 -122.37384,37.64050,0 -122.37003,37.63723,0 -122.36546,37.63217,0 -122.36170,37.62849,0 -122.35694,37.62383,0 -122.35337,37.61749,0 -122.35232,37.61550,0 -122.35232,37.60717,0 -122.35327,37.59883,0 -122.35337,37.59583,0 -122.35377,37.59050,0 -122.36170,37.58702,0 -122.37003,37.58795,0 -122.37517,37.59050,0 -122.37837,37.59220,0 -122.38670,37.59836,0 -122.38736,37.59883,0 -122.39503,37.60510,0 -122.39772,37.60717,0 -122.40337,37.61538,0 -122.40347,37.61550,0 -122.40487,37.62383,0 -122.40501,37.63217,0 -122.40345,37.64050,0 -122.40337,37.64056,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 4.5 Contour</name>
+      <styleUrl>#style_mi_4.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.42837,38.59303,0 -122.42003,38.59557,0 -122.41170,38.59623,0 -122.40337,38.59548,0 -122.39503,38.59299,0 -122.39021,38.59050,0 -122.38670,38.58868,0 -122.37837,38.58278,0 -122.37765,38.58217,0 -122.37003,38.57531,0 -122.36865,38.57383,0 -122.36170,38.56637,0 -122.36087,38.56550,0 -122.35337,38.55786,0 -122.35256,38.55717,0 -122.34503,38.55001,0 -122.34367,38.54883,0 -122.33670,38.54106,0 -122.33613,38.54050,0 -122.33030,38.53217,0 -122.32837,38.52848,0 -122.32528,38.52383,0 -122.32087,38.51550,0 -122.32003,38.51290,0 -122.31791,38.50717,0 -122.31554,38.49883,0 -122.31170,38.49133,0 -122.31068,38.49050,0 -122.30337,38.48671,0 -122.29503,38.48851,0 -122.28980,38.49050,0 -122.28670,38.49710,0 -122.27837,38.49201,0 -122.27003,38.49099,0 -122.26170,38.49057,0 -122.26152,38.49050,0 -122.25337,38.48733,0 -122.24503,38.48359,0 -122.24144,38.48217,0 -122.23670,38.48072,0 -122.22837,38.47843,0 -122.22003,38.47619,0 -122.21266,38.47383,0 -122.21170,38.47353,0 -122.20337,38.47120,0 -122.19503,38.46875,0 -122.18670,38.46562,0 -122.18618,38.46550,0 -122.17837,38.46417,0 -122.17003,38.46325,0 -122.16170,38.46087,0 -122.15355,38.45717,0 -122.15337,38.45710,0 -122.14503,38.45411,0 -122.13670,38.45191,0 -122.12837,38.44994,0 -122.12500,38.44883,0 -122.12003,38.44683,0 -122.11170,38.44135,0 -122.11069,38.44050,0 -122.10337,38.43323,0 -122.10245,38.43217,0 -122.09704,38.42383,0 -122.09503,38.41809,0 -122.09445,38.41550,0 -122.09351,38.40717,0 -122.09319,38.39883,0 -122.09312,38.39050,0 -122.09327,38.38217,0 -122.09335,38.37383,0 -122.09273,38.36550,0 -122.09110,38.35717,0 -122.08857,38.34883,0 -122.08670,38.34395,0 -122.08535,38.34050,0 -122.08193,38.33217,0 -122.07891,38.32383,0 -122.07837,38.32238,0 -122.07554,38.31550,0 -122.07228,38.30717,0 -122.07003,38.29999,0 -122.06957,38.29883,0 -122.06609,38.29050,0 -122.06170,38.28534,0 -122.05647,38.28217,0 -122.05337,38.28061,0 -122.04503,38.27777,0 -122.03670,38.27499,0 -122.03363,38.27383,0 -122.02837,38.27145,0 -122.02003,38.26632,0 -122.01910,38.26550,0 -122.01170,38.25771,0 -122.01130,38.25717,0 -122.00374,38.24883,0 -122.00337,38.24853,0 -121.99503,38.24203,0 -121.99311,38.24050,0 -121.98670,38.23239,0 -121.98655,38.23217,0 -121.98670,38.23197,0 -121.99312,38.22383,0 -121.99503,38.22264,0 -122.00337,38.21716,0 -122.00630,38.21550,0 -122.01100,38.20717,0 -122.00337,38.20250,0 -121.99857,38.19883,0 -121.99503,38.19723,0 -121.98670,38.19284,0 -121.98238,38.19050,0 -121.97837,38.18827,0 -121.97003,38.18516,0 -121.96170,38.18371,0 -121.95337,38.18398,0 -121.94503,38.18518,0 -121.93670,38.18513,0 -121.93088,38.18217,0 -121.93114,38.17383,0 -121.93306,38.16550,0 -121.93076,38.15717,0 -121.92837,38.15419,0 -121.92343,38.14883,0 -121.92003,38.14543,0 -121.91556,38.14050,0 -121.91170,38.13554,0 -121.90881,38.13217,0 -121.90337,38.12557,0 -121.90158,38.12383,0 -121.89945,38.11550,0 -121.90214,38.10717,0 -121.90337,38.10464,0 -121.90693,38.09883,0 -121.91159,38.09050,0 -121.91170,38.09032,0 -121.91659,38.08217,0 -121.92003,38.07851,0 -121.92550,38.07383,0 -121.92837,38.07258,0 -121.93670,38.06997,0 -121.94503,38.06788,0 -121.95337,38.06594,0 -121.95568,38.06550,0 -121.96170,38.06441,0 -121.97003,38.06323,0 -121.97837,38.06213,0 -121.98670,38.06005,0 -121.99148,38.05717,0 -121.99503,38.05593,0 -122.00337,38.05176,0 -122.00850,38.04883,0 -122.01170,38.04727,0 -122.02003,38.04315,0 -122.02408,38.04050,0 -122.02837,38.03578,0 -122.03061,38.03217,0 -122.03555,38.02383,0 -122.03670,38.02248,0 -122.04503,38.01690,0 -122.04788,38.01550,0 -122.05337,38.01124,0 -122.06006,38.00717,0 -122.06170,38.00557,0 -122.07003,38.00435,0 -122.07837,38.00434,0 -122.08670,38.00294,0 -122.09503,38.00043,0 -122.09922,37.99883,0 -122.10337,37.99645,0 -122.11084,37.99050,0 -122.11170,37.98916,0 -122.11701,37.98217,0 -122.12003,37.98014,0 -122.12837,37.97660,0 -122.13464,37.97383,0 -122.13670,37.97309,0 -122.14503,37.97000,0 -122.15337,37.96606,0 -122.15436,37.96550,0 -122.16170,37.96037,0 -122.16790,37.95717,0 -122.17003,37.95625,0 -122.17837,37.95416,0 -122.18670,37.95315,0 -122.19503,37.95436,0 -122.20337,37.95704,0 -122.20379,37.95717,0 -122.21170,37.95947,0 -122.22003,37.95984,0 -122.22837,37.95966,0 -122.23670,37.95979,0 -122.24503,37.96130,0 -122.25337,37.96298,0 -122.26170,37.96377,0 -122.26823,37.96550,0 -122.27003,37.96592,0 -122.27837,37.96912,0 -122.28670,37.97277,0 -122.28915,37.97383,0 -122.29503,37.97581,0 -122.30337,37.97835,0 -122.31170,37.98190,0 -122.31210,37.98217,0 -122.32003,37.98657,0 -122.32568,37.99050,0 -122.32837,37.99266,0 -122.33584,37.99883,0 -122.33670,37.99976,0 -122.34503,38.00651,0 -122.34586,38.00717,0 -122.35308,38.01550,0 -122.35337,38.01585,0 -122.35997,38.02383,0 -122.36170,38.02564,0 -122.36759,38.03217,0 -122.37003,38.03433,0 -122.37792,38.04050,0 -122.37837,38.04079,0 -122.38670,38.04678,0 -122.38913,38.04883,0 -122.39503,38.05413,0 -122.39795,38.05717,0 -122.40337,38.06467,0 -122.40398,38.06550,0 -122.40841,38.07383,0 -122.41170,38.08108,0 -122.41225,38.08217,0 -122.41684,38.09050,0 -122.42003,38.09475,0 -122.42441,38.09883,0 -122.42837,38.10065,0 -122.43670,38.10331,0 -122.44503,38.10539,0 -122.45337,38.10662,0 -122.46170,38.10654,0 -122.47003,38.10389,0 -122.47678,38.09883,0 -122.47837,38.09677,0 -122.48226,38.09050,0 -122.48369,38.08217,0 -122.48379,38.07383,0 -122.48390,38.06550,0 -122.48557,38.05717,0 -122.48670,38.05508,0 -122.49227,38.04883,0 -122.49503,38.04497,0 -122.50328,38.04050,0 -122.50337,38.04017,0 -122.50342,38.04050,0 -122.50547,38.04883,0 -122.50918,38.05717,0 -122.51170,38.06094,0 -122.51547,38.06550,0 -122.52003,38.07025,0 -122.52554,38.07383,0 -122.52837,38.07883,0 -122.52974,38.08217,0 -122.52837,38.08464,0 -122.52429,38.09050,0 -122.52003,38.09309,0 -122.51170,38.09550,0 -122.50613,38.09883,0 -122.50588,38.10717,0 -122.51170,38.11311,0 -122.51393,38.11550,0 -122.52003,38.11990,0 -122.52533,38.12383,0 -122.52837,38.12572,0 -122.53670,38.12956,0 -122.54503,38.13210,0 -122.54525,38.13217,0 -122.55337,38.13541,0 -122.55837,38.14050,0 -122.56170,38.14718,0 -122.56242,38.14883,0 -122.56681,38.15717,0 -122.57003,38.16143,0 -122.57407,38.16550,0 -122.57837,38.17028,0 -122.58170,38.17383,0 -122.58670,38.18016,0 -122.58825,38.18217,0 -122.59335,38.19050,0 -122.59503,38.19353,0 -122.59866,38.19883,0 -122.60337,38.20403,0 -122.60746,38.20717,0 -122.61170,38.21003,0 -122.62003,38.21519,0 -122.62067,38.21550,0 -122.62837,38.21838,0 -122.63670,38.22040,0 -122.64431,38.22383,0 -122.64503,38.22416,0 -122.65337,38.22895,0 -122.66067,38.23217,0 -122.66170,38.23272,0 -122.67003,38.23620,0 -122.67731,38.24050,0 -122.67837,38.24143,0 -122.68670,38.24723,0 -122.68947,38.24883,0 -122.69503,38.25150,0 -122.70337,38.25700,0 -122.70359,38.25717,0 -122.71035,38.26550,0 -122.71170,38.26861,0 -122.71502,38.27383,0 -122.72003,38.28105,0 -122.72075,38.28217,0 -122.72510,38.29050,0 -122.72790,38.29883,0 -122.72837,38.30182,0 -122.72911,38.30717,0 -122.72837,38.30938,0 -122.72638,38.31550,0 -122.72445,38.32383,0 -122.72757,38.33217,0 -122.72837,38.33346,0 -122.73327,38.34050,0 -122.73670,38.34586,0 -122.73875,38.34883,0 -122.74222,38.35717,0 -122.74229,38.36550,0 -122.74017,38.37383,0 -122.73670,38.38192,0 -122.73653,38.38217,0 -122.73205,38.39050,0 -122.73081,38.39883,0 -122.72837,38.40505,0 -122.72739,38.40717,0 -122.72003,38.41230,0 -122.71170,38.41351,0 -122.70337,38.40814,0 -122.70264,38.40717,0 -122.69503,38.40181,0 -122.68932,38.39883,0 -122.68670,38.39753,0 -122.67837,38.39500,0 -122.67003,38.39442,0 -122.66170,38.39796,0 -122.66081,38.39883,0 -122.65991,38.40717,0 -122.66170,38.40888,0 -122.66713,38.41550,0 -122.67003,38.41783,0 -122.67572,38.42383,0 -122.67837,38.42645,0 -122.68547,38.43217,0 -122.68670,38.43527,0 -122.68922,38.44050,0 -122.68670,38.44323,0 -122.67939,38.44883,0 -122.67837,38.44959,0 -122.67218,38.44883,0 -122.67003,38.44860,0 -122.66170,38.44249,0 -122.65773,38.44050,0 -122.65337,38.43878,0 -122.65017,38.44050,0 -122.64940,38.44883,0 -122.65337,38.45376,0 -122.65937,38.45717,0 -122.66170,38.45831,0 -122.67003,38.46189,0 -122.67063,38.46550,0 -122.67003,38.46908,0 -122.66880,38.47383,0 -122.66185,38.48217,0 -122.66170,38.48226,0 -122.66097,38.48217,0 -122.65337,38.48099,0 -122.64503,38.47805,0 -122.63670,38.47626,0 -122.62837,38.47742,0 -122.62202,38.48217,0 -122.62003,38.48808,0 -122.61948,38.49050,0 -122.61762,38.49883,0 -122.61411,38.50717,0 -122.61170,38.51262,0 -122.61038,38.51550,0 -122.60899,38.52383,0 -122.60761,38.53217,0 -122.60337,38.53893,0 -122.60228,38.54050,0 -122.59503,38.54548,0 -122.58833,38.54883,0 -122.58670,38.54945,0 -122.57837,38.55251,0 -122.57003,38.55715,0 -122.57001,38.55717,0 -122.56810,38.56550,0 -122.56649,38.57383,0 -122.56170,38.57529,0 -122.55337,38.57413,0 -122.54814,38.57383,0 -122.54503,38.57355,0 -122.54434,38.57383,0 -122.53670,38.57551,0 -122.52837,38.57703,0 -122.52003,38.57632,0 -122.51285,38.57383,0 -122.51170,38.57340,0 -122.50337,38.57100,0 -122.49503,38.56963,0 -122.48670,38.56973,0 -122.47837,38.57128,0 -122.47003,38.57352,0 -122.46871,38.57383,0 -122.46170,38.57558,0 -122.45337,38.57741,0 -122.44503,38.58023,0 -122.44180,38.58217,0 -122.43670,38.58612,0 -122.43274,38.59050,0 -122.42837,38.59303,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 5 Contour</name>
+      <styleUrl>#style_mi_5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.47003,38.51676,0 -122.46223,38.51550,0 -122.46170,38.51541,0 -122.45337,38.51188,0 -122.44503,38.50748,0 -122.44441,38.50717,0 -122.43670,38.50402,0 -122.42837,38.49977,0 -122.42671,38.49883,0 -122.42003,38.49556,0 -122.41170,38.49244,0 -122.40345,38.49050,0 -122.40337,38.49049,0 -122.39503,38.48902,0 -122.38670,38.48664,0 -122.37837,38.48330,0 -122.37631,38.48217,0 -122.37003,38.47874,0 -122.36496,38.47383,0 -122.36170,38.47055,0 -122.35779,38.46550,0 -122.35337,38.46145,0 -122.34852,38.45717,0 -122.34503,38.45535,0 -122.33670,38.45156,0 -122.32862,38.44883,0 -122.32837,38.44877,0 -122.32003,38.44727,0 -122.31170,38.44613,0 -122.30337,38.44504,0 -122.29503,38.44389,0 -122.28670,38.44277,0 -122.27837,38.44157,0 -122.27324,38.44050,0 -122.27003,38.43997,0 -122.26170,38.43805,0 -122.25337,38.43571,0 -122.24503,38.43347,0 -122.24026,38.43217,0 -122.23670,38.43129,0 -122.22837,38.42858,0 -122.22003,38.42493,0 -122.21796,38.42383,0 -122.21170,38.42092,0 -122.20337,38.41603,0 -122.20260,38.41550,0 -122.19503,38.41043,0 -122.19097,38.40717,0 -122.18670,38.40333,0 -122.18166,38.39883,0 -122.17837,38.39599,0 -122.17146,38.39050,0 -122.17003,38.38944,0 -122.16170,38.38312,0 -122.16039,38.38217,0 -122.15337,38.37612,0 -122.15087,38.37383,0 -122.14545,38.36550,0 -122.14503,38.36450,0 -122.14172,38.35717,0 -122.13929,38.34883,0 -122.13759,38.34050,0 -122.13670,38.33665,0 -122.13536,38.33217,0 -122.13263,38.32383,0 -122.13052,38.31550,0 -122.12837,38.30805,0 -122.12794,38.30717,0 -122.12253,38.29883,0 -122.12003,38.29558,0 -122.11468,38.29050,0 -122.11170,38.28762,0 -122.10838,38.28217,0 -122.10337,38.27450,0 -122.10302,38.27383,0 -122.09891,38.26550,0 -122.09633,38.25717,0 -122.09543,38.24883,0 -122.09513,38.24050,0 -122.09503,38.23822,0 -122.09469,38.23217,0 -122.09035,38.22383,0 -122.08670,38.22190,0 -122.07837,38.21786,0 -122.07162,38.21550,0 -122.07003,38.21498,0 -122.06170,38.21168,0 -122.05699,38.20717,0 -122.05337,38.19996,0 -122.05296,38.19883,0 -122.04987,38.19050,0 -122.04727,38.18217,0 -122.04503,38.17548,0 -122.04432,38.17383,0 -122.03922,38.16550,0 -122.03670,38.16154,0 -122.03410,38.15717,0 -122.03064,38.14883,0 -122.03124,38.14050,0 -122.03670,38.13439,0 -122.03858,38.13217,0 -122.04503,38.12705,0 -122.04897,38.12383,0 -122.05337,38.11894,0 -122.05650,38.11550,0 -122.06170,38.10880,0 -122.06290,38.10717,0 -122.06657,38.09883,0 -122.07003,38.09067,0 -122.07009,38.09050,0 -122.07268,38.08217,0 -122.07415,38.07383,0 -122.07134,38.06550,0 -122.07236,38.05717,0 -122.07445,38.04883,0 -122.07716,38.04050,0 -122.07837,38.03924,0 -122.08670,38.03356,0 -122.09503,38.03230,0 -122.10337,38.03271,0 -122.10460,38.03217,0 -122.11170,38.03007,0 -122.11991,38.02383,0 -122.12003,38.02377,0 -122.12837,38.01912,0 -122.13670,38.01670,0 -122.14503,38.01657,0 -122.15337,38.01827,0 -122.16170,38.02130,0 -122.16866,38.02383,0 -122.17003,38.02432,0 -122.17837,38.02419,0 -122.17933,38.02383,0 -122.18670,38.02003,0 -122.19503,38.01561,0 -122.19522,38.01550,0 -122.20337,38.00921,0 -122.20512,38.00717,0 -122.21170,38.00153,0 -122.21643,37.99883,0 -122.22003,37.99731,0 -122.22837,37.99571,0 -122.23670,37.99556,0 -122.24503,37.99537,0 -122.25337,37.99496,0 -122.26170,37.99492,0 -122.27003,37.99561,0 -122.27837,37.99797,0 -122.28194,37.99883,0 -122.28670,37.99989,0 -122.29503,38.00229,0 -122.30213,38.00717,0 -122.30337,38.00886,0 -122.30789,38.01550,0 -122.31170,38.02368,0 -122.31178,38.02383,0 -122.32003,38.03126,0 -122.32109,38.03217,0 -122.32837,38.03672,0 -122.33333,38.04050,0 -122.33670,38.04352,0 -122.34232,38.04883,0 -122.34503,38.05122,0 -122.35145,38.05717,0 -122.35337,38.05864,0 -122.36170,38.06483,0 -122.36270,38.06550,0 -122.37003,38.07087,0 -122.37345,38.07383,0 -122.37837,38.07912,0 -122.38066,38.08217,0 -122.38670,38.09042,0 -122.38675,38.09050,0 -122.39209,38.09883,0 -122.39503,38.10346,0 -122.39737,38.10717,0 -122.40337,38.11318,0 -122.40842,38.11550,0 -122.41170,38.11614,0 -122.42003,38.11650,0 -122.42837,38.11718,0 -122.43670,38.11946,0 -122.44503,38.12341,0 -122.44605,38.12383,0 -122.45254,38.13217,0 -122.45290,38.14050,0 -122.45337,38.14293,0 -122.45489,38.14883,0 -122.45824,38.15717,0 -122.46163,38.16550,0 -122.46170,38.16573,0 -122.46619,38.17383,0 -122.46904,38.18217,0 -122.47003,38.18526,0 -122.47279,38.19050,0 -122.47837,38.19566,0 -122.48256,38.19883,0 -122.48670,38.20074,0 -122.49503,38.20551,0 -122.49833,38.20717,0 -122.50337,38.21095,0 -122.51170,38.21403,0 -122.51833,38.21550,0 -122.52003,38.21601,0 -122.52837,38.22105,0 -122.53214,38.22383,0 -122.53670,38.22688,0 -122.54441,38.23217,0 -122.54503,38.23258,0 -122.55337,38.23681,0 -122.56170,38.23955,0 -122.56468,38.24050,0 -122.57003,38.24272,0 -122.57837,38.24509,0 -122.58670,38.24693,0 -122.59246,38.24883,0 -122.59503,38.25011,0 -122.60337,38.25554,0 -122.60499,38.25717,0 -122.60935,38.26550,0 -122.60976,38.27383,0 -122.60791,38.28217,0 -122.60337,38.29039,0 -122.60325,38.29050,0 -122.59503,38.29869,0 -122.59233,38.29883,0 -122.59503,38.29914,0 -122.59781,38.30717,0 -122.60035,38.31550,0 -122.59503,38.32111,0 -122.59062,38.32383,0 -122.58670,38.32591,0 -122.58020,38.33217,0 -122.57837,38.33710,0 -122.57771,38.34050,0 -122.57800,38.34883,0 -122.57837,38.35009,0 -122.58091,38.35717,0 -122.58354,38.36550,0 -122.58302,38.37383,0 -122.57999,38.38217,0 -122.57837,38.38464,0 -122.57486,38.39050,0 -122.57003,38.39742,0 -122.56905,38.39883,0 -122.56915,38.40717,0 -122.57003,38.40862,0 -122.57480,38.41550,0 -122.57837,38.42080,0 -122.58064,38.42383,0 -122.58256,38.43217,0 -122.57837,38.43648,0 -122.57003,38.43883,0 -122.56170,38.43977,0 -122.55689,38.44050,0 -122.55337,38.44248,0 -122.54890,38.44883,0 -122.54881,38.45717,0 -122.54669,38.46550,0 -122.54503,38.46756,0 -122.53670,38.47203,0 -122.52837,38.47309,0 -122.52303,38.47383,0 -122.52003,38.47434,0 -122.51170,38.47657,0 -122.50337,38.47810,0 -122.49503,38.47953,0 -122.49090,38.48217,0 -122.48912,38.49050,0 -122.48799,38.49883,0 -122.48670,38.50225,0 -122.48539,38.50717,0 -122.47837,38.51527,0 -122.47753,38.51550,0 -122.47003,38.51676,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>V</name>
+      <styleUrl>#style_mi_5</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.47003,38.51676,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>V</name>
+      <styleUrl>#style_mi_5</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.04727,38.18217,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>V</name>
+      <styleUrl>#style_mi_5</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.44605,38.12383,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 5.5 Contour</name>
+      <styleUrl>#style_mi_5.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.43670,38.47619,0 -122.42837,38.47659,0 -122.42003,38.47483,0 -122.41365,38.47383,0 -122.41170,38.47348,0 -122.40337,38.47117,0 -122.39503,38.46769,0 -122.39095,38.46550,0 -122.38670,38.46299,0 -122.37929,38.45717,0 -122.37837,38.45625,0 -122.37015,38.44883,0 -122.37003,38.44876,0 -122.36170,38.44509,0 -122.35337,38.44117,0 -122.35206,38.44050,0 -122.34503,38.43723,0 -122.33670,38.43375,0 -122.33113,38.43217,0 -122.32837,38.43134,0 -122.32003,38.42982,0 -122.31170,38.42864,0 -122.30337,38.42754,0 -122.29503,38.42651,0 -122.28670,38.42585,0 -122.27837,38.42555,0 -122.27003,38.42477,0 -122.26658,38.42383,0 -122.26170,38.42216,0 -122.25337,38.41809,0 -122.24801,38.41550,0 -122.24503,38.41358,0 -122.23670,38.40947,0 -122.23128,38.40717,0 -122.22837,38.40572,0 -122.22003,38.40265,0 -122.21170,38.40029,0 -122.20904,38.39883,0 -122.20337,38.39515,0 -122.19859,38.39050,0 -122.19503,38.38766,0 -122.18739,38.38217,0 -122.18670,38.38176,0 -122.17837,38.37506,0 -122.17710,38.37383,0 -122.17248,38.36550,0 -122.17047,38.35717,0 -122.17003,38.35606,0 -122.16637,38.34883,0 -122.16170,38.34173,0 -122.16123,38.34050,0 -122.16010,38.33217,0 -122.16006,38.32383,0 -122.16170,38.31781,0 -122.16380,38.31550,0 -122.17003,38.31306,0 -122.17633,38.30717,0 -122.17837,38.30519,0 -122.18205,38.29883,0 -122.18670,38.29141,0 -122.18722,38.29050,0 -122.18931,38.28217,0 -122.18860,38.27383,0 -122.18779,38.26550,0 -122.18670,38.26272,0 -122.18335,38.25717,0 -122.17837,38.25371,0 -122.17003,38.25099,0 -122.16681,38.24883,0 -122.16170,38.24469,0 -122.15887,38.24050,0 -122.15488,38.23217,0 -122.15337,38.22899,0 -122.14987,38.22383,0 -122.14503,38.21754,0 -122.14321,38.21550,0 -122.13670,38.20851,0 -122.13436,38.20717,0 -122.12837,38.20471,0 -122.12003,38.20270,0 -122.11170,38.19989,0 -122.10897,38.19883,0 -122.10337,38.19319,0 -122.10082,38.19050,0 -122.09575,38.18217,0 -122.09503,38.18155,0 -122.08670,38.17404,0 -122.08657,38.17383,0 -122.08428,38.16550,0 -122.08522,38.15717,0 -122.08670,38.15313,0 -122.08847,38.14883,0 -122.09503,38.14091,0 -122.10337,38.14184,0 -122.10877,38.14883,0 -122.11170,38.15291,0 -122.11447,38.15717,0 -122.12003,38.16284,0 -122.12746,38.16550,0 -122.12837,38.16591,0 -122.13670,38.16929,0 -122.14493,38.17383,0 -122.14503,38.17405,0 -122.15221,38.18217,0 -122.15337,38.18346,0 -122.15522,38.18217,0 -122.15511,38.17383,0 -122.15337,38.17111,0 -122.15108,38.16550,0 -122.15064,38.15717,0 -122.15063,38.14883,0 -122.15106,38.14050,0 -122.15223,38.13217,0 -122.15337,38.12468,0 -122.15362,38.12383,0 -122.15593,38.11550,0 -122.15715,38.10717,0 -122.15903,38.09883,0 -122.16170,38.09526,0 -122.17003,38.09137,0 -122.17113,38.09050,0 -122.17506,38.08217,0 -122.17263,38.07383,0 -122.17003,38.06963,0 -122.16748,38.06550,0 -122.16170,38.05980,0 -122.15961,38.05717,0 -122.15337,38.05119,0 -122.15101,38.04883,0 -122.14503,38.04344,0 -122.13895,38.04050,0 -122.14260,38.03217,0 -122.14503,38.03185,0 -122.14649,38.03217,0 -122.15337,38.03470,0 -122.16170,38.03878,0 -122.16467,38.04050,0 -122.17003,38.04478,0 -122.17824,38.04883,0 -122.17837,38.04890,0 -122.18670,38.05001,0 -122.19437,38.04883,0 -122.19503,38.04870,0 -122.20337,38.04527,0 -122.20949,38.04050,0 -122.21170,38.03888,0 -122.22003,38.03454,0 -122.22701,38.03217,0 -122.22837,38.03162,0 -122.23670,38.03011,0 -122.24503,38.03092,0 -122.25308,38.03217,0 -122.25337,38.03220,0 -122.26170,38.03240,0 -122.26794,38.03217,0 -122.27003,38.03206,0 -122.27033,38.03217,0 -122.27837,38.03618,0 -122.28099,38.04050,0 -122.28670,38.04862,0 -122.28689,38.04883,0 -122.29503,38.05413,0 -122.30274,38.05717,0 -122.30337,38.05736,0 -122.31170,38.06092,0 -122.31687,38.06550,0 -122.32003,38.07026,0 -122.32252,38.07383,0 -122.32802,38.08217,0 -122.32837,38.08252,0 -122.33670,38.08890,0 -122.33807,38.09050,0 -122.34503,38.09626,0 -122.34731,38.09883,0 -122.35337,38.10209,0 -122.36020,38.10717,0 -122.36170,38.10791,0 -122.37003,38.11330,0 -122.37249,38.11550,0 -122.37837,38.11853,0 -122.38639,38.12383,0 -122.38670,38.12397,0 -122.39503,38.12647,0 -122.40337,38.12718,0 -122.41170,38.12717,0 -122.42003,38.12742,0 -122.42837,38.12973,0 -122.43191,38.13217,0 -122.43670,38.13763,0 -122.43835,38.14050,0 -122.44223,38.14883,0 -122.44503,38.15560,0 -122.44566,38.15717,0 -122.44804,38.16550,0 -122.44846,38.17383,0 -122.44811,38.18217,0 -122.44996,38.19050,0 -122.45337,38.19857,0 -122.45352,38.19883,0 -122.46048,38.20717,0 -122.46170,38.20858,0 -122.47002,38.21550,0 -122.47003,38.21551,0 -122.47837,38.22334,0 -122.47890,38.22383,0 -122.48670,38.23166,0 -122.48717,38.23217,0 -122.49453,38.24050,0 -122.49503,38.24112,0 -122.50091,38.24883,0 -122.50337,38.25183,0 -122.50876,38.25717,0 -122.51170,38.26123,0 -122.51449,38.26550,0 -122.51629,38.27383,0 -122.51927,38.28217,0 -122.52003,38.28399,0 -122.52313,38.29050,0 -122.52363,38.29883,0 -122.52335,38.30717,0 -122.52529,38.31550,0 -122.52837,38.32347,0 -122.52858,38.32383,0 -122.53294,38.33217,0 -122.53428,38.34050,0 -122.53298,38.34883,0 -122.53306,38.35717,0 -122.53670,38.36398,0 -122.53792,38.36550,0 -122.54118,38.37383,0 -122.53741,38.38217,0 -122.53670,38.38279,0 -122.52837,38.38497,0 -122.52003,38.38240,0 -122.51942,38.38217,0 -122.51170,38.37849,0 -122.50337,38.37949,0 -122.50137,38.38217,0 -122.49628,38.39050,0 -122.49503,38.39298,0 -122.49090,38.39883,0 -122.48670,38.40340,0 -122.48150,38.40717,0 -122.47837,38.40850,0 -122.47003,38.41179,0 -122.46170,38.41499,0 -122.46046,38.41550,0 -122.45337,38.41860,0 -122.44503,38.42217,0 -122.44195,38.42383,0 -122.43670,38.42882,0 -122.43524,38.43217,0 -122.43543,38.44050,0 -122.43670,38.44596,0 -122.43745,38.44883,0 -122.43928,38.45717,0 -122.43969,38.46550,0 -122.43840,38.47383,0 -122.43670,38.47619,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 6 Contour</name>
+      <styleUrl>#style_mi_6</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.40337,38.44366,0 -122.39503,38.44388,0 -122.38838,38.44050,0 -122.38670,38.43966,0 -122.37837,38.43511,0 -122.37003,38.43377,0 -122.36170,38.43229,0 -122.36139,38.43217,0 -122.35337,38.42898,0 -122.34503,38.42452,0 -122.34374,38.42383,0 -122.33670,38.41914,0 -122.32900,38.41550,0 -122.32837,38.41519,0 -122.32003,38.41216,0 -122.31170,38.40865,0 -122.30801,38.40717,0 -122.30337,38.40497,0 -122.29503,38.40152,0 -122.28745,38.39883,0 -122.28670,38.39855,0 -122.27837,38.39566,0 -122.27003,38.39141,0 -122.26847,38.39050,0 -122.26170,38.38623,0 -122.25337,38.38267,0 -122.25213,38.38217,0 -122.24503,38.37919,0 -122.23907,38.37383,0 -122.23670,38.37056,0 -122.23314,38.36550,0 -122.22837,38.36045,0 -122.22072,38.35717,0 -122.22003,38.35686,0 -122.21170,38.35343,0 -122.20747,38.34883,0 -122.20940,38.34050,0 -122.20945,38.33217,0 -122.20565,38.32383,0 -122.20337,38.31733,0 -122.20283,38.31550,0 -122.20337,38.31295,0 -122.20457,38.30717,0 -122.20847,38.29883,0 -122.21146,38.29050,0 -122.21170,38.28828,0 -122.21240,38.28217,0 -122.21376,38.27383,0 -122.21677,38.26550,0 -122.21838,38.25717,0 -122.21648,38.24883,0 -122.21170,38.24345,0 -122.20870,38.24050,0 -122.20337,38.23501,0 -122.20146,38.23217,0 -122.19852,38.22383,0 -122.19646,38.21550,0 -122.19503,38.20758,0 -122.19495,38.20717,0 -122.19503,38.20469,0 -122.19526,38.19883,0 -122.19784,38.19050,0 -122.20190,38.18217,0 -122.20337,38.17918,0 -122.20661,38.17383,0 -122.21170,38.16673,0 -122.21296,38.16550,0 -122.21739,38.15717,0 -122.21545,38.14883,0 -122.21315,38.14050,0 -122.21427,38.13217,0 -122.21700,38.12383,0 -122.21655,38.11550,0 -122.21563,38.10717,0 -122.22003,38.09956,0 -122.22054,38.09883,0 -122.22837,38.09276,0 -122.23123,38.09050,0 -122.23670,38.08520,0 -122.23908,38.08217,0 -122.24189,38.07383,0 -122.24489,38.06550,0 -122.24503,38.06537,0 -122.25337,38.06012,0 -122.26170,38.05972,0 -122.27003,38.06155,0 -122.27837,38.06536,0 -122.27858,38.06550,0 -122.28670,38.07062,0 -122.29136,38.07383,0 -122.29503,38.07634,0 -122.30224,38.08217,0 -122.30337,38.08308,0 -122.31078,38.09050,0 -122.31170,38.09141,0 -122.31897,38.09883,0 -122.32003,38.09976,0 -122.32837,38.10519,0 -122.33222,38.10717,0 -122.33670,38.10870,0 -122.34503,38.11204,0 -122.35101,38.11550,0 -122.35337,38.11676,0 -122.36170,38.12149,0 -122.36548,38.12383,0 -122.37003,38.12629,0 -122.37837,38.13007,0 -122.38278,38.13217,0 -122.38670,38.13404,0 -122.39503,38.13637,0 -122.40337,38.13690,0 -122.41170,38.13761,0 -122.42003,38.14021,0 -122.42050,38.14050,0 -122.42837,38.14844,0 -122.42863,38.14883,0 -122.43232,38.15717,0 -122.43547,38.16550,0 -122.43670,38.17322,0 -122.43676,38.17383,0 -122.43747,38.18217,0 -122.44009,38.19050,0 -122.44409,38.19883,0 -122.44503,38.20047,0 -122.44924,38.20717,0 -122.45337,38.21341,0 -122.45521,38.21550,0 -122.46058,38.22383,0 -122.46170,38.22638,0 -122.46625,38.23217,0 -122.47003,38.23636,0 -122.47396,38.24050,0 -122.47837,38.24527,0 -122.48131,38.24883,0 -122.48670,38.25709,0 -122.48675,38.25717,0 -122.49081,38.26550,0 -122.49362,38.27383,0 -122.49503,38.27960,0 -122.49560,38.28217,0 -122.49980,38.29050,0 -122.50269,38.29883,0 -122.50337,38.30551,0 -122.50350,38.30717,0 -122.50543,38.31550,0 -122.50822,38.32383,0 -122.50944,38.33217,0 -122.50337,38.33489,0 -122.49962,38.33217,0 -122.49503,38.32943,0 -122.48761,38.32383,0 -122.48670,38.32309,0 -122.47863,38.31550,0 -122.47837,38.31530,0 -122.47003,38.31050,0 -122.46170,38.31325,0 -122.46100,38.31550,0 -122.46160,38.32383,0 -122.46170,38.32434,0 -122.46367,38.33217,0 -122.46462,38.34050,0 -122.46292,38.34883,0 -122.46170,38.35254,0 -122.46011,38.35717,0 -122.45756,38.36550,0 -122.45442,38.37383,0 -122.45337,38.37529,0 -122.44816,38.38217,0 -122.44503,38.38473,0 -122.43756,38.39050,0 -122.43670,38.39105,0 -122.42837,38.39618,0 -122.42379,38.39883,0 -122.42003,38.40097,0 -122.41256,38.40717,0 -122.41170,38.40968,0 -122.41051,38.41550,0 -122.41130,38.42383,0 -122.41138,38.43217,0 -122.40732,38.44050,0 -122.40337,38.44366,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>VI</name>
+      <styleUrl>#style_mi_6</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.40337,38.44366,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>VI</name>
+      <styleUrl>#style_mi_6</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.29503,38.07634,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 6.5 Contour</name>
+      <styleUrl>#style_mi_6.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.36170,38.41806,0 -122.35337,38.41584,0 -122.35286,38.41550,0 -122.34503,38.40871,0 -122.34314,38.40717,0 -122.33670,38.40297,0 -122.32837,38.40030,0 -122.32437,38.39883,0 -122.32003,38.39746,0 -122.31170,38.39195,0 -122.30988,38.39050,0 -122.30337,38.38459,0 -122.30021,38.38217,0 -122.29503,38.37841,0 -122.28832,38.37383,0 -122.28670,38.37273,0 -122.27837,38.36601,0 -122.27786,38.36550,0 -122.27028,38.35717,0 -122.27003,38.35680,0 -122.26339,38.34883,0 -122.26170,38.34529,0 -122.25773,38.34050,0 -122.25337,38.33540,0 -122.24694,38.33217,0 -122.24503,38.33129,0 -122.23670,38.32469,0 -122.23615,38.32383,0 -122.23500,38.31550,0 -122.23638,38.30717,0 -122.23616,38.29883,0 -122.23639,38.29050,0 -122.23670,38.29000,0 -122.24228,38.28217,0 -122.24503,38.27728,0 -122.24595,38.27383,0 -122.24694,38.26550,0 -122.24786,38.25717,0 -122.24832,38.24883,0 -122.24503,38.24145,0 -122.24449,38.24050,0 -122.23670,38.23278,0 -122.23606,38.23217,0 -122.23043,38.22383,0 -122.22915,38.21550,0 -122.23026,38.20717,0 -122.23298,38.19883,0 -122.23670,38.19081,0 -122.23682,38.19050,0 -122.24001,38.18217,0 -122.24241,38.17383,0 -122.24402,38.16550,0 -122.24503,38.16187,0 -122.24649,38.15717,0 -122.24963,38.14883,0 -122.25050,38.14050,0 -122.25023,38.13217,0 -122.25330,38.12383,0 -122.25337,38.12376,0 -122.26170,38.11732,0 -122.26535,38.11550,0 -122.27003,38.10789,0 -122.27031,38.10717,0 -122.27019,38.09883,0 -122.27202,38.09050,0 -122.27728,38.08217,0 -122.27837,38.08162,0 -122.28000,38.08217,0 -122.28670,38.08419,0 -122.29503,38.08908,0 -122.29678,38.09050,0 -122.30337,38.09569,0 -122.30656,38.09883,0 -122.31170,38.10325,0 -122.31619,38.10717,0 -122.32003,38.10992,0 -122.32837,38.11387,0 -122.33290,38.11550,0 -122.33670,38.11706,0 -122.34503,38.12095,0 -122.35034,38.12383,0 -122.35337,38.12587,0 -122.36170,38.13099,0 -122.36397,38.13217,0 -122.37003,38.13598,0 -122.37837,38.13992,0 -122.37968,38.14050,0 -122.38670,38.14514,0 -122.39503,38.14855,0 -122.39596,38.14883,0 -122.40337,38.15481,0 -122.40554,38.15717,0 -122.41125,38.16550,0 -122.41170,38.16595,0 -122.41899,38.17383,0 -122.42003,38.17468,0 -122.42534,38.18217,0 -122.42837,38.18593,0 -122.43044,38.19050,0 -122.43549,38.19883,0 -122.43670,38.20067,0 -122.44013,38.20717,0 -122.44503,38.21538,0 -122.44511,38.21550,0 -122.44811,38.22383,0 -122.44794,38.23217,0 -122.44552,38.24050,0 -122.44503,38.24318,0 -122.44335,38.24883,0 -122.44479,38.25717,0 -122.44503,38.25776,0 -122.44812,38.26550,0 -122.45170,38.27383,0 -122.45255,38.28217,0 -122.44586,38.29050,0 -122.44503,38.29102,0 -122.43670,38.29649,0 -122.43315,38.29883,0 -122.43002,38.30717,0 -122.42998,38.31550,0 -122.42972,38.32383,0 -122.42941,38.33217,0 -122.42878,38.34050,0 -122.42837,38.34214,0 -122.42625,38.34883,0 -122.42021,38.35717,0 -122.42003,38.35735,0 -122.41170,38.36424,0 -122.41009,38.36550,0 -122.40337,38.37092,0 -122.40001,38.37383,0 -122.39503,38.37805,0 -122.39067,38.38217,0 -122.38670,38.38761,0 -122.38548,38.39050,0 -122.38425,38.39883,0 -122.38055,38.40717,0 -122.37837,38.40884,0 -122.37003,38.41522,0 -122.36939,38.41550,0 -122.36170,38.41806,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 7 Contour</name>
+      <styleUrl>#style_mi_7</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.36170,38.39185,0 -122.35337,38.39718,0 -122.34503,38.39362,0 -122.33670,38.39075,0 -122.33551,38.39050,0 -122.32837,38.38901,0 -122.32003,38.38564,0 -122.31580,38.38217,0 -122.31170,38.37854,0 -122.30649,38.37383,0 -122.30337,38.37122,0 -122.29598,38.36550,0 -122.29503,38.36462,0 -122.28670,38.35723,0 -122.28663,38.35717,0 -122.27938,38.34883,0 -122.27837,38.34719,0 -122.27515,38.34050,0 -122.27216,38.33217,0 -122.27003,38.32470,0 -122.26971,38.32383,0 -122.26782,38.31550,0 -122.26605,38.30717,0 -122.26357,38.29883,0 -122.26170,38.29275,0 -122.26080,38.29050,0 -122.25928,38.28217,0 -122.25903,38.27383,0 -122.26027,38.26550,0 -122.26170,38.25973,0 -122.26219,38.25717,0 -122.26348,38.24883,0 -122.26321,38.24050,0 -122.26170,38.23680,0 -122.25871,38.23217,0 -122.25338,38.22383,0 -122.25337,38.22375,0 -122.25141,38.21550,0 -122.25286,38.20717,0 -122.25337,38.20595,0 -122.25661,38.19883,0 -122.26170,38.19096,0 -122.26201,38.19050,0 -122.26536,38.18217,0 -122.26525,38.17383,0 -122.26455,38.16550,0 -122.26527,38.15717,0 -122.26603,38.14883,0 -122.26550,38.14050,0 -122.26732,38.13217,0 -122.27003,38.13004,0 -122.27837,38.12563,0 -122.28076,38.12383,0 -122.28670,38.11717,0 -122.28846,38.11550,0 -122.29503,38.10912,0 -122.30337,38.10968,0 -122.31170,38.11442,0 -122.31340,38.11550,0 -122.32003,38.12004,0 -122.32837,38.12345,0 -122.32945,38.12383,0 -122.33670,38.12843,0 -122.34347,38.13217,0 -122.34503,38.13366,0 -122.35337,38.14048,0 -122.35340,38.14050,0 -122.36161,38.14883,0 -122.36170,38.14893,0 -122.36923,38.15717,0 -122.37003,38.15805,0 -122.37637,38.16550,0 -122.37837,38.16747,0 -122.38445,38.17383,0 -122.38670,38.17572,0 -122.39455,38.18217,0 -122.39503,38.18249,0 -122.40337,38.18745,0 -122.40863,38.19050,0 -122.41170,38.19239,0 -122.42003,38.19864,0 -122.42020,38.19883,0 -122.42674,38.20717,0 -122.42837,38.21006,0 -122.43069,38.21550,0 -122.43121,38.22383,0 -122.42837,38.22713,0 -122.42003,38.22798,0 -122.41170,38.22671,0 -122.40337,38.22609,0 -122.39503,38.22809,0 -122.38994,38.23217,0 -122.38987,38.24050,0 -122.38923,38.24883,0 -122.38670,38.25360,0 -122.38545,38.25717,0 -122.38432,38.26550,0 -122.38662,38.27383,0 -122.38670,38.27398,0 -122.39106,38.28217,0 -122.39491,38.29050,0 -122.39503,38.29086,0 -122.39802,38.29883,0 -122.39943,38.30717,0 -122.39867,38.31550,0 -122.39631,38.32383,0 -122.39503,38.32653,0 -122.39197,38.33217,0 -122.38670,38.33707,0 -122.38241,38.34050,0 -122.37837,38.34327,0 -122.37197,38.34883,0 -122.37003,38.35090,0 -122.36613,38.35717,0 -122.36190,38.36550,0 -122.36170,38.36712,0 -122.36119,38.37383,0 -122.36170,38.38128,0 -122.36177,38.38217,0 -122.36204,38.39050,0 -122.36170,38.39185,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>VII</name>
+      <styleUrl>#style_mi_7</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.36170,38.39185,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>VII</name>
+      <styleUrl>#style_mi_7</styleUrl>
+      <visibility>1</visibility>
+      <Point>
+        <altitudeMode>clampToGround</altitudeMode>
+        <coordinates>-122.32837,38.12345,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 7.5 Contour</name>
+      <styleUrl>#style_mi_7.5</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.33670,38.37674,0 -122.32837,38.37605,0 -122.32390,38.37383,0 -122.32003,38.37150,0 -122.31222,38.36550,0 -122.31170,38.36508,0 -122.30337,38.35744,0 -122.30307,38.35717,0 -122.29698,38.34883,0 -122.29503,38.34613,0 -122.29092,38.34050,0 -122.28670,38.33525,0 -122.28504,38.33217,0 -122.28113,38.32383,0 -122.27892,38.31550,0 -122.27837,38.31324,0 -122.27711,38.30717,0 -122.27491,38.29883,0 -122.27225,38.29050,0 -122.27003,38.28306,0 -122.26979,38.28217,0 -122.26885,38.27383,0 -122.26942,38.26550,0 -122.27003,38.26160,0 -122.27070,38.25717,0 -122.27244,38.24883,0 -122.27363,38.24050,0 -122.27249,38.23217,0 -122.27019,38.22383,0 -122.27003,38.22178,0 -122.26940,38.21550,0 -122.27003,38.21328,0 -122.27183,38.20717,0 -122.27705,38.19883,0 -122.27837,38.19555,0 -122.27980,38.19050,0 -122.27974,38.18217,0 -122.27872,38.17383,0 -122.27837,38.16861,0 -122.27817,38.16550,0 -122.27837,38.16404,0 -122.27991,38.15717,0 -122.28300,38.14883,0 -122.28670,38.14228,0 -122.28940,38.14050,0 -122.29503,38.13704,0 -122.30337,38.13568,0 -122.31122,38.14050,0 -122.31170,38.14077,0 -122.32003,38.14867,0 -122.32018,38.14883,0 -122.32767,38.15717,0 -122.32837,38.15787,0 -122.33477,38.16550,0 -122.33670,38.16738,0 -122.34314,38.17383,0 -122.34503,38.17534,0 -122.35337,38.18128,0 -122.35475,38.18217,0 -122.36170,38.18575,0 -122.36973,38.19050,0 -122.37003,38.19073,0 -122.37837,38.19778,0 -122.37979,38.19883,0 -122.38414,38.20717,0 -122.37837,38.21120,0 -122.37384,38.21550,0 -122.37003,38.21818,0 -122.36350,38.22383,0 -122.36170,38.23070,0 -122.36136,38.23217,0 -122.36170,38.23323,0 -122.36383,38.24050,0 -122.36542,38.24883,0 -122.36474,38.25717,0 -122.36390,38.26550,0 -122.36415,38.27383,0 -122.36529,38.28217,0 -122.36576,38.29050,0 -122.36647,38.29883,0 -122.36769,38.30717,0 -122.36740,38.31550,0 -122.36462,38.32383,0 -122.36170,38.32861,0 -122.35996,38.33217,0 -122.35624,38.34050,0 -122.35337,38.34738,0 -122.35282,38.34883,0 -122.34863,38.35717,0 -122.34562,38.36550,0 -122.34503,38.36838,0 -122.34234,38.37383,0 -122.33670,38.37674,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+    <Placemark>
+      <name>Intensity 8 Contour</name>
+      <styleUrl>#style_mi_8</styleUrl>
+      <visibility>1</visibility>
+      <Snippet maxLines="0">
+      </Snippet>
+      <open>0</open>
+      <MultiGeometry>
+        <LineString>
+          <gx:drawOrder>5</gx:drawOrder>
+          <extrude>0</extrude>
+          <tessellate>1</tessellate>
+          <altitudeMode>clampToGround</altitudeMode>
+          <coordinates>-122.33670,38.34250,0 -122.32837,38.34446,0 -122.32202,38.34050,0 -122.32003,38.33954,0 -122.31170,38.33226,0 -122.31161,38.33217,0 -122.30337,38.32561,0 -122.30101,38.32383,0 -122.29503,38.31735,0 -122.29398,38.31550,0 -122.29097,38.30717,0 -122.28772,38.29883,0 -122.28670,38.29583,0 -122.28548,38.29050,0 -122.28363,38.28217,0 -122.28125,38.27383,0 -122.27936,38.26550,0 -122.27945,38.25717,0 -122.28152,38.24883,0 -122.28341,38.24050,0 -122.28323,38.23217,0 -122.28269,38.22383,0 -122.28404,38.21550,0 -122.28670,38.21001,0 -122.28824,38.20717,0 -122.29265,38.19883,0 -122.29389,38.19050,0 -122.29460,38.18217,0 -122.29503,38.18084,0 -122.30337,38.17654,0 -122.31170,38.17838,0 -122.32003,38.18199,0 -122.32032,38.18217,0 -122.32837,38.18674,0 -122.33376,38.19050,0 -122.33670,38.19280,0 -122.34404,38.19883,0 -122.34503,38.20262,0 -122.34642,38.20717,0 -122.34503,38.20865,0 -122.34075,38.21550,0 -122.33703,38.22383,0 -122.33684,38.23217,0 -122.33931,38.24050,0 -122.34180,38.24883,0 -122.33979,38.25717,0 -122.33670,38.26144,0 -122.33404,38.26550,0 -122.33209,38.27383,0 -122.33570,38.28217,0 -122.33670,38.28350,0 -122.33986,38.29050,0 -122.34503,38.29837,0 -122.34524,38.29883,0 -122.34799,38.30717,0 -122.34687,38.31550,0 -122.34503,38.31964,0 -122.34303,38.32383,0 -122.34053,38.33217,0 -122.33791,38.34050,0 -122.33670,38.34250,0 </coordinates>
+        </LineString>
+      </MultiGeometry>
+    </Placemark>
+  </Document>
+</kml>
+

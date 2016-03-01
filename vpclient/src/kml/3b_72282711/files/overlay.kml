@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+  <NetworkLinkControl>
+    <minRefreshPeriod>604800</minRefreshPeriod>
+  </NetworkLinkControl>
+  <GroundOverlay>
+    <name>Intensity Overlay</name>
+    <color>ffffffff</color>
+    <drawOrder>0</drawOrder>
+    <Icon>
+      <refreshInterval>604800</refreshInterval>
+      <refreshMode>onInterval</refreshMode>
+      <href>ii_overlay.png</href>
+    </Icon>
+    <LatLonBox>
+      <north>39.04883400000000</north>
+      <south>37.38216600000000</south>
+      <east>-121.06170000000000</east>
+      <west>-123.56170000000000</west>
+    </LatLonBox>
+  </GroundOverlay>
+</kml>
+
