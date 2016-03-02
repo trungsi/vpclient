@@ -9,7 +9,7 @@ xmlns:kml="http://www.opengis.net/kml/2.2"
       <name>ShakeMap 72282711</name>
       <open>1</open>
       <Link>
-        <href>72282711.kmz</href>
+        <href>3b_72282711/doc.kml</href>
         <refreshMode>onInterval</refreshMode>
         <refreshInterval>300</refreshInterval>
       </Link>
